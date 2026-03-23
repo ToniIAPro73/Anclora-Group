@@ -21,6 +21,7 @@ export type GroupAppDefinition = {
   title: string
   eyebrow: string
   description: string
+  logoSrc?: string
   kind: 'external-hub' | 'partner-platform' | 'intelligence-platform' | 'ops-platform' | 'ai-platform' | 'wellness-platform'
   visibility: 'external-facing' | 'internal'
   roles: GroupRole[]
@@ -78,6 +79,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Real estate de lujo',
       description:
         'Plataforma matriz y puerta de entrada del vertical inmobiliario premium de Anclora.',
+      logoSrc: '/brand/logo-anclora-private-estates.png',
       kind: 'external-hub',
       visibility: 'external-facing',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops'],
@@ -111,6 +113,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Operación Private Estates',
       description:
         'Plataforma operativa interna de Anclora Private Estates para pipeline, relaciones y coordinación comercial.',
+      logoSrc: '/brand/logo-anclora-nexus.png',
       kind: 'ops-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops'],
@@ -122,6 +125,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Motor editorial con IA',
       description:
         'Motor editorial y de inteligencia de contenido para Anclora Private Estates.',
+      logoSrc: '/brand/logo-content-generator-ai.png',
       kind: 'ai-platform',
       visibility: 'internal',
       roles: ['group-admin', 'content-ops', 'private-estates-ops'],
@@ -133,6 +137,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Asesoría con IA',
       description:
         'Aplicación de asesoría fiscal, laboral y de mercado inmobiliario para autónomos con pluriactividad.',
+      logoSrc: '/brand/logo-anclora-advisor-ai.png',
       kind: 'ai-platform',
       visibility: 'internal',
       roles: ['group-admin', 'advisory'],
@@ -144,6 +149,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Fitness y nutrición',
       description:
         'Aplicación web de fitness y nutrición con generación de rutinas por IA, progreso y planes nutricionales.',
+      logoSrc: '/brand/logo-anclora-impulso.png',
       kind: 'wellness-platform',
       visibility: 'internal',
       roles: ['group-admin', 'growth-ops'],

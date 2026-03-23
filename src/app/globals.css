@@ -158,6 +158,28 @@ button, input { font: inherit; }
   color: var(--group-silver); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
 }
 .group-app-head small { color: var(--group-muted); font-size: 0.74rem; }
+.group-app-logo-wrap, .group-map-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 10px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.015) 100%);
+}
+.group-app-logo {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+.group-map-logo {
+  width: 100%;
+  max-width: 92px;
+  height: auto;
+  object-fit: contain;
+}
 .group-app-card h3, .group-map-card strong { margin: 16px 0 0; font-size: 1.45rem; }
 .group-app-card p, .group-map-card p { margin: 12px 0 0; color: var(--group-muted); line-height: 1.7; }
 .group-link-button { margin-top: 18px; width: fit-content; }

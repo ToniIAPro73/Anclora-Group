@@ -78,6 +78,17 @@ export function GroupWorkspaceShell({ session }: Props) {
                   <span>{app.eyebrow}</span>
                   <small>{app.visibility === 'internal' ? ui.visibilityInternal : ui.visibilityExternal}</small>
                 </div>
+                {app.logoSrc ? (
+                  <div className="group-app-logo-wrap">
+                    <Image
+                      src={app.logoSrc}
+                      alt={app.title}
+                      width={112}
+                      height={112}
+                      className="group-app-logo"
+                    />
+                  </div>
+                ) : null}
                 <h3>{app.title}</h3>
                 <p>{app.description}</p>
                 <a href={app.url} target="_blank" rel="noreferrer" className="group-link-button">
@@ -102,6 +113,17 @@ export function GroupWorkspaceShell({ session }: Props) {
           <div className="group-map-grid">
             {allApps.map((app) => (
               <article key={app.key} className={`group-map-card is-${app.visibility}`}>
+                {app.logoSrc ? (
+                  <div className="group-map-logo-wrap">
+                    <Image
+                      src={app.logoSrc}
+                      alt={app.title}
+                      width={88}
+                      height={88}
+                      className="group-map-logo"
+                    />
+                  </div>
+                ) : null}
                 <span>{app.eyebrow}</span>
                 <strong>{app.title}</strong>
                 <p>{app.description}</p>
