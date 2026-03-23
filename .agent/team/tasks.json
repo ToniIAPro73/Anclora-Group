@@ -1,0 +1,43 @@
+{
+  "team": "anclora-group",
+  "product": "Anclora Group Internal Portal",
+  "version": "1.0",
+  "updatedAt": "2026-03-23",
+  "tasks": [
+    {
+      "id": "AGP-001",
+      "title": "Definir base SDD del portal interno",
+      "status": "done",
+      "owner": "documentation",
+      "priority": "high"
+    },
+    {
+      "id": "AGP-002",
+      "title": "Establecer gobernanza documental y estructura .agent",
+      "status": "done",
+      "owner": "documentation",
+      "priority": "high"
+    },
+    {
+      "id": "AGP-003",
+      "title": "Redactar spec funcional del internal portal v1",
+      "status": "done",
+      "owner": "documentation",
+      "priority": "high"
+    },
+    {
+      "id": "AGP-004",
+      "title": "Alinear launcher interno, roles y accesos",
+      "status": "done",
+      "owner": "product",
+      "priority": "high"
+    },
+    {
+      "id": "AGP-005",
+      "title": "Definir cobertura de pruebas para la feature v1",
+      "status": "done",
+      "owner": "qa",
+      "priority": "medium"
+    }
+  ]
+}

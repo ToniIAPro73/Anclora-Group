@@ -1,0 +1,157 @@
+export type GroupRole =
+  | 'group-admin'
+  | 'private-estates-ops'
+  | 'partner-ops'
+  | 'data-ops'
+  | 'content-ops'
+  | 'advisory'
+  | 'growth-ops'
+
+export type GroupAppKey =
+  | 'private-estates'
+  | 'synergi'
+  | 'data-lab'
+  | 'nexus'
+  | 'content-generator-ai'
+  | 'advisor-ai'
+  | 'impulso'
+
+export type GroupAppDefinition = {
+  key: GroupAppKey
+  title: string
+  eyebrow: string
+  description: string
+  kind: 'external-hub' | 'partner-platform' | 'intelligence-platform' | 'ops-platform' | 'ai-platform' | 'wellness-platform'
+  visibility: 'external-facing' | 'internal'
+  roles: GroupRole[]
+  url: string
+}
+
+export type GroupUserRecord = {
+  username: string
+  password: string
+  displayName: string
+  role: GroupRole
+}
+
+function parseJsonUsers(value: string | undefined): GroupUserRecord[] {
+  if (!value?.trim()) return []
+
+  try {
+    const parsed = JSON.parse(value) as Array<Partial<GroupUserRecord>>
+    return parsed
+      .filter((item) => item.username && item.password && item.displayName && item.role)
+      .map((item) => ({
+        username: String(item.username),
+        password: String(item.password),
+        displayName: String(item.displayName),
+        role: item.role as GroupRole,
+      }))
+  } catch {
+    return []
+  }
+}
+
+export function getGroupUsers(): GroupUserRecord[] {
+  const parsed = parseJsonUsers(process.env.ANCLORA_GROUP_INTERNAL_USERS_JSON)
+  if (parsed.length) return parsed
+
+  const username = process.env.ANCLORA_GROUP_BOOTSTRAP_USERNAME?.trim()
+  const password = process.env.ANCLORA_GROUP_BOOTSTRAP_PASSWORD?.trim()
+  const displayName = process.env.ANCLORA_GROUP_BOOTSTRAP_DISPLAY_NAME?.trim() || 'Anclora Group Admin'
+  const role = (process.env.ANCLORA_GROUP_BOOTSTRAP_ROLE?.trim() as GroupRole | undefined) || 'group-admin'
+
+  if (!username || !password) return []
+
+  return [{ username, password, displayName, role }]
+}
+
+function getEnvUrl(name: string, fallback: string) {
+  return process.env[name]?.trim() || fallback
+}
+
+export function getGroupAppDefinitions(): GroupAppDefinition[] {
+  return [
+    {
+      key: 'private-estates',
+      title: 'Anclora Private Estates',
+      eyebrow: 'Luxury Real Estate',
+      description:
+        'Plataforma matriz y puerta de entrada del vertical inmobiliario premium de Anclora.',
+      kind: 'external-hub',
+      visibility: 'external-facing',
+      roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_PRIVATE_ESTATES_URL', 'https://anclora-private-estates.vercel.app/'),
+    },
+    {
+      key: 'synergi',
+      title: 'Anclora Synergi',
+      eyebrow: 'Partner Platform',
+      description:
+        'Gestión de admisión, activación y colaboración privada con partners aprobados.',
+      kind: 'partner-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'partner-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_SYNERGI_URL', 'https://anclora-synergi.vercel.app/'),
+    },
+    {
+      key: 'data-lab',
+      title: 'Anclora Data Lab',
+      eyebrow: 'Intelligence Platform',
+      description:
+        'Documentación curada, señales territoriales, informes y conocimiento premium para perfiles autorizados.',
+      kind: 'intelligence-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'data-ops', 'partner-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_DATA_LAB_URL', 'https://anclora-data-lab.vercel.app/'),
+    },
+    {
+      key: 'nexus',
+      title: 'Anclora Nexus',
+      eyebrow: 'Private Estates Ops',
+      description:
+        'Plataforma operativa interna de Anclora Private Estates para pipeline, relaciones y coordinación comercial.',
+      kind: 'ops-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_NEXUS_URL', 'https://anclora-nexus-frontend.vercel.app/'),
+    },
+    {
+      key: 'content-generator-ai',
+      title: 'Anclora Content Generator AI',
+      eyebrow: 'Editorial AI Engine',
+      description:
+        'Motor editorial y de inteligencia de contenido para Anclora Private Estates.',
+      kind: 'ai-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'content-ops', 'private-estates-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL', 'https://anclora-content-generator-ai.vercel.app/'),
+    },
+    {
+      key: 'advisor-ai',
+      title: 'Anclora Advisor AI',
+      eyebrow: 'Advisory AI',
+      description:
+        'Aplicación de asesoría fiscal, laboral y de mercado inmobiliario para autónomos con pluriactividad.',
+      kind: 'ai-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'advisory'],
+      url: getEnvUrl('NEXT_PUBLIC_ADVISOR_AI_URL', 'https://anclora-advisor-ai.vercel.app/'),
+    },
+    {
+      key: 'impulso',
+      title: 'Anclora Impulso',
+      eyebrow: 'Fitness & Nutrition',
+      description:
+        'Aplicación web de fitness y nutrición con generación de rutinas por IA, progreso y planes nutricionales.',
+      kind: 'wellness-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'growth-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_IMPULSO_URL', 'https://anclora-impulso.vercel.app/'),
+    },
+  ]
+}
+
+export function getAppsForRole(role: GroupRole) {
+  return getGroupAppDefinitions().filter((app) => app.roles.includes(role))
+}
