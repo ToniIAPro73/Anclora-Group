@@ -1,4 +1,4 @@
-:root {
+body[data-theme='dark'] {
   --group-ink: #0b111a;
   --group-slate: #131d29;
   --group-surface: #111a24;
@@ -9,6 +9,19 @@
   --group-silver: #d8dce2;
   --group-silver-2: #aeb6c2;
   --group-glow: rgba(212, 220, 226, 0.18);
+}
+
+body[data-theme='light'] {
+  --group-ink: #e8edf4;
+  --group-slate: #f3f5f8;
+  --group-surface: #ffffff;
+  --group-surface-2: #f6f8fb;
+  --group-copy: #101723;
+  --group-muted: rgba(16, 23, 35, 0.68);
+  --group-border: rgba(16, 23, 35, 0.12);
+  --group-silver: #3f4b5c;
+  --group-silver-2: #708095;
+  --group-glow: rgba(16, 23, 35, 0.1);
 }
 
 * { box-sizing: border-box; }
@@ -69,6 +82,11 @@ button, input { font: inherit; }
   min-height: 46px; padding: 0 18px; border-radius: 999px; cursor: pointer;
   border: 1px solid rgba(255,255,255,0.16);
 }
+.group-button, .group-link-button, .group-doc-link {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
 .group-ghost-button, .group-doc-link {
   background: rgba(255,255,255,0.04); color: var(--group-copy);
 }
@@ -76,6 +94,37 @@ button, input { font: inherit; }
   background: linear-gradient(145deg, #dfe4ea 0%, #b9c1cb 18%, #f6f8fa 44%, #929dab 72%, #eef2f5 100%);
   color: #0f1720; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   box-shadow: 0 18px 32px rgba(174, 182, 194, 0.15);
+}
+.group-button::before, .group-link-button::before, .group-doc-link::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  left: -45%;
+  width: 28%;
+  height: 170%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.14) 18%,
+    rgba(255, 255, 255, 0.82) 50%,
+    rgba(255, 255, 255, 0.16) 82%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-24deg) translateX(-260%);
+  pointer-events: none;
+  z-index: 0;
+}
+.group-button:hover::before,
+.group-button:focus-visible::before,
+.group-link-button:hover::before,
+.group-link-button:focus-visible::before,
+.group-doc-link:hover::before,
+.group-doc-link:focus-visible::before {
+  animation: groupHaloSweep 1.15s ease forwards;
+}
+.group-button > *, .group-link-button > *, .group-doc-link > * {
+  position: relative;
+  z-index: 1;
 }
 
 .group-hero {
@@ -128,6 +177,20 @@ button, input { font: inherit; }
 .group-notice {
   margin: 0; padding: 14px 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.14);
   background: rgba(120, 36, 36, 0.26); color: #ffd1d1;
+}
+
+@keyframes groupHaloSweep {
+  0% {
+    transform: skewX(-24deg) translateX(-260%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: skewX(-24deg) translateX(520%);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 1100px) {

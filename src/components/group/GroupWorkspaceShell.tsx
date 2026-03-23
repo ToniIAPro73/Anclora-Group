@@ -3,24 +3,17 @@ import Image from 'next/image'
 import { ArrowUpRight, LayoutGrid, ShieldCheck, Sparkles } from 'lucide-react'
 import { getAppsForRole, getGroupAppDefinitions } from '@/lib/group-access'
 import type { GroupSession } from '@/lib/group-auth'
+import { getGroupMessages, getRoleLabels } from '@/lib/group-ui'
 
 type Props = {
   session: GroupSession
 }
 
-const roleLabels: Record<GroupSession['role'], string> = {
-  'group-admin': 'Group Admin',
-  'private-estates-ops': 'Private Estates Ops',
-  'partner-ops': 'Partner Ops',
-  'data-ops': 'Data Ops',
-  'content-ops': 'Content Ops',
-  advisory: 'Advisor AI',
-  'growth-ops': 'Growth Ops',
-}
-
 export function GroupWorkspaceShell({ session }: Props) {
   const apps = getAppsForRole(session.role)
   const allApps = getGroupAppDefinitions()
+  const ui = getGroupMessages()
+  const roleLabels = getRoleLabels()
 
   return (
     <main className="group-page">
@@ -29,7 +22,7 @@ export function GroupWorkspaceShell({ session }: Props) {
         <header className="group-topbar">
           <div className="group-brand">
             <div className="group-brand-badge">
-              <Image src="/brand/logo-anclora-group.svg" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
+              <Image src="/brand/logo-anclora-group.png" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
             </div>
             <div>
               <p className="group-brand-name">ANCLORA GROUP</p>
@@ -48,12 +41,9 @@ export function GroupWorkspaceShell({ session }: Props) {
 
         <section className="group-hero">
           <div className="group-hero-copy">
-            <p className="group-eyebrow">Corporate Access Layer</p>
-            <h1>Una única puerta para las aplicaciones internas de Anclora.</h1>
-            <p>
-              Anclora Group organiza el acceso interno a aplicaciones, equipos, operaciones y herramientas
-              estratégicas mediante una arquitectura unificada y gobernada por roles.
-            </p>
+            <p className="group-eyebrow">{ui.heroEyebrow}</p>
+            <h1>{ui.heroTitle}</h1>
+            <p>{ui.heroBody}</p>
           </div>
           <div className="group-hero-metrics">
             <article>
@@ -77,8 +67,8 @@ export function GroupWorkspaceShell({ session }: Props) {
         <section className="group-section">
           <div className="group-section-head">
             <div>
-              <p className="group-eyebrow">Enabled Apps</p>
-              <h2>Aplicaciones visibles para tu rol</h2>
+              <p className="group-eyebrow">{ui.appsEyebrow}</p>
+              <h2>{ui.appsTitle}</h2>
             </div>
           </div>
           <div className="group-app-grid">
@@ -86,7 +76,7 @@ export function GroupWorkspaceShell({ session }: Props) {
               <article key={app.key} className="group-app-card">
                 <div className="group-app-head">
                   <span>{app.eyebrow}</span>
-                  <small>{app.visibility === 'internal' ? 'Internal' : 'External-facing'}</small>
+                  <small>{app.visibility === 'internal' ? ui.visibilityInternal : ui.visibilityExternal}</small>
                 </div>
                 <h3>{app.title}</h3>
                 <p>{app.description}</p>
@@ -102,11 +92,11 @@ export function GroupWorkspaceShell({ session }: Props) {
         <section className="group-section group-section-secondary">
           <div className="group-section-head">
             <div>
-              <p className="group-eyebrow">Architecture</p>
-              <h2>Mapa corporativo actual</h2>
+              <p className="group-eyebrow">{ui.architectureEyebrow}</p>
+              <h2>{ui.architectureTitle}</h2>
             </div>
             <Link href="/docs/anclora-group-access-architecture-v1.md" className="group-doc-link" target="_blank">
-              Ver arquitectura de acceso
+              {ui.architectureLink}
             </Link>
           </div>
           <div className="group-map-grid">

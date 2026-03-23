@@ -58,7 +58,7 @@ export function getGroupUsers(): GroupUserRecord[] {
 
   const username = process.env.ANCLORA_GROUP_BOOTSTRAP_USERNAME?.trim()
   const password = process.env.ANCLORA_GROUP_BOOTSTRAP_PASSWORD?.trim()
-  const displayName = process.env.ANCLORA_GROUP_BOOTSTRAP_DISPLAY_NAME?.trim() || 'Anclora Group Admin'
+  const displayName = process.env.ANCLORA_GROUP_BOOTSTRAP_DISPLAY_NAME?.trim() || 'Administrador de Anclora Group'
   const role = (process.env.ANCLORA_GROUP_BOOTSTRAP_ROLE?.trim() as GroupRole | undefined) || 'group-admin'
 
   if (!username || !password) return []
@@ -75,7 +75,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'private-estates',
       title: 'Anclora Private Estates',
-      eyebrow: 'Luxury Real Estate',
+      eyebrow: 'Real estate de lujo',
       description:
         'Plataforma matriz y puerta de entrada del vertical inmobiliario premium de Anclora.',
       kind: 'external-hub',
@@ -86,7 +86,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'synergi',
       title: 'Anclora Synergi',
-      eyebrow: 'Partner Platform',
+      eyebrow: 'Plataforma de partnership',
       description:
         'Gestión de admisión, activación y colaboración privada con partners aprobados.',
       kind: 'partner-platform',
@@ -97,7 +97,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'data-lab',
       title: 'Anclora Data Lab',
-      eyebrow: 'Intelligence Platform',
+      eyebrow: 'Plataforma de inteligencia',
       description:
         'Documentación curada, señales territoriales, informes y conocimiento premium para perfiles autorizados.',
       kind: 'intelligence-platform',
@@ -108,7 +108,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'nexus',
       title: 'Anclora Nexus',
-      eyebrow: 'Private Estates Ops',
+      eyebrow: 'Operación Private Estates',
       description:
         'Plataforma operativa interna de Anclora Private Estates para pipeline, relaciones y coordinación comercial.',
       kind: 'ops-platform',
@@ -119,7 +119,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'content-generator-ai',
       title: 'Anclora Content Generator AI',
-      eyebrow: 'Editorial AI Engine',
+      eyebrow: 'Motor editorial con IA',
       description:
         'Motor editorial y de inteligencia de contenido para Anclora Private Estates.',
       kind: 'ai-platform',
@@ -130,7 +130,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'advisor-ai',
       title: 'Anclora Advisor AI',
-      eyebrow: 'Advisory AI',
+      eyebrow: 'Asesoría con IA',
       description:
         'Aplicación de asesoría fiscal, laboral y de mercado inmobiliario para autónomos con pluriactividad.',
       kind: 'ai-platform',
@@ -141,7 +141,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'impulso',
       title: 'Anclora Impulso',
-      eyebrow: 'Fitness & Nutrition',
+      eyebrow: 'Fitness y nutrición',
       description:
         'Aplicación web de fitness y nutrición con generación de rutinas por IA, progreso y planes nutricionales.',
       kind: 'wellness-platform',
