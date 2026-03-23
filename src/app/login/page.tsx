@@ -14,10 +14,9 @@ export default async function LoginPage() {
       <div className="group-noise" />
       <section className="group-login-shell">
         <div className="group-login-brand">
-          <div className="group-brand-badge is-large">
+          <div className="group-brand-badge is-large is-centered">
             <Image src="/brand/logo-anclora-group.png" alt="Anclora Group" width={92} height={92} className="group-brand-logo" />
           </div>
-          <p className="group-eyebrow">{ui.loginEyebrow}</p>
           <h1>Anclora Group</h1>
           <p>{ui.loginTitle}</p>
         </div>
