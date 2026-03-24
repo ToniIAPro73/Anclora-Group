@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import { getGroupDefaultTheme } from '@/lib/group-ui'
+import { GROUP_BRAND_ASSET_VERSION, getGroupDefaultTheme } from '@/lib/group-ui'
 import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Anclora Group',
   description: 'Portal corporativo interno de Anclora',
   icons: {
-    icon: '/brand/logo-anclora-group.png',
+    icon: `/brand/logo-anclora-group.png?v=${GROUP_BRAND_ASSET_VERSION}`,
   },
 }
 
