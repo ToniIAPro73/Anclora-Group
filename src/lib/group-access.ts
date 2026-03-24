@@ -91,6 +91,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Plataforma de partnership',
       description:
         'Gestión de admisión, activación y colaboración privada con partners aprobados.',
+      logoSrc: '/brand/logo-anclora-synergi.png',
       kind: 'partner-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops'],
@@ -102,6 +103,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Plataforma de inteligencia',
       description:
         'Documentación curada, señales territoriales, informes y conocimiento premium para perfiles autorizados.',
+      logoSrc: '/brand/logo-anclora-datalab.png',
       kind: 'intelligence-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'data-ops', 'partner-ops'],
