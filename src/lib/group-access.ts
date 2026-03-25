@@ -78,10 +78,6 @@ function buildLoginUrl(baseUrl: string, explicitLoginUrl?: string) {
 
 export function getGroupAppDefinitions(): GroupAppDefinition[] {
   const privateEstatesUrl = getEnvUrl('NEXT_PUBLIC_PRIVATE_ESTATES_URL', 'https://anclora-private-estates.vercel.app/')
-  const synergiPublicUrl = getEnvUrl('NEXT_PUBLIC_SYNERGI_URL', 'https://anclora-synergi.vercel.app/')
-  const synergiLoginUrl = buildLoginUrl(synergiPublicUrl, process.env.NEXT_PUBLIC_SYNERGI_LOGIN_URL)
-  const dataLabPublicUrl = getEnvUrl('NEXT_PUBLIC_DATA_LAB_URL', 'https://anclora-data-lab.vercel.app/')
-  const dataLabLoginUrl = buildLoginUrl(dataLabPublicUrl, process.env.NEXT_PUBLIC_DATA_LAB_LOGIN_URL)
 
   return [
     {
@@ -106,7 +102,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'partner-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops'],
-      url: synergiLoginUrl,
+      url: '/workspace/synergi-access',
     },
     {
       key: 'data-lab',
@@ -118,7 +114,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'intelligence-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'data-ops', 'partner-ops'],
-      url: dataLabLoginUrl,
+      url: '/workspace/data-lab-access',
     },
     {
       key: 'nexus',
@@ -173,4 +169,14 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
 
 export function getAppsForRole(role: GroupRole) {
   return getGroupAppDefinitions().filter((app) => app.roles.includes(role))
+}
+
+export function getSynergiLoginUrl() {
+  const publicUrl = getEnvUrl('NEXT_PUBLIC_SYNERGI_URL', 'https://anclora-synergi.vercel.app/')
+  return buildLoginUrl(publicUrl, process.env.NEXT_PUBLIC_SYNERGI_LOGIN_URL)
+}
+
+export function getDataLabLoginUrl() {
+  const publicUrl = getEnvUrl('NEXT_PUBLIC_DATA_LAB_URL', 'https://anclora-data-lab.vercel.app/')
+  return buildLoginUrl(publicUrl, process.env.NEXT_PUBLIC_DATA_LAB_LOGIN_URL)
 }
