@@ -22,7 +22,9 @@ NEXT_PUBLIC_GROUP_DEFAULT_LOCALE=es
 NEXT_PUBLIC_GROUP_DEFAULT_THEME=dark
 NEXT_PUBLIC_PRIVATE_ESTATES_URL=https://anclora-private-estates.vercel.app/
 NEXT_PUBLIC_SYNERGI_URL=https://anclora-synergi.vercel.app/
+NEXT_PUBLIC_SYNERGI_LOGIN_URL=https://anclora-synergi.vercel.app/login
 NEXT_PUBLIC_DATA_LAB_URL=https://anclora-data-lab.vercel.app/
+NEXT_PUBLIC_DATA_LAB_LOGIN_URL=https://anclora-data-lab.vercel.app/login
 NEXT_PUBLIC_NEXUS_URL=https://anclora-nexus-frontend.vercel.app/
 NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL=
 NEXT_PUBLIC_ADVISOR_AI_URL=
@@ -40,3 +42,4 @@ ANCLORA_GROUP_INTERNAL_USERS_JSON=[{"username":"...","password":"...","displayNa
 - idioma por defecto centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_LOCALE`
 - tema por defecto centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_THEME`
 - copy agrupado en `src/lib/group-ui.ts` para facilitar la futura incorporación de toggles de idioma y tema
+- `Private Estates` puede seguir enlazando a las raíces públicas de `Synergi` y `Data Lab`, mientras que `Anclora Group` usa sus rutas de login dedicadas

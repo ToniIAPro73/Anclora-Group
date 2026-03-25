@@ -71,7 +71,18 @@ function getEnvUrl(name: string, fallback: string) {
   return process.env[name]?.trim() || fallback
 }
 
+function buildLoginUrl(baseUrl: string, explicitLoginUrl?: string) {
+  if (explicitLoginUrl?.trim()) return explicitLoginUrl.trim()
+  return `${baseUrl.replace(/\/+$/, '')}/login`
+}
+
 export function getGroupAppDefinitions(): GroupAppDefinition[] {
+  const privateEstatesUrl = getEnvUrl('NEXT_PUBLIC_PRIVATE_ESTATES_URL', 'https://anclora-private-estates.vercel.app/')
+  const synergiPublicUrl = getEnvUrl('NEXT_PUBLIC_SYNERGI_URL', 'https://anclora-synergi.vercel.app/')
+  const synergiLoginUrl = buildLoginUrl(synergiPublicUrl, process.env.NEXT_PUBLIC_SYNERGI_LOGIN_URL)
+  const dataLabPublicUrl = getEnvUrl('NEXT_PUBLIC_DATA_LAB_URL', 'https://anclora-data-lab.vercel.app/')
+  const dataLabLoginUrl = buildLoginUrl(dataLabPublicUrl, process.env.NEXT_PUBLIC_DATA_LAB_LOGIN_URL)
+
   return [
     {
       key: 'private-estates',
@@ -83,7 +94,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'external-hub',
       visibility: 'external-facing',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops'],
-      url: getEnvUrl('NEXT_PUBLIC_PRIVATE_ESTATES_URL', 'https://anclora-private-estates.vercel.app/'),
+      url: privateEstatesUrl,
     },
     {
       key: 'synergi',
@@ -95,7 +106,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'partner-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops'],
-      url: getEnvUrl('NEXT_PUBLIC_SYNERGI_URL', 'https://anclora-synergi.vercel.app/'),
+      url: synergiLoginUrl,
     },
     {
       key: 'data-lab',
@@ -107,7 +118,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'intelligence-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'data-ops', 'partner-ops'],
-      url: getEnvUrl('NEXT_PUBLIC_DATA_LAB_URL', 'https://anclora-data-lab.vercel.app/'),
+      url: dataLabLoginUrl,
     },
     {
       key: 'nexus',
