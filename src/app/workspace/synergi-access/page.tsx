@@ -10,14 +10,14 @@ export default async function SynergiAccessPage() {
       session={session}
       title="Anclora Synergi"
       eyebrow="Plataforma de partnership"
-      description="Acceso interno corporativo al login de Synergi para operaciones de partnership, admisión, soporte y colaboración privada."
+      description="Acceso interno corporativo al backoffice de Synergi para admisiones, revisión de solicitudes, activación partner y operación privada."
       logoSrc="/brand/logo-anclora-synergi.png"
       loginHref={getSynergiLoginUrl()}
-      loginLabel="Abrir login de Synergi"
-      accessTitle="Entrada al portal interno de partnership"
-      accessCopy="Desde esta pantalla el equipo interno de Anclora accede al login privado de Synergi, separado del acceso público mostrado en Private Estates."
+      loginLabel="Abrir backoffice de Synergi"
+      accessTitle="Entrada al backoffice interno de Synergi"
+      accessCopy="Desde esta pantalla el equipo interno accede a la ruta privada donde se revisan solicitudes, se aceptan o rechazan admisiones y se opera el workspace partner."
       helperTitle="Separación entre acceso público e interno"
-      helperCopy="Private Estates mantiene la pantalla mixta de solicitud + acceso. Anclora Group concentra el acceso interno y corporativo al login real."
+      helperCopy="Private Estates mantiene la pantalla dual de solicitud + acceso partner. Anclora Group concentra la entrada corporativa al backoffice interno de Synergi."
     />
   )
 }

@@ -71,11 +71,6 @@ function getEnvUrl(name: string, fallback: string) {
   return process.env[name]?.trim() || fallback
 }
 
-function buildLoginUrl(baseUrl: string, explicitLoginUrl?: string) {
-  if (explicitLoginUrl?.trim()) return explicitLoginUrl.trim()
-  return `${baseUrl.replace(/\/+$/, '')}/login`
-}
-
 export function getGroupAppDefinitions(): GroupAppDefinition[] {
   const privateEstatesUrl = getEnvUrl('NEXT_PUBLIC_PRIVATE_ESTATES_URL', 'https://anclora-private-estates.vercel.app/')
 
@@ -172,11 +167,9 @@ export function getAppsForRole(role: GroupRole) {
 }
 
 export function getSynergiLoginUrl() {
-  const publicUrl = getEnvUrl('NEXT_PUBLIC_SYNERGI_URL', 'https://anclora-synergi.vercel.app/')
-  return buildLoginUrl(publicUrl, process.env.NEXT_PUBLIC_SYNERGI_LOGIN_URL)
+  return getEnvUrl('NEXT_PUBLIC_SYNERGI_INTERNAL_URL', 'https://anclora-synergi.vercel.app/partner-admissions/login')
 }
 
 export function getDataLabLoginUrl() {
-  const publicUrl = getEnvUrl('NEXT_PUBLIC_DATA_LAB_URL', 'https://anclora-data-lab.vercel.app/')
-  return buildLoginUrl(publicUrl, process.env.NEXT_PUBLIC_DATA_LAB_LOGIN_URL)
+  return getEnvUrl('NEXT_PUBLIC_DATA_LAB_INTERNAL_URL', 'https://anclora-data-lab.vercel.app/access-requests/login')
 }
