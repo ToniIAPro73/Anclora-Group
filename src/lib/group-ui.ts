@@ -3,8 +3,6 @@ import type { GroupRole } from '@/lib/group-access'
 export type GroupLocale = 'es' | 'en' | 'de' | 'fr'
 export type GroupTheme = 'dark' | 'light'
 
-export const GROUP_BRAND_ASSET_VERSION = '20260324-1'
-
 const SUPPORTED_LOCALES: GroupLocale[] = ['es', 'en', 'de', 'fr']
 const SUPPORTED_THEMES: GroupTheme[] = ['dark', 'light']
 

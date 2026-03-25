@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { ArrowUpRight, LayoutGrid, ShieldCheck, Sparkles } from 'lucide-react'
 import { getAppsForRole, getGroupAppDefinitions } from '@/lib/group-access'
 import type { GroupSession } from '@/lib/group-auth'
-import { getGroupMessages, getRoleLabels, GROUP_BRAND_ASSET_VERSION } from '@/lib/group-ui'
+import { getGroupMessages, getRoleLabels } from '@/lib/group-ui'
 
 type Props = {
   session: GroupSession
@@ -22,7 +22,7 @@ export function GroupWorkspaceShell({ session }: Props) {
         <header className="group-topbar">
           <div className="group-brand">
             <div className="group-brand-badge">
-              <Image src={`/brand/logo-anclora-group.png?v=${GROUP_BRAND_ASSET_VERSION}`} alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
+              <Image src="/brand/logo-anclora-group.png" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
             </div>
             <div>
               <p className="group-brand-name">ANCLORA GROUP</p>
