@@ -47,9 +47,6 @@ export function GroupInternalAccessPage({
           <div className="group-user-panel">
             <strong>{session.displayName}</strong>
             <span>{session.role}</span>
-            <Link href="/workspace" className="group-ghost-button">
-              Volver al launcher
-            </Link>
           </div>
         </header>
 
