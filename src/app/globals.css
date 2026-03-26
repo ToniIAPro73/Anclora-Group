@@ -153,6 +153,9 @@ button, input { font: inherit; }
 .group-app-grid, .group-map-grid {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 20px;
 }
+.group-app-grid {
+  align-items: stretch;
+}
 .group-app-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .group-app-head span, .group-map-card span {
   color: var(--group-silver); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
@@ -174,6 +177,16 @@ button, input { font: inherit; }
   height: auto;
   object-fit: contain;
 }
+.group-app-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.group-app-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
 .group-map-logo {
   width: 100%;
   max-width: 92px;
@@ -182,7 +195,11 @@ button, input { font: inherit; }
 }
 .group-app-card h3, .group-map-card strong { margin: 16px 0 0; font-size: 1.45rem; }
 .group-app-card p, .group-map-card p { margin: 12px 0 0; color: var(--group-muted); line-height: 1.7; }
-.group-link-button { margin-top: 18px; width: fit-content; }
+.group-link-button {
+  margin-top: auto;
+  width: fit-content;
+  align-self: center;
+}
 .group-map-card.is-external-facing { border-color: rgba(180, 216, 230, 0.16); }
 .group-map-card.is-internal { border-color: rgba(255, 255, 255, 0.08); }
 

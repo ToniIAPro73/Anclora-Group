@@ -89,19 +89,21 @@ export function GroupWorkspaceShell({ session }: Props) {
                     />
                   </div>
                 ) : null}
-                <h3>{app.title}</h3>
-                <p>{app.description}</p>
-                {app.url.startsWith('/') ? (
-                  <Link href={app.url} className="group-link-button">
-                    Abrir aplicación
-                    <ArrowUpRight size={15} />
-                  </Link>
-                ) : (
-                  <a href={app.url} target="_blank" rel="noreferrer" className="group-link-button">
-                    Abrir aplicación
-                    <ArrowUpRight size={15} />
-                  </a>
-                )}
+                <div className="group-app-body">
+                  <h3>{app.title}</h3>
+                  <p>{app.description}</p>
+                  {app.url.startsWith('/') ? (
+                    <Link href={app.url} className="group-link-button">
+                      Abrir aplicación
+                      <ArrowUpRight size={15} />
+                    </Link>
+                  ) : (
+                    <a href={app.url} target="_blank" rel="noreferrer" className="group-link-button">
+                      Abrir aplicación
+                      <ArrowUpRight size={15} />
+                    </a>
+                  )}
+                </div>
               </article>
             ))}
           </div>
