@@ -12,6 +12,7 @@ export type GroupAppKey =
   | 'synergi'
   | 'data-lab'
   | 'nexus'
+  | 'command-center'
   | 'content-generator-ai'
   | 'advisor-ai'
   | 'impulso'
@@ -122,6 +123,18 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops'],
       url: getEnvUrl('NEXT_PUBLIC_NEXUS_URL', 'https://anclora-nexus-frontend.vercel.app/'),
+    },
+    {
+      key: 'command-center',
+      title: 'Anclora Command Center',
+      eyebrow: 'Centro de mando',
+      description:
+        'Dashboard premium conectado a la bóveda para leer pulso ejecutivo, captación, partners y decisiones clave del ecosistema.',
+      logoSrc: '/brand/logo-anclora-command-center.png',
+      kind: 'ops-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops', 'advisory', 'growth-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_COMMAND_CENTER_URL', 'https://boveda-anclora.vercel.app/'),
     },
     {
       key: 'content-generator-ai',
