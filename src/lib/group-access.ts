@@ -82,7 +82,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Real estate de lujo',
       description:
         'Plataforma matriz y puerta de entrada del vertical inmobiliario premium de Anclora.',
-      logoSrc: '/brand/logo-anclora-private-estates.png',
+      logoSrc: '/brand/logo-anclora-private-estates.webp',
       kind: 'external-hub',
       visibility: 'external-facing',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops'],
@@ -94,7 +94,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Plataforma de partnership',
       description:
         'Gestión de admisión, activación y colaboración privada con partners aprobados.',
-      logoSrc: '/brand/logo-anclora-synergi.png',
+      logoSrc: '/brand/logo-anclora-synergi.webp',
       kind: 'partner-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops'],
@@ -106,7 +106,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Plataforma de inteligencia',
       description:
         'Documentación curada, señales territoriales, informes y conocimiento premium para perfiles autorizados.',
-      logoSrc: '/brand/logo-anclora-datalab.png',
+      logoSrc: '/brand/logo-anclora-datalab.webp',
       kind: 'intelligence-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'data-ops', 'partner-ops'],
@@ -118,7 +118,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Operación Private Estates',
       description:
         'Plataforma operativa interna de Anclora Private Estates para pipeline, relaciones y coordinación comercial.',
-      logoSrc: '/brand/logo-anclora-nexus.png',
+      logoSrc: '/brand/logo-anclora-nexus.webp',
       kind: 'ops-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops'],
@@ -130,7 +130,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Centro de mando',
       description:
         'Dashboard premium conectado a la bóveda para leer pulso ejecutivo, captación, partners y decisiones clave del ecosistema.',
-      logoSrc: '/brand/logo-anclora-command-center.png',
+      logoSrc: '/brand/logo-anclora-command-center.webp',
       kind: 'ops-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops', 'advisory', 'growth-ops'],
@@ -142,7 +142,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Motor editorial con IA',
       description:
         'Motor editorial y de inteligencia de contenido para Anclora Private Estates.',
-      logoSrc: '/brand/logo-content-generator-ai.png',
+      logoSrc: '/brand/logo-content-generator-ai.webp',
       kind: 'ai-platform',
       visibility: 'internal',
       roles: ['group-admin', 'content-ops', 'private-estates-ops'],
@@ -154,7 +154,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Asesoría con IA',
       description:
         'Aplicación de asesoría fiscal, laboral y de mercado inmobiliario para autónomos con pluriactividad.',
-      logoSrc: '/brand/logo-anclora-advisor-ai.png',
+      logoSrc: '/brand/logo-anclora-advisor-ai.webp',
       kind: 'ai-platform',
       visibility: 'internal',
       roles: ['group-admin', 'advisory'],
@@ -166,7 +166,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Fitness y nutrición',
       description:
         'Aplicación web de fitness y nutrición con generación de rutinas por IA, progreso y planes nutricionales.',
-      logoSrc: '/brand/logo-anclora-impulso.png',
+      logoSrc: '/brand/logo-anclora-impulso.webp',
       kind: 'wellness-platform',
       visibility: 'internal',
       roles: ['group-admin', 'growth-ops'],

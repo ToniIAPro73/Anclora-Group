@@ -11,7 +11,7 @@ export default async function SynergiAccessPage() {
       title="Anclora Synergi"
       eyebrow="Plataforma de partnership"
       description="Acceso interno corporativo al backoffice de Synergi para admisiones, revisión de solicitudes, activación partner y operación privada."
-      logoSrc="/brand/logo-anclora-synergi.png"
+      logoSrc="/brand/logo-anclora-synergi.webp"
       loginHref={getSynergiLoginUrl()}
       loginLabel="Abrir backoffice de Synergi"
       accessTitle="Entrada al backoffice interno de Synergi"

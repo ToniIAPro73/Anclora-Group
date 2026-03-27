@@ -14,6 +14,34 @@ export function GroupWorkspaceShell({ session }: Props) {
   const allApps = getGroupAppDefinitions()
   const ui = getGroupMessages()
   const roleLabels = getRoleLabels()
+  const architectureGroups = [
+    {
+      key: 'entry-layer',
+      eyebrow: 'Capa de entrada',
+      title: 'Relación y puerta de acceso',
+      body: 'Las superficies que definen la entrada premium al ecosistema, la activación de partners y el marco corporativo de visibilidad.',
+      apps: ['private-estates', 'synergi'] as const,
+    },
+    {
+      key: 'core-layer',
+      eyebrow: 'Capa operativa',
+      title: 'Inteligencia y coordinación',
+      body: 'El núcleo que combina señales de mercado, coordinación interna y lectura ejecutiva del ecosistema en tiempo real.',
+      apps: ['data-lab', 'nexus', 'command-center'] as const,
+    },
+    {
+      key: 'activation-layer',
+      eyebrow: 'Capa de activación',
+      title: 'Contenido, asesoría y crecimiento',
+      body: 'Las aplicaciones que convierten inteligencia en ejecución editorial, orientación experta y tracción comercial sostenida.',
+      apps: ['content-generator-ai', 'advisor-ai', 'impulso'] as const,
+    },
+  ].map((group) => ({
+    ...group,
+    cards: group.apps
+      .map((key) => allApps.find((app) => app.key === key))
+      .filter((app): app is NonNullable<typeof app> => Boolean(app)),
+  }))
 
   return (
     <main className="group-page">
@@ -22,7 +50,7 @@ export function GroupWorkspaceShell({ session }: Props) {
         <header className="group-topbar">
           <div className="group-brand">
             <div className="group-brand-badge">
-              <Image src="/brand/logo-anclora-group.png" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
+              <Image src="/brand/logo-anclora-group.webp" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
             </div>
             <div>
               <p className="group-brand-name">ANCLORA GROUP</p>
@@ -115,28 +143,41 @@ export function GroupWorkspaceShell({ session }: Props) {
               <p className="group-eyebrow">{ui.architectureEyebrow}</p>
               <h2>{ui.architectureTitle}</h2>
             </div>
-            <Link href="/docs/anclora-group-access-architecture-v1.md" className="group-doc-link" target="_blank">
+            <Link href="/docs/anclora-group-access-architecture-v1.pdf" className="group-doc-link" target="_blank">
               {ui.architectureLink}
             </Link>
           </div>
-          <div className="group-map-grid">
-            {allApps.map((app) => (
-              <article key={app.key} className={`group-map-card is-${app.visibility}`}>
-                {app.logoSrc ? (
-                  <div className="group-map-logo-wrap">
-                    <Image
-                      src={app.logoSrc}
-                      alt={app.title}
-                      width={88}
-                      height={88}
-                      className="group-map-logo"
-                    />
-                  </div>
-                ) : null}
-                <span>{app.eyebrow}</span>
-                <strong>{app.title}</strong>
-                <p>{app.description}</p>
-              </article>
+          <div className="group-architecture-grid">
+            {architectureGroups.map((group) => (
+              <section key={group.key} className={`group-architecture-column is-${group.key}`}>
+                <div className="group-architecture-head">
+                  <p>{group.eyebrow}</p>
+                  <h3>{group.title}</h3>
+                  <span>{group.body}</span>
+                </div>
+                <div className="group-architecture-stack">
+                  {group.cards.map((app) => (
+                    <article key={app.key} className={`group-architecture-card is-${app.visibility}`}>
+                      <div className="group-architecture-card-top">
+                        {app.logoSrc ? (
+                          <div className="group-architecture-logo-wrap">
+                            <Image
+                              src={app.logoSrc}
+                              alt={app.title}
+                              width={72}
+                              height={72}
+                              className="group-architecture-logo"
+                            />
+                          </div>
+                        ) : null}
+                        <span>{app.eyebrow}</span>
+                      </div>
+                      <strong>{app.title}</strong>
+                      <p>{app.description}</p>
+                    </article>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
         </section>

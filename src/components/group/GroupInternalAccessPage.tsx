@@ -37,7 +37,7 @@ export function GroupInternalAccessPage({
         <header className="group-topbar">
           <div className="group-brand">
             <div className="group-brand-badge">
-              <Image src="/brand/logo-anclora-group.png" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
+              <Image src="/brand/logo-anclora-group.webp" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
             </div>
             <div>
               <p className="group-brand-name">ANCLORA GROUP</p>

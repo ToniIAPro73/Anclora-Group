@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Anclora Group',
   description: 'Portal corporativo interno de Anclora',
   icons: {
-    icon: '/brand/logo-anclora-group.png',
+    icon: '/brand/logo-anclora-group.webp',
   },
 }
 
