@@ -41,3 +41,13 @@ ANCLORA_GROUP_INTERNAL_USERS_JSON=[{"username":"...","password":"...","displayNa
 - tema por defecto centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_THEME`
 - copy agrupado en `src/lib/group-ui.ts` para facilitar la futura incorporación de toggles de idioma y tema
 - `Private Estates` enlaza a las raíces públicas de `Synergi` y `Data Lab`, mientras que `Anclora Group` usa sus rutas internas de acceso corporativo
+
+## Contratos UX/UI
+
+Lectura mínima antes de tocar interfaz:
+
+1. `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
+2. `docs/standards/ANCLORA_INTERNAL_APP_CONTRACT.md`
+3. `docs/standards/UI_MOTION_CONTRACT.md`
+4. `docs/standards/MODAL_CONTRACT.md`
+5. `docs/standards/LOCALIZATION_CONTRACT.md`
