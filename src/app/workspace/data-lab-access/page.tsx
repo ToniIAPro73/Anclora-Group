@@ -10,14 +10,14 @@ export default async function DataLabAccessPage() {
       session={session}
       title="Anclora Data Lab"
       eyebrow="Plataforma de inteligencia"
-      description="Acceso interno corporativo al entorno privado de Data Lab para perfiles autorizados con visibilidad sobre inteligencia territorial, documentación curada y activos analíticos."
+      description="Acceso corporativo al entorno privado de Data Lab para perfiles autorizados con visibilidad sobre inteligencia territorial, documentación curada y activos analíticos."
       logoSrc="/brand/logo-anclora-datalab.webp"
       loginHref={getDataLabLoginUrl()}
-      loginLabel="Abrir acceso interno de Data Lab"
+      loginLabel="Abrir acceso corporativo de Data Lab"
       accessTitle="Entrada al entorno privado de Data Lab"
-      accessCopy="Desde aquí el equipo interno accede a la capa privada de Data Lab, separada de la pantalla pública dual expuesta desde Private Estates."
+      accessCopy="Desde aquí el equipo autorizado accede a la capa privada de Data Lab, separada de la pantalla pública dual expuesta desde Private Estates."
       helperTitle="Acceso corporativo diferenciado"
-      helperCopy="Private Estates mantiene la entrada pública de solicitud + acceso. Anclora Group concentra el acceso interno y operativo a Data Lab para perfiles autorizados."
+      helperCopy="Private Estates mantiene la entrada pública de solicitud + acceso. Anclora Group concentra el acceso corporativo y operativo a Data Lab para perfiles autorizados."
     />
   )
 }

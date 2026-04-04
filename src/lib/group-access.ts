@@ -134,7 +134,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'ops-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops', 'advisory', 'growth-ops'],
-      url: getEnvUrl('NEXT_PUBLIC_COMMAND_CENTER_URL', 'https://boveda-anclora.vercel.app/'),
+      url: getEnvUrl('NEXT_PUBLIC_COMMAND_CENTER_URL', 'https://anclora-command-center.vercel.app/'),
     },
     {
       key: 'content-generator-ai',

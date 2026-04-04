@@ -41,7 +41,7 @@ export function GroupInternalAccessPage({
             </div>
             <div>
               <p className="group-brand-name">ANCLORA GROUP</p>
-              <p className="group-brand-line">Acceso interno corporativo</p>
+              <p className="group-brand-line">Entidad matriz y acceso corporativo</p>
             </div>
           </div>
           <div className="group-user-panel">
@@ -55,7 +55,7 @@ export function GroupInternalAccessPage({
             <div className="group-access-backline">
               <Link href="/workspace" className="group-access-backlink">
                 <ArrowLeft size={16} />
-                Volver al launcher interno
+                Volver al portal corporativo
               </Link>
             </div>
             <div className="group-access-brand">

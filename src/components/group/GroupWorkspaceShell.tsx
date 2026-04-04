@@ -54,7 +54,7 @@ export function GroupWorkspaceShell({ session }: Props) {
             </div>
             <div>
               <p className="group-brand-name">ANCLORA GROUP</p>
-              <p className="group-brand-line">Launcher interno corporativo con control por rol</p>
+              <p className="group-brand-line">Entidad matriz y portal corporativo con control por rol</p>
             </div>
           </div>
           <div className="group-user-panel">
@@ -87,7 +87,7 @@ export function GroupWorkspaceShell({ session }: Props) {
             <article>
               <Sparkles size={18} />
               <strong>1</strong>
-              <span>launcher premium unificado</span>
+              <span>portal corporativo unificado</span>
             </article>
           </div>
         </section>

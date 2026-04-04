@@ -4,7 +4,7 @@ import { getAppsForRole } from '../src/lib/group-access'
 
 test('group-admin sees the full launcher', () => {
   const apps = getAppsForRole('group-admin')
-  assert.equal(apps.length, 7)
+  assert.equal(apps.length, 8)
 })
 
 test('partner-ops sees synergi and data lab but not advisory ai', () => {
