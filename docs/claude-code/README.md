@@ -73,7 +73,7 @@ Para usuarios finales, clientes, partners e inversores.
 | Documento | App | Audiencia |
 |-----------|-----|----------|
 | `01_anclora-group_user.md` | Anclora Group | Equipo interno |
-| `02_anclora-private-estates-landing_user.md` | Private Estates Landing | Compradores/Inversores |
+| `02_anclora-private-estates-landing_user.md` | Private Estates Landing | Compradores/Inversores/Propietarios |
 | `03_anclora-private-estates_user.md` | Private Estates | Compradores/Inversores |
 | `04_anclora-synergi_user.md` | Synergi | Partners/Agentes |
 | `05_anclora-data-lab_user.md` | Data Lab | Analistas/Inversores |
@@ -88,7 +88,6 @@ Para usuarios finales, clientes, partners e inversores.
 
 ## ⚠️ Notas
 
-- La documentación de `02_anclora-private-estates-landing_*` es parcial (repositorio no accesible en la generación)
 - Los contratos UX/UI canónicos viven en **Anclora Command Center** (`docs/standards/`)
 - Cualquier cambio en contratos debe seguir el flujo de gobernanza de Command Center
 
