@@ -1,18 +1,18 @@
 # Anclora Advisor AI — Guía Técnica Interna
 
-**Clasificación:** Interno | **Versión:** 1.0 | **Fecha:** Abril 2026
+**Clasificación:** Interno | **Segmento:** Aplicaciones Internas | **Versión:** 1.1 | **Fecha:** Abril 2026
 
 ---
 
 ## 1. Propósito y Rol en el Ecosistema
 
-Anclora Advisor AI es la **aplicación de asesoría inteligente** del ecosistema Anclora. Proporciona orientación especializada en tres ámbitos interrelacionados:
+Anclora Advisor AI es el **asesor inteligente** del ecosistema Anclora. Proporciona orientación especializada en tres dominios:
 
-1. **Fiscal**: optimización tributaria para autónomos en pluriactividad
-2. **Laboral**: gestión de situaciones laborales complejas
-3. **Mercado inmobiliario**: análisis de oportunidades y tendencias
+1. **Fiscal**: IVA, IRPF, RETA, deducciones para autónomos en pluriactividad
+2. **Laboral**: pluriactividad, riesgos contractuales, despidos, compatibilidad de prestaciones
+3. **Mercado inmobiliario**: inteligencia de mercado de lujo, foco en Mallorca
 
-Target principal: autónomos en régimen de pluriactividad con exposición al sector inmobiliario.
+Target: autónomos en pluriactividad con exposición al sector inmobiliario español.
 
 ---
 
@@ -24,77 +24,126 @@ Target principal: autónomos en régimen de pluriactividad con exposición al se
 | UI | React | 19.x |
 | Lenguaje | TypeScript | — |
 | Base de datos | Supabase PostgreSQL + pgvector | — |
+| Auth | Supabase Auth | — |
 | LLM principal | Anthropic Claude | — |
-| LLM local | Ollama Mistral | — |
-| Deploy | Vercel | — |
+| LLMs alternativos | OpenAI, Groq, Cloudflare Workers AI, Ollama (local) | — |
+| Vision LLM | ZAI / GLM-4.5V (facturas con imagen) | — |
+| Embeddings | @xenova/transformers (384-dim) | — |
+| Email | Nodemailer (SMTP) | — |
+| PDF | pdf-lib | — |
+| Testing | Playwright (E2E + UI), tsx (unit/integration) | — |
+| Estilos | Tailwind CSS | — |
+| Deploy | Vercel (`ancloraadvisorai-ten.vercel.app`) | — |
 
-**Nota**: Advisor AI usa **Supabase** (no Neon), diferenciándose del resto del stack Premium que usa Neon. A tener en cuenta para consolidación futura.
+**Nota**: Advisor AI usa **Supabase** (no Neon), a diferencia del stack estándar Premium. Proyecto Supabase ref: `lvpplnqbyvscpuljnzqf`.
 
 ---
 
 ## 3. Arquitectura
 
-### Branding Module
+### Orquestador (lib/agents/orchestrator.ts)
 
-- `src/lib/advisor-brand.ts`: módulo centralizado de tokens de marca
+El cerebro central de la aplicación:
 
-### Modelo de IA
+- **Routing por especialidad**: palabras clave dirigen la consulta a fiscal / laboral / mercado
+- **Cascada de retrieval multi-tier**: umbrales de similitud configurables
+- **Selección de modelo**: primary (heavy) → fast (simple) → fallback (local)
+- **Response guard**: segunda llamada LLM verifica grounding cuando confianza es media/baja (anti-alucinación)
+- **Caché en memoria**: TTL-based para respuestas frecuentes
+- **Herramientas fiscales determinísticas**: cálculos basados en reglas (no LLM)
+- **Suggested actions**: acciones sugeridas contextuales
+- **Persistencia de conversación**: a Supabase
 
-- **Anthropic Claude**: consultas de alta complejidad (fiscal, legal)
-- **Ollama Mistral**: procesamiento local / fallback
-- **pgvector** (Supabase): almacenamiento de embeddings para RAG
+### Perfiles de Runtime AI (`AI_RUNTIME_PROFILE`)
 
-### Flujo de Asesoría
+| Perfil | Stack |
+|--------|-------|
+| local | Ollama (qwen2.5:14b principal, llama3.x fallback) |
+| groq_cloudflare | Groq + Cloudflare Workers AI |
+| anthropic | Anthropic Claude (principal) |
+| openai | OpenAI (alternativo) |
 
-```
-Usuario formula consulta → RAG retrieval (pgvector) → LLM (Claude/Mistral)
-    → Respuesta estructurada con referencias a normativa
-```
+### RAG Pipeline
+
+- Vector store: pgvector en Supabase (`rag_documents`)
+- Embeddings: @xenova/transformers (384-dim)
+- Categorías: `fiscal`, `laboral`, `mercado`
 
 ---
 
-## 4. Variables de Entorno
+## 4. Módulos Principales
 
-Configurar en `.env.local`:
+| Módulo | Descripción |
+|--------|-------------|
+| **Chat** (`/dashboard/chat`) | Interfaz principal de asesoría con RAG y citaciones |
+| **Fiscal** | Templates, workflow v1–v3, alertas fiscales |
+| **Laboral** | Evaluaciones de riesgo, mitigaciones v1–v3, storage de evidencias |
+| **Facturas** | Serie, pagos (v4), pagos parciales (v5), rectificaciones (v6), VeriFactu (v7), importación imagen+VLM (v8) |
+| **Admin Panel** | RBAC roles, jobs de ingesta, versiones de documentos RAG, audit logs, filtros de estado |
+| **Operations/Jobs** | Procesador outbox, alertas de recordatorio |
+| **NotebookLM** | Sync automático de fuentes a 3 notebooks (fiscal, laboral, brand/positioning) |
+
+---
+
+## 5. Variables de Entorno
 
 ```env
-# Supabase
+# Supabase (proyecto ref: lvpplnqbyvscpuljnzqf)
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+SUPABASE_SERVICE_ROLE_KEY=    # NUNCA exponer en cliente
 
-# LLMs
+# AI Runtime Profile
+AI_RUNTIME_PROFILE=anthropic  # local | groq_cloudflare | anthropic | openai
+
+# LLMs (según perfil activo)
 ANTHROPIC_API_KEY=
-OLLAMA_BASE_URL=http://localhost:11434  # Para Ollama local
+OPENAI_API_KEY=
+GROQ_API_KEY=
+OLLAMA_BASE_URL=http://localhost:11434
+CLOUDFLARE_AI_API_TOKEN=
 
 # App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=
+
+# Email
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
 ```
 
 ---
 
-## 5. Setup Local
+## 6. Schema de Base de Datos
+
+- `rag_documents`: documentos de conocimiento (fiscal/laboral/mercado)
+- `conversations`: historial de conversaciones
+- `ingest_jobs`: trabajos de ingesta de nuevos documentos
+- `audit_log`: registro de acciones del admin
+- Tablas de facturas: `invoice_series`, `invoices`, `invoice_payments`, etc.
+
+Migraciones SQL en `db/migrations/` (secuenciales, Feb–Mar 2026).
+
+---
+
+## 7. Comandos de Desarrollo
 
 ```bash
-# 1. Configurar .env.local con credenciales Supabase
-# 2. Instalar dependencias
 npm install
-
-# 3. Arrancar servidor de desarrollo
+# Configurar .env.local con credenciales Supabase
 npm run dev
-
-# Acceso: http://localhost:3000
+npm run test          # tsx unit/integration
+npm run test:e2e      # Playwright E2E
 ```
-
-**Opcional**: instalar Ollama localmente para usar Mistral sin API key externa.
 
 ---
 
-## 6. Branding Canónico
+## 8. Branding Canónico
 
 | Token | Valor |
 |-------|-------|
-| Familia | Interna (baseline de referencia del ecosistema) |
+| Familia | **Interna** (baseline de referencia del ecosistema) |
 | Tipografía display | Cormorant Garamond |
 | Tipografía body | Source Sans 3 |
 | Accent (placeholder) | Mint `#1dab89` |
@@ -102,11 +151,10 @@ npm run dev
 | Prefijo componentes | `advisor-` |
 | Prefijo assets | `advisor_` |
 | Módulo branding | `src/lib/advisor-brand.ts` |
-| Estado activos finales | Pendientes de entrega |
 
 ---
 
-## 7. Contratos UX/UI
+## 9. Contratos UX/UI
 
 1. `ANCLORA_INTERNAL_APP_CONTRACT.md`
 2. `UI_MOTION_CONTRACT.md`
@@ -115,23 +163,13 @@ npm run dev
 
 ---
 
-## 8. Diferencias con el Resto del Ecosistema
+## 10. Notas de Seguridad
 
-| Aspecto | Advisor AI | Ecosistema estándar |
-|---------|-----------|---------------------|
-| Base de datos | Supabase PostgreSQL | Neon PostgreSQL |
-| Tipografía display | Cormorant Garamond | Variable por familia |
-| LLM secundario | Ollama Mistral (local) | No aplica |
-| Target usuario | Autónomos pluriactividad | Inversores/equipos |
+- `SUPABASE_SERVICE_ROLE_KEY` es privilegiada — NUNCA en el cliente
+- Las consultas de asesoría fiscal/legal son sensibles; logs con cuidado
+- Supabase RLS debe estar habilitado en todas las tablas de usuario
+- NO mezclar con el proyecto Supabase de Nexus (`jtlnmypcrgmzxeuiffup`)
 
 ---
 
-## 9. Notas de Seguridad
-
-- `SUPABASE_SERVICE_ROLE_KEY` es una clave privilegiada — NUNCA expoenerla en cliente
-- Las consultas de asesoría fiscal/legal son sensibles; registrar logs con cuidado
-- Supabase Row Level Security (RLS) debe estar habilitado en tablas de usuario
-
----
-
-*Generado por Claude Code — Abril 2026*
+*Generado por Claude Code — Abril 2026 (v1.1)*
