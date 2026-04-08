@@ -1,38 +1,43 @@
 # Anclora Group — Visión General del Ecosistema Real Estate
 
-**Fecha:** Abril 2026 | **Versión:** 1.0 | **Clasificación:** Interno / Estratégico
+**Fecha:** Abril 2026 | **Versión:** 1.1 | **Clasificación:** Interno / Estratégico
 
 ---
 
 ## 1. Visión del Ecosistema
 
-Anclora Group es la entidad matriz que vertebra un ecosistema digital de aplicaciones premium orientadas al sector inmobiliario de lujo. Cada aplicación cumple un rol específico dentro de la cadena de valor: desde la captación y presentación de propiedades de lujo hasta la gestión de partners, analítica de datos, generación de contenido con IA y asesoría especializada.
+Anclora Group es la entidad matriz que vertebra un ecosistema digital de aplicaciones premium orientadas al sector inmobiliario de lujo en las Islas Baleares (Mallorca, Ibiza, Menorca). Cada aplicación cumple un rol específico dentro de la cadena de valor: desde la captación y presentación de propiedades de lujo hasta la gestión de partners, analítica de datos, generación de contenido con IA y asesoría especializada.
 
 ### Principios rectores
 
 - **Coherencia de marca**: Contratos UX/UI compartidos garantizan consistencia visual en todo el ecosistema.
 - **Modularidad**: Cada aplicación es autónoma pero interoperable.
 - **Escalabilidad**: Arquitectura preparada para crecer sin rehacer los fundamentos.
-- **Calidad premium**: Estándares de diseño y rendimiento aplicados al nivel del sector de lujo.
+- **Calidad premium**: Estándares de diseño y rendimiento al nivel del sector de lujo.
 
 ---
 
 ## 2. Mapa del Ecosistema Real Estate
 
 ```
-Anclora Group (Entidad Matriz)
+Anclora Group (Entidad Matriz) — hub corporativo interno
 │
+│ [CAPA DE ENTRADA]
 ├── Ultra Premium Real Estate
 │   ├── Anclora Private Estates Landing  ← Landing page de captación
 │   └── Anclora Private Estates          ← Plataforma principal de propiedades
 │
-├── Premium Real Estate (Apps de soporte)
+│ [CAPA CORE]
+├── Premium Real Estate
 │   ├── Anclora Synergi                  ← Portal de admisión de partners
-│   ├── Anclora Data Lab                 ← Inteligencia analítica
+│   ├── Anclora Data Lab                 ← Inteligencia analítica Baleares
+│   └── Anclora Command Center           ← Bóveda operativa y documental
+│
+│ [CAPA DE ACTIVACIÓN]
+├── Aplicaciones Internas Real Estate
 │   ├── Anclora Content Generator AI     ← Motor editorial con IA
 │   ├── Anclora Advisor AI               ← Asesoría fiscal e inmobiliaria
-│   ├── Anclora Command Center           ← Bóveda operativa y documental
-│   └── Anclora Nexus                    ← Workspace operativo interno
+│   └── Anclora Nexus                    ← CRM/workspace operativo interno
 │
 └── Portfolio Real Estate
     ├── Anclora Portfolio                ← Blueprint técnico reutilizable
@@ -54,20 +59,25 @@ Anclora Group (Entidad Matriz)
 | App | Repo | Stack Principal | Propósito |
 |-----|------|-----------------|-----------|
 | Anclora Private Estates Landing | ToniIAPro73/anclora-private-estates-landing | — | Landing page de marketing Ultra Premium |
-| Anclora Private Estates | ToniIAPro73/Anclora-Private-Estates | React 19, Vite, GSAP | Frontend principal para propiedades de lujo |
+| Anclora Private Estates | ToniIAPro73/Anclora-Private-Estates | React 19, Vite, GSAP, i18next | Plataforma principal de propiedades de lujo |
 
 ### 3.3 Premium Real Estate
 
 | App | Repo | Stack Principal | Propósito |
 |-----|------|-----------------|-----------|
-| Anclora Synergi | ToniIAPro73/anclora-synergi | Next.js, Neon DB, Resend | Portal de admisión y gestión de partners |
-| Anclora Data Lab | ToniIAPro73/anclora-data-lab | Next.js, Neon DB | Inteligencia analítica y activos de datos |
-| Anclora Content Generator AI | ToniIAPro73/anclora-content-generator-ai | Next.js 15, Anthropic, pgvector | Motor editorial AI para Real Estate de lujo |
-| Anclora Advisor AI | ToniIAPro73/Anclora-Advisor-AI | Next.js 15, Supabase, Anthropic | Asesoría fiscal, laboral e inmobiliaria |
-| Anclora Command Center | ToniIAPro73/anclora-command-center | Obsidian, PowerShell | Bóveda documental y contractual del ecosistema |
-| Anclora Nexus | ToniIAPro73/Anclora-Nexus | Next.js, multilingual | Workspace operativo interno |
+| Anclora Synergi | ToniIAPro73/anclora-synergi | Next.js 16, Neon, Resend | Portal de admisión y gestión de partners |
+| Anclora Data Lab | ToniIAPro73/anclora-data-lab | Next.js 16, Neon, Tailwind | Inteligencia analítica Baleares |
+| Anclora Command Center | ToniIAPro73/anclora-command-center | Obsidian + React/Vite dashboard | Bóveda documental y contractual del ecosistema |
 
-### 3.4 Portfolio Real Estate
+### 3.4 Aplicaciones Internas Real Estate
+
+| App | Repo | Stack Principal | Propósito |
+|-----|------|-----------------|-----------|
+| Anclora Content Generator AI | ToniIAPro73/anclora-content-generator-ai | Next.js 15, Better Auth, Neon/pgvector, Anthropic | Motor editorial AI para Real Estate de lujo |
+| Anclora Advisor AI | ToniIAPro73/Anclora-Advisor-AI | Next.js 15, Supabase/pgvector, Anthropic+multi-LLM | Asesoría fiscal, laboral e inmobiliaria |
+| Anclora Nexus | ToniIAPro73/Anclora-Nexus | Next.js frontend + FastAPI/LangGraph backend, Supabase | CRM de prospección y workspace operativo |
+
+### 3.5 Portfolio Real Estate
 
 | App | Repo | Stack Principal | Propósito |
 |-----|------|-----------------|-----------|
@@ -80,14 +90,15 @@ Anclora Group (Entidad Matriz)
 
 | Grupo | Apps | Color Accent | Tipografía Base |
 |-------|------|-------------|------------------|
-| **Ultra Premium** | Private Estates | Oro `#D4AF37`, Fondo Teal `#07252F` | Cardo, Fraunces, Inter |
+| **Ultra Premium** | Private Estates | Oro `#D4AF37`, Teal `#07252F` | Cardo, Fraunces, Inter |
 | **Premium** | Synergi | Púrpura `#8C5AB4` | DM Sans |
-| **Premium** | Data Lab | — | — |
-| **Premium / Interna** | Content Generator AI | Coral `#E06848` | Inter, JetBrains Mono |
+| **Premium** | Data Lab | Teal/Verde `#2DA078` | — |
+| **Premium** | Command Center (dashboard) | Dark premium | Inter |
+| **Interna** | Content Generator AI | Coral `#E06848` | Inter, JetBrains Mono |
 | **Interna** | Advisor AI | Mint `#1dab89`, Navy `#162944` | Cormorant Garamond, Source Sans 3 |
-| **Interna** | Nexus | Oro `#D4AF37` | Inter |
+| **Interna** | Nexus | Oro `#D4AF37`, Navy `#0F1629` | Inter, Playfair Display |
 | **Portfolio** | Portfolio, Azure Bay | Neutro premium | Inter, sistema shadcn/ui |
-| **Corporativa** | Anclora Group | Dark, `Georgia` | Georgia |
+| **Corporativa** | Anclora Group | Dark, Georgia | Georgia |
 
 ---
 
@@ -107,7 +118,7 @@ La bóveda canónica vive en `Anclora Command Center` (`docs/standards/`) y se p
 | `MODAL_CONTRACT.md` | Todos |
 | `LOCALIZATION_CONTRACT.md` | Todos |
 | `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md` | Private Estates |
-| `ANCLORA_PREMIUM_APP_CONTRACT.md` | Synergi, Data Lab |
+| `ANCLORA_PREMIUM_APP_CONTRACT.md` | Synergi, Data Lab, Command Center dashboard |
 | `ANCLORA_INTERNAL_APP_CONTRACT.md` | Content Gen AI, Advisor AI, Nexus |
 
 ---
@@ -117,58 +128,65 @@ La bóveda canónica vive en `Anclora Command Center` (`docs/standards/`) y se p
 ```
 Cliente/Inversor
     │
-    ├─► Azure Bay Landing ──► HubSpot CRM ──► SMTP Email + S3 (Dossier PDF personalizado)
+    ├─► Private Estates ──► formulario contacto ──► Nexus API (lead capture)
+    │    (SPA Vite/React)       │                  │
+    │                          ├──► Synergi (partners)
+    │                          └──► Data Lab (acceso controlado)
     │
-    ├─► Private Estates Landing ──► Private Estates (exploración de propiedades)
-    │                                   │
-    │                                   ├──► Synergi (registro de partners/agentes)
-    │                                   └──► Data Lab (acceso a analítica para perfiles aprobados)
+    ├─► Azure Bay Landing ──► HubSpot CRM ──► SMTP + S3 (PDF personalizado)
     │
-    └─► Anclora Group (portal corporativo, launcher por rol)
+    └─► Anclora Group (portal corporativo, 7 roles, 3 capas)
             │
-            ├──► Command Center (gobernanza y documentación interna)
-            ├──► Content Generator AI (producción de contenido editorial)
-            ├──► Advisor AI (consultas de asesoría)
-            └──► Nexus (workspace operativo del equipo interno)
+            ├──► Nexus (CRM: prospección vendedores Mallorca, StateFox, LangGraph)
+            ├──► Command Center (gobernanza documental)
+            ├──► Content Generator AI (producción editorial)
+            ├──► Advisor AI (asesoría fiscal/inmobiliaria)
+            ├──► Synergi (backoffice de partners)
+            └──► Data Lab (inteligencia de mercado)
 ```
 
 ---
 
-## 7. Estándares de Calidad del Ecosistema
+## 7. Arquitectura de Acceso de Anclora Group
+
+Anclora Group organiza las apps en 3 capas y 7 roles:
+
+| Capa | Apps | Roles con acceso |
+|------|------|------------------|
+| **Entry Layer** | Private Estates, Synergi | private-estates-ops, partner-ops |
+| **Core Layer** | Data Lab, Nexus, Command Center | data-ops, group-admin |
+| **Activation Layer** | Content Gen AI, Advisor AI, Impulso | content-ops, advisory, growth-ops |
+
+---
+
+## 8. Estándares de Calidad del Ecosistema
 
 | Área | Estándar |
 |------|----------|
 | Performance | Lighthouse KPI gates — Core Web Vitals |
 | Accesibilidad | WCAG 2.1 AA mínimo en apps públicas |
-| Testing | Vitest como framework estándar |
+| Testing | Vitest (unit) + Playwright (E2E) |
 | CI/CD | GitHub Actions + Vercel deployments |
 | Idiomas base | Español / Inglés |
-| Idiomas extendidos | Private Estates: de, fr — Nexus: de, ru |
+| Idiomas extendidos | Private Estates, Group: de, fr — Data Lab: de — Nexus: de, ru |
 | Commits | Convención `feat/fix/docs: [ANCLORA-XXX] Descripción` |
 
 ---
 
-## 8. URLs de Producción
+## 9. URLs de Producción
 
 | App | URL |
 |-----|-----|
-| Anclora Group | (configurable, ver env `NEXT_PUBLIC_*`) |
+| Anclora Group | (configurable vía env) |
+| Private Estates | https://anclora-private-estates.vercel.app |
 | Synergi | https://anclora-synergi.vercel.app |
 | Data Lab | https://anclora-data-lab.vercel.app |
-| Private Estates | https://anclora-private-estates.vercel.app |
 | Nexus | https://anclora-nexus-frontend.vercel.app |
-| Command Center | https://anclora-command-center.vercel.app |
+| Command Center | https://boveda-anclora.vercel.app |
+| Content Generator AI | https://anclora-content-generator-ai.vercel.app |
+| Advisor AI | https://ancloraadvisorai-ten.vercel.app |
 | Azure Bay Landing | https://playaviva-uniestate.vercel.app |
 
 ---
 
-## 9. Documentación por Artefacto
-
-Este directorio `docs/claude-code/` contiene la documentación completa para cada artefacto:
-
-- `internal/` — Guías técnicas internas para el equipo de desarrollo
-- `user/` — Guías orientadas a usuarios finales y clientes
-
----
-
-*Generado por Claude Code — Abril 2026*
+*Generado por Claude Code — Abril 2026 (v1.1)*
