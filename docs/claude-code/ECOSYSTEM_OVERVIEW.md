@@ -58,7 +58,7 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 
 | App | Repo | Stack Principal | Propósito |
 |-----|------|-----------------|-----------|
-| Anclora Private Estates Landing | ToniIAPro73/anclora-private-estates-landing | — | Landing page de marketing Ultra Premium |
+| Anclora Private Estates Landing | ToniIAPro73/anclora-private-estates-landing | React 19, Vite 7, TypeScript, Tailwind | Landing page de captación Ultra Premium (compradores, inversores y propietarios) |
 | Anclora Private Estates | ToniIAPro73/Anclora-Private-Estates | React 19, Vite, GSAP, i18next | Plataforma principal de propiedades de lujo |
 
 ### 3.3 Premium Real Estate
@@ -126,12 +126,14 @@ La bóveda canónica vive en `Anclora Command Center` (`docs/standards/`) y se p
 ## 6. Flujo de Valor y Relaciones entre Apps
 
 ```
-Cliente/Inversor
+Cliente/Inversor/Propietario
     │
-    ├─► Private Estates ──► formulario contacto ──► Nexus API (lead capture)
-    │    (SPA Vite/React)       │                  │
-    │                          ├──► Synergi (partners)
-    │                          └──► Data Lab (acceso controlado)
+    ├─► Private Estates Landing ──► Nexus API (lead capture / valoración)
+    │    (SPA React 19/Vite)         │
+    │         │                     └──► Synergi (sección partners)
+    │         │                     └──► Data Lab (señales de mercado)
+    │         └──► Private Estates (app principal — CTA final)
+    │               (SPA Vite/React, GSAP, i18next)
     │
     ├─► Azure Bay Landing ──► HubSpot CRM ──► SMTP + S3 (PDF personalizado)
     │
