@@ -1,143 +1,155 @@
-# Anclora Command Center — Guía Técnica Interna
+# Anclora Command Center (Bóveda Anclora) — Guía Técnica Interna
 
-**Clasificación:** Interno | **Versión:** 1.0 | **Fecha:** Abril 2026
+**Clasificación:** Interno | **Segmento:** Premium | **Versión:** 1.1 | **Fecha:** Abril 2026
 
 ---
 
 ## 1. Propósito y Rol en el Ecosistema
 
-Anclora Command Center es la **bóveda operativa y documental** del ecosistema Anclora. Es el único repositorio de verdad para:
+Anclora Command Center ("Bóveda Anclora") es la **bóveda operativa y documental** del ecosistema. Es un sistema dual:
 
-- Contratos UX/UI canónicos del ecosistema
-- Documentación estratégica y operativa
-- Gobernanza del sistema de contratos
-- Mapas de negocio, stack y operaciones
+1. **Vault Obsidian**: "segundo cerebro" y hub master de documentación para todo el ecosistema Anclora — knowledge base estratégico/operativo, contratos de gobernanza, research, playbooks, tracking de proyectos.
+2. **Dashboard React/Vite** (`dashboard/`): capa de visualización interactiva ejecutiva que consume el vault Obsidian como fuente de datos.
 
 **Principio fundamental**: Los cambios de contratos UX/UI van PRIMERO a Command Center, luego se propagan al resto de repos.
 
 ---
 
-## 2. Naturaleza del Repositorio
+## 2. Stack Tecnológico
 
-A diferencia del resto del ecosistema, Command Center es principalmente un **repositorio Obsidian** (vault de conocimiento), no una aplicación web tradicional. Contiene:
+### Vault Obsidian (capa de conocimiento)
+- Markdown puro con wikilinks Obsidian, frontmatter, callouts
+- Skills para agentes AI en `.codex/skills/` y `.claude/skills/`
+- Scripts PowerShell para gobernanza automática de contratos
 
-- Vault de notas Obsidian con wikilinks
-- Scripts PowerShell para gobernanza automática
-- Dashboard web premium (`dashboard/`) como capa de visualización
-- Sistema de MOCs (Maps of Content)
+### Dashboard App (`dashboard/`)
+
+| Capa | Tecnología | Versión |
+|------|-----------|--------|
+| Framework | **React** (no Next.js) | 19 |
+| Bundler | **Vite** | 8.x |
+| Lenguaje | TypeScript | — |
+| Parsing markdown | gray-matter | — |
+| Export Excel | ExcelJS | — |
+| File watching | chokidar | — |
+| Deploy | Vercel (`boveda-anclora.vercel.app`) | — |
+
+**Nota importante**: el dashboard usa **React + Vite**, NO Next.js.
 
 ---
 
-## 3. Estructura del Vault
+## 3. Estructura del Vault Obsidian
 
 ```
+daily-notes/        # Log diario: ops, foco, decisiones
+proyectos/          # Notas de proyectos con estado y próximos pasos
+research/           # Inteligencia de mercado, comparativas, hipótesis
+playbooks/          # Procedimientos y checklists repetibles
+sistemas/           # Decisiones de arquitectura y reglas de sistema
+personas/           # Memoria relacional de contactos clave
+ideas/              # Pre-proyecto / ideación
+inbox/              # Cola de captura rápida
+templates/          # Plantillas de notas reutilizables
+resources/          # Guías canónicas y documentación maestra
 docs/
   standards/        # CANON: contratos UX/UI del ecosistema
-  governance/       # Gobernanza de contratos
-    CONTRACT_HIERARCHY.md
-    CONTRACT_CONDITION_CATALOG.md
-    APPLICATION_FAMILY_MAP.md
-    CONTRACT_COMPLIANCE_MATRIX.md
+  governance/       # Jerarquía, compliance matrix, catálogo de condiciones
   cambios/          # Cola y historial de cambios contractuales
-    CONTRACT_CHANGE_QUEUE.md
-    CONTRACT_CHANGE_HISTORY.md
-playbooks/          # Playbooks operativos
-research/           # Investigación y análisis
-resources/          # Recursos y referencias
-sistemas/           # Documentación de sistemas
 logs/
-  contract-governance.log  # Log de gobernanza contractual
-scripts/            # Scripts PowerShell de automatización
-dashboard/
-  docs/standards/   # Copia de contratos específicos del dashboard
+  contract-governance.log  # Audit trail de gobernanza
+scripts/            # PowerShell de automatización
 ```
 
 ---
 
-## 4. Sistema de Gobernanza de Contratos
+## 4. Dashboard App (React/Vite)
+
+### Módulos principales
+
+- **ExecutiveView** (`src/modules/executive/ExecutiveView.tsx`) — visión de alto nivel del ecosistema
+- **RealEstateView** (`src/modules/real-estate/RealEstateView.tsx`) — pipeline de propiedades, métricas de prospección
+- **DashboardShell** (`src/DashboardShell.tsx`) — shell y navegación principal
+
+### Build pipeline del dashboard
+
+```bash
+npm run sync:vault     # Sincroniza vault markdown en public/ o generated/
+npm run sync:notes     # Sincroniza notas específicas
+npm run tsc            # Verifica TypeScript
+npm run build          # Vite build
+```
+
+### Scripts de sincronización
+
+```
+scripts/sync-vault-data.mjs
+scripts/sync-real-estate-dataset.mjs
+scripts/watch-notes-and-sync.mjs
+scripts/generate-workbook-from-excel.mjs
+```
+
+---
+
+## 5. Sistema de Gobernanza de Contratos
 
 ### Flujo de Cambios
 
 ```
 1. Detectar cambios en docs/standards/
 2. Registrar en CONTRACT_CHANGE_QUEUE.md
-3. Analizar: ANALYSIS_REQUIRED → PLAN_READY
+3. ANALYSIS_REQUIRED → PLAN_READY
 4. Decisiones: APPROVED / REJECTED / APP_ONLY
-5. Si APPROVED: actualizar bóveda primero, luego propagar a repos afectados
+5. Si APPROVED: actualizar bóveda PRIMERO, luego propagar a repos
 6. Actualizar CONTRACT_COMPLIANCE_MATRIX.md
-7. Mover cambio a historial (CONTRACT_CHANGE_HISTORY.md)
+7. Mover a historial (CONTRACT_CHANGE_HISTORY.md)
 ```
 
-### Flujo Diario Recomendado
-
-```
-1. Detectar cambios nuevos en docs/standards/
-2. Registrar en cola si no existen
-3. Procesar solo cambios aprobados
-4. Auditar sincronización contractual entre repos
-5. Revisar logs/contract-governance.log
-```
-
----
-
-## 5. Scripts PowerShell
+### Scripts PowerShell
 
 | Script | Función |
 |--------|----------|
-| `propagate-contracts.ps1` | Propaga contratos aprobados a repos |
-| `audit-contract-sync.ps1` | Audita sincronización de contratos |
-| `close-contract-change.ps1` | Cierra un cambio contractual |
-| `process-contract-change-queue.ps1` | Procesa la cola de cambios |
-| `detect-contract-changes.ps1` | Detecta nuevos cambios en `docs/standards/` |
+| `propagate-contracts.ps1` | Propaga contratos aprobados |
+| `audit-contract-sync.ps1` | Audita sincronización entre repos |
 | `run-contract-governance-cycle.ps1` | Ciclo completo de gobernanza |
-| `register-daily-contract-governance-task.ps1` | Registra tarea diaria en Task Scheduler |
-| `send-contract-governance-reminder.ps1` | Envía recordatorio de gobernanza |
+| `detect-contract-changes.ps1` | Detecta cambios en `docs/standards/` |
+| `close-contract-change.ps1` | Cierra un cambio |
+| `process-contract-change-queue.ps1` | Procesa la cola |
 
 ---
 
-## 6. Contratos Canónicos (en `docs/standards/`)
+## 6. Integraciones del Ecosistema (desde el vault)
 
-| Contrato | Ámbito |
-|----------|--------|
-| `ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md` | Todos los repos |
-| `ANCLORA_BRANDING_MASTER_CONTRACT.md` | Todos los repos |
-| `ANCLORA_BRANDING_COLOR_TOKENS.md` | Todos los repos |
-| `ANCLORA_BRANDING_TYPOGRAPHY.md` | Todos los repos |
-| `ANCLORA_BRANDING_ICON_SYSTEM.md` | Todos los repos |
-| `ANCLORA_BRANDING_FAVICON_SPEC.md` | Todos los repos |
-| `UI_MOTION_CONTRACT.md` | Todos los repos |
-| `MODAL_CONTRACT.md` | Todos los repos |
-| `LOCALIZATION_CONTRACT.md` | Todos los repos |
-| `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md` | Private Estates |
-| `ANCLORA_PREMIUM_APP_CONTRACT.md` | Synergi, Data Lab |
-| `ANCLORA_INTERNAL_APP_CONTRACT.md` | Content Gen AI, Advisor AI, Nexus |
+| Herramienta | Uso |
+|-------------|-----|
+| StateFox | Señales territoriales y datos de propiedades |
+| Inmovilla | CRM / datos de mercado |
+| Coda | Gestión de pipeline |
+| Slack | Coordinación de equipo |
+| Vercel | Deploy del dashboard |
+| NotebookLM | "Inteligencia Territorial Suroeste Mallorca 2026" |
+| GitHub | Tracking de todos los repos del ecosistema |
+| Obsidian | Editor del vault |
 
 ---
 
-## 7. MOCs (Maps of Content) Principales
+## 7. MOCs Principales (Maps of Content)
 
 - `[[Anclora Group]]` — Hub corporativo
-- `[[Anclora Command Center]]` — Este vault
 - `[[MOC de Negocio]]` — Mapa de negocio
 - `[[MOC Real Estate Comercial]]` — Mapa comercial
-- `[[MOC Stack Operativo Anclora]]` — Mapa del stack tecnológico
-- `[[MOC Toni - Marca Personal y Autoridad]]` — Marca personal
+- `[[MOC Stack Operativo Anclora]]` — Stack tecnológico
 - `[[Mapa del Sistema de Agentes]]` — Arquitectura de agentes AI
+- `[[MOC Toni - Marca Personal y Autoridad]]` — Marca personal
 
 ---
 
-## 8. Dashboard del Command Center
-
-El directorio `dashboard/` contiene una aplicación web premium (grupo Premium) con sus propios contratos en `dashboard/docs/standards/`. Es una capa de visualización sobre el vault.
-
----
-
-## 9. Notas Críticas
+## 8. Notas Críticas
 
 - **NUNCA** modificar contratos en un repo individual sin pasar por Command Center primero
 - El log `logs/contract-governance.log` es el único registro de auditoría de cambios contractuales
-- Los wikilinks de Obsidian (`[[...]]`) son internos del vault; no funcionan en GitHub
+- Los wikilinks Obsidian (`[[...]]`) son internos del vault; no funcionan en GitHub
+- El dashboard (`boveda-anclora.vercel.app`) y el vault son la misma codebase, con el dashboard en `dashboard/`
 
 ---
 
-*Generado por Claude Code — Abril 2026*
+*Generado por Claude Code — Abril 2026 (v1.1)*
