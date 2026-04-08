@@ -1,14 +1,18 @@
 # Anclora Group — Guía Técnica Interna
 
-**Clasificación:** Interno | **Versión:** 1.0 | **Fecha:** Abril 2026
+**Clasificación:** Interno | **Versión:** 1.1 | **Fecha:** Abril 2026
 
 ---
 
 ## 1. Propósito y Rol en el Ecosistema
 
-Anclora Group es la **entidad matriz** del ecosistema Anclora. Actúa como portal corporativo centralizado que proporciona autenticación corporativa ligera (cookie firmada, sin OAuth externo), launcher de aplicaciones con control de acceso por rol, gestión de identidad de marca base del ecosistema, y punto de entrada único para todos los empleados y administradores.
+Anclora Group es la **entidad matriz** del ecosistema Anclora. Actúa como portal corporativo centralizado (intranet/launcher) que proporciona:
 
-No es una app de cara al cliente final. Es el hub de operación interna.
+- Autenticación corporativa ligera (cookie HMAC-SHA256, sin OAuth externo)
+- Launcher de aplicaciones con control de acceso por 7 roles definidos
+- Modelo de 3 capas: Entry Layer / Core Layer / Activation Layer
+- Punto de entrada único para todos los empleados
+- Páginas relay para tools internas (Synergi, Data Lab)
 
 ---
 
@@ -16,37 +20,64 @@ No es una app de cara al cliente final. Es el hub de operación interna.
 
 | Capa | Tecnología | Versión |
 |------|-----------|--------|
-| Framework | Next.js (App Router) | 16.x |
+| Framework | Next.js (App Router, SSR puro) | 16.1.6 |
 | Lenguaje | TypeScript | 5.x |
 | UI | React | 19.x |
+| Auth | HMAC-SHA256 cookie (custom) | — |
 | Iconos | lucide-react | 0.563+ |
 | PDF | pdf-lib | 1.17+ |
 | Imágenes | sharp | 0.34+ |
-| Testing | tsx --test | 4.x |
-| Deploy | Vercel / Next.js standalone | — |
+| Testing | Node.js built-in test runner (tsx) | — |
+| Linting | ESLint 9 + eslint-config-next | — |
+| Deploy | Vercel | — |
+
+**Sin base de datos**: toda la gestión de usuarios es vía variables de entorno.
 
 ---
 
 ## 3. Arquitectura
 
-### Modelo de Autenticación
+### Autenticación (src/lib/group-auth.ts)
 
-- Cookie firmada con `ANCLORA_GROUP_SESSION_SECRET`
-- Usuario bootstrap configurable vía variables de entorno
-- Usuarios adicionales vía `ANCLORA_GROUP_INTERNAL_USERS_JSON` (array JSON en env)
-- Roles: `group-admin` y extensible
-- **Sin base de datos**: los usuarios viven en variables de entorno
+- Cookie HMAC-SHA256 firmada: `anclora-group-session`
+- Expiry: 12 horas
+- Flags: `httpOnly`, `sameSite: lax`
+- Usa `timingSafeEqual` para prevenir timing attacks
+- Usuario bootstrap: vía env vars
+- Usuarios adicionales: `ANCLORA_GROUP_INTERNAL_USERS_JSON` (array JSON)
 
-### Launcher por Rol
+### Control de Acceso (src/lib/group-access.ts)
 
-El portal muestra las aplicaciones del ecosistema según el rol del usuario autenticado. Cada app del ecosistema está enlazada a través de variables de entorno `NEXT_PUBLIC_*_URL`.
+7 roles definidos:
 
-### Branding Base
+| Rol | Acceso a |
+|-----|----------|
+| `group-admin` | Todas las apps |
+| `private-estates-ops` | Private Estates |
+| `partner-ops` | Synergi |
+| `data-ops` | Data Lab, Nexus, Command Center |
+| `content-ops` | Content Generator AI |
+| `advisory` | Advisor AI |
+| `growth-ops` | Impulso + apps de activación |
 
-- Tipografía: `Georgia` (serif)
-- Tema: `dark` por defecto (configurable vía `NEXT_PUBLIC_GROUP_DEFAULT_THEME`)
-- Idioma: `es` por defecto (configurable vía `NEXT_PUBLIC_GROUP_DEFAULT_LOCALE`)
-- Copy agrupado en `src/lib/group-ui.ts`
+8 apps registradas en el launcher (ver sección Integraciones).
+
+### Modelo de 3 Capas
+
+```
+Entry Layer:       Private Estates, Synergi
+Core Layer:        Data Lab, Nexus, Command Center
+Activation Layer:  Content Generator AI, Advisor AI, Impulso
+```
+
+### Páginas Relay
+
+- `/workspace/synergi-access` → redirige al backoffice de Synergi (autenticación requerida)
+- `/workspace/data-lab-access` → redirige al backoffice de Data Lab
+
+### Localización
+
+4 idiomas preparados: `es`, `en`, `de`, `fr`. Actualmente `en/de/fr` son mirrors de `es` (placeholders). Todo el copy centralizado en `src/lib/group-ui.ts`.
 
 ---
 
@@ -59,90 +90,90 @@ ANCLORA_GROUP_BOOTSTRAP_USERNAME=
 ANCLORA_GROUP_BOOTSTRAP_PASSWORD=
 ANCLORA_GROUP_BOOTSTRAP_DISPLAY_NAME=
 ANCLORA_GROUP_BOOTSTRAP_ROLE=group-admin
-
-# Usuarios adicionales (opcional)
 ANCLORA_GROUP_INTERNAL_USERS_JSON=[{"username":"...","password":"...","displayName":"...","role":"group-admin"}]
 
-# Configuración de UI
+# UI
 NEXT_PUBLIC_GROUP_DEFAULT_LOCALE=es
 NEXT_PUBLIC_GROUP_DEFAULT_THEME=dark
 
-# URLs del ecosistema
+# URLs del ecosistema (todas sobreescribibles)
 NEXT_PUBLIC_PRIVATE_ESTATES_URL=https://anclora-private-estates.vercel.app/
 NEXT_PUBLIC_SYNERGI_INTERNAL_URL=https://anclora-synergi.vercel.app/partner-admissions/login
 NEXT_PUBLIC_DATA_LAB_INTERNAL_URL=https://anclora-data-lab.vercel.app/access-requests/login
 NEXT_PUBLIC_NEXUS_URL=https://anclora-nexus-frontend.vercel.app/
-NEXT_PUBLIC_COMMAND_CENTER_URL=https://anclora-command-center.vercel.app/
-NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL=
-NEXT_PUBLIC_ADVISOR_AI_URL=
+NEXT_PUBLIC_COMMAND_CENTER_URL=https://boveda-anclora.vercel.app/
+NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL=https://anclora-content-generator-ai.vercel.app/
+NEXT_PUBLIC_ADVISOR_AI_URL=https://ancloraadvisorai-ten.vercel.app/
 ```
 
 ---
 
-## 5. Estructura de Directorios Relevante
+## 5. Apps Registradas en el Launcher
+
+| App Key | Título | Tipo | Visibilidad | URL por defecto |
+|---------|--------|------|-------------|------------------|
+| `private-estates` | Anclora Private Estates | external-hub | Pública | anclora-private-estates.vercel.app |
+| `synergi` | Anclora Synergi | partner-platform | Interna | anclora-synergi.vercel.app |
+| `data-lab` | Anclora Data Lab | intelligence-platform | Interna | anclora-data-lab.vercel.app |
+| `nexus` | Anclora Nexus | ops-platform | Interna | anclora-nexus-frontend.vercel.app |
+| `command-center` | Anclora Command Center | ops-platform | Interna | boveda-anclora.vercel.app |
+| `content-generator-ai` | Anclora Content Generator AI | ai-platform | Interna | anclora-content-generator-ai.vercel.app |
+| `advisor-ai` | Anclora Advisor AI | ai-platform | Interna | ancloraadvisorai-ten.vercel.app |
+| `impulso` | Anclora Impulso | wellness-platform | Interna | anclora-impulso.vercel.app |
+
+---
+
+## 6. Estructura de Directorios Relevante
 
 ```
 src/
-  app/           # App Router de Next.js — páginas y layouts
   lib/
-    group-ui.ts  # Copy centralizado de UI (preparado para i18n)
+    group-auth.ts      # HMAC session auth
+    group-access.ts    # 7 roles + 8 apps registry
+    group-ui.ts        # Copy centralizado y locale handling
+  components/
+    group/
+      GroupWorkspaceShell.tsx  # Launcher principal
 public/
-  brand/         # Activos de marca (logo, favicon SVG)
-  docs/          # Documentación interna de arquitectura
+  brand/               # Activos de marca
+  docs/                # PDF de arquitectura
 scripts/
-  dev-safe.ps1                    # Script de arranque seguro (PowerShell)
-  generate-architecture-pdf.mjs   # Generador de PDF de arquitectura
+  dev-safe.ps1         # Arranque seguro (Windows/PowerShell)
+  generate-architecture-pdf.mjs
+sdd/
+  core/                # Product spec v0
+  features/
+.agent/
+  rules/               # Reglas de gobernanza de agentes
+  skills/
+    anclorabot-multiagente-system/
 docs/
-  standards/     # Contratos UX/UI (copia local del canon de Command Center)
-  claude-code/   # Documentación generada por Claude Code (este directorio)
+  standards/           # Contratos UX/UI
 ```
 
 ---
 
-## 6. Comandos de Desarrollo
+## 7. Comandos de Desarrollo
 
 ```bash
-npm run dev      # Arranque en desarrollo (usa dev-safe.ps1 en Windows)
-npm run build    # Build de producción
-npm run start    # Servidor de producción
-npm run lint     # ESLint
-npm run test     # Tests con tsx
-npm run generate:architecture-pdf  # Genera PDF de arquitectura
+npm run dev      # (usa dev-safe.ps1 en Windows)
+npm run build
+npm run start
+npm run lint
+npm run test
+npm run generate:architecture-pdf
 ```
-
----
-
-## 7. Contratos UX/UI Aplicables
-
-1. `ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
-2. `ANCLORA_BRANDING_MASTER_CONTRACT.md`
-3. `ANCLORA_BRANDING_COLOR_TOKENS.md`
-4. `ANCLORA_BRANDING_TYPOGRAPHY.md`
-5. `ANCLORA_BRANDING_ICON_SYSTEM.md`
-6. `ANCLORA_BRANDING_FAVICON_SPEC.md`
-7. `UI_MOTION_CONTRACT.md`
-8. `MODAL_CONTRACT.md`
-9. `LOCALIZATION_CONTRACT.md`
 
 ---
 
 ## 8. Seguridad
 
-- Los secretos de sesión NUNCA deben ser débiles en producción
-- `ANCLORA_GROUP_INTERNAL_USERS_JSON` nunca debe estar en el repositorio; siempre en variables de entorno del servidor
-- Las variables `NEXT_PUBLIC_*` son visibles en el cliente — no incluir tokens ni secretos
-- No hay base de datos expuesta: toda la autenticación es en memoria
+- Session secret fuerte en producción (mínimo 32 caracteres aleatorios)
+- `timingSafeEqual` previene ataques de timing en comparación de cookies
+- `ANCLORA_GROUP_INTERNAL_USERS_JSON` NUNCA en el repo; siempre en env del servidor
+- Variables `NEXT_PUBLIC_*` son públicas en el cliente — no incluir secrets
+- Sin base de datos: reducida superficie de ataque
 
 ---
 
-## 9. Preparación para Evolución
-
-- El sistema de idioma está centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_LOCALE`
-- El sistema de tema está centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_THEME`
-- `src/lib/group-ui.ts` es el único punto para cambiar copy de UI
-- Los activos de marca (`/brand/`) pueden sustituirse sin rehacer el wiring
-- Añadir nuevas apps al launcher solo requiere una nueva variable `NEXT_PUBLIC_*_URL`
-
----
-
-*Generado por Claude Code — Abril 2026*
+*Generado por Claude Code — Abril 2026 (v1.1)*

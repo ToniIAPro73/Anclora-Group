@@ -1,77 +1,140 @@
 # Anclora Private Estates — Guía Técnica Interna
 
-**Clasificación:** Interno | **Versión:** 1.0 | **Fecha:** Abril 2026
+**Clasificación:** Interno | **Versión:** 1.1 | **Fecha:** Abril 2026
 
 ---
 
 ## 1. Propósito y Rol en el Ecosistema
 
-Anclora Private Estates es la **plataforma principal** del segmento Ultra Premium. Es la experiencia digital central para compradores e inversores de alto patrimonio. Actúa como destino desde Private Estates Landing y como origen hacia Synergi (partners) y Data Lab (analítica).
+Anclora Private Estates es la **plataforma pública Ultra Premium** del ecosistema Anclora. Es el sitio de marketing de lujo orientado a compradores e inversores de alto patrimonio para propiedades exclusivas en las Islas Baleares (Mallorca, Ibiza, Menorca). Integra lead capture conectado al backend de Nexus.
+
+**Posición en el ecosistema:**
+- Punto de destino desde Private Estates Landing
+- Origen de tráfico hacia Synergi (partners/agentes), Data Lab (analítica) y Nexus (agent portal)
+- Envía leads capturados directamente a la API de Nexus
 
 ---
 
 ## 2. Stack Tecnológico
 
-| Capa | Tecnología |
-|------|----------|
-| Framework | React 19 (Vite SPA) |
-| Lenguaje | TypeScript |
-| Estilos | Tailwind CSS |
-| Animaciones | GSAP + ScrollTrigger |
-| Internacionalización | i18next (es, en, de, fr) |
-| Deploy | Vercel |
+| Capa | Tecnología | Versión |
+|------|-----------|--------|
+| Framework | Vite (SPA pura) | 7.x |
+| Lenguaje | TypeScript | 5.9 |
+| UI Library | React | 19.x |
+| Routing | React Router DOM | v7 |
+| Estilos | Tailwind CSS v3 + custom CSS vars | — |
+| Componentes | shadcn/ui (New York style, Radix UI) | — |
+| Animaciones | GSAP 3.14 + ScrollTrigger, @gsap/react | — |
+| Internacionalización | i18next 25 + react-i18next | es, en, de, fr |
+| Formularios | react-hook-form + Zod v4 | — |
+| Charts | Recharts | — |
+| CAPTCHA | reCAPTCHA v2 o ALTCHA (pluggable vía env) | — |
+| Notificaciones | Sonner | — |
+| Carousel | embla-carousel-react | — |
+| Tema | next-themes | — |
+| Testing | Node.js built-in test runner | — |
+| Deploy | Vercel | — |
 
-**Diferencia clave**: Usa **Vite + React SPA** (no Next.js), lo que implica renderizado 100% en cliente. No tiene rutas API ni SSR.
+**Diferencia clave**: Vite SPA (no Next.js) — renderizado 100% en cliente, sin SSR, sin rutas API propias.
 
 ---
 
 ## 3. Arquitectura
 
-```
-src/
-  components/      # Componentes de UI y secciones
-  lib/             # Utilidades, hooks y lógica compartida
-  locales/         # Traducciones (es, en, de, fr)
-public/
-  docs/
-    ANALISIS.md    # Análisis del producto
-    PLAN_MEJORA.md # Plan de mejora
-sdd/
-  core/            # Specs core del producto
-  features/        # Specs por feature (ej: ANCLORA-MENU-002)
-.agent/
-  rules/           # Reglas de gobernanza de agentes
-  skills/features/ # Skills por feature
-docs/
-  standards/       # Contratos UX/UI
-```
+### SPA con Lazy Loading
 
-### Internacionalización
+- `App.tsx` es la raíz: routing, GSAP scroll orchestration, i18n setup
+- Todas las secciones excepto `HeroSection` y `Navbar` son `React.lazy()`
+- Secciones diferidas montan al primer evento de usuario (scroll, touch, keydown) o evento custom `anclora:reveal-deferred-sections`
 
-i18next con 4 idiomas: `es`, `en`, `de`, `fr`. Único en el ecosistema en tener de/fr.
+### Arquitectura GSAP/ScrollTrigger
 
-### Animaciones
+- Cada sección gestiona su propio contexto GSAP
+- Un controlador global de snap en `App.tsx` coordina las secciones pinadas
+- La posición de scroll se preserva entre cambios de idioma usando `sessionStorage` con anchors de sección
 
-GSAP + ScrollTrigger para animaciones de entrada y scroll. Deben seguir `UI_MOTION_CONTRACT.md`.
+### Integración con Nexus
 
-### Feature Activa Reciente
-
-- `ANCLORA-MENU-002`: menú overlay rediseñado — enfoque limpio y jerárquico (sin cards)
+- El formulario de contacto envía leads a `VITE_ANCLORA_NEXUS_PUBLIC_LEAD_URL`
+- Endpoint por defecto: `nexus.anclora.group/api/public/cta/lead`
+- El idioma se pasa como `?lang=` query param al enlazar a portales internos
 
 ---
 
-## 4. Gobernanza de Features (SDD)
+## 4. Secciones de la Landing
 
-```
-1. Crear spec en sdd/features/<nombre>/
-2. Seguir reglas de .agent/rules/
-3. Implementar respetando contratos UX/UI
-4. Validar: npm run lint && npm run test
+| Sección | Descripción |
+|---------|-------------|
+| **HeroSection** | Hero full-bleed con parallax, animación de entrada, widget de búsqueda de propiedades |
+| **PropertiesSection** | 3 propiedades destacadas (villas en Cala Fornells, Santa Ponsa, Palma; €1.95M–€3.2M); dual currency EUR/GBP |
+| **PhilosophySection** | 3 pilares: Trophy Selection, Data Lab Intelligence, Legal & Wealth structuring |
+| **InvestmentSection** | Tesis de inversión en Baleares con métricas de mercado |
+| **NeighborhoodSection** | Spotlight en Palma Casco Antiguo |
+| **ValuationSection** | Formulario de valoración de propiedades (3 servicios: Instant Valuation, Rental Forecast, Tax & Costs) |
+| **InsightsSection** | Artículos de mercado + newsletter "El Briefing" |
+| **AboutSection** | Presentación de la agencia |
+| **ContactSection** | Formulario con CAPTCHA + envío a Nexus API |
+
+---
+
+## 5. Variables de Entorno
+
+```env
+# Nexus lead capture
+VITE_ANCLORA_NEXUS_PUBLIC_LEAD_URL=https://nexus.anclora.group/api/public/cta/lead
+VITE_ANCLORA_NEXUS_LOGIN_URL=
+
+# Private Area links
+VITE_ANCLORA_PARTNER_PORTAL_URL=
+VITE_ANCLORA_DATA_LAB_URL=
+
+# CAPTCHA
+VITE_RECAPTCHA_SITE_KEY=              # Si usa reCAPTCHA
+VITE_ALTCHA_CHALLENGE_URL=            # Si usa ALTCHA
 ```
 
 ---
 
-## 5. Comandos de Desarrollo
+## 6. Branding Canónico
+
+| Token | Valor |
+|-------|-------|
+| Familia | Ultra Premium |
+| Accent | Oro `#D4AF37` |
+| Fondo base | `#07252F`, `#0B313F` |
+| Tipografía display | Cardo (serif) |
+| Tipografía UI | Inter |
+| Tipografía acentos | Fraunces |
+| Módulo de branding | `src/lib/private-estates-brand.ts` |
+| Tema default | Dark |
+
+---
+
+## 7. Menú — Área Privada
+
+El menú overlay incluye un grupo "Private Area" con enlaces a:
+- **Nexus Agent Portal** ← `VITE_ANCLORA_NEXUS_LOGIN_URL`
+- **Partner Portal** (Synergi) ← `VITE_ANCLORA_PARTNER_PORTAL_URL`
+- **Data Lab Portal** ← `VITE_ANCLORA_DATA_LAB_URL`
+
+---
+
+## 8. Gobernanza de Features (SDD)
+
+```
+sdd/core/constitution-canonical.md   # Constitución SDD
+sdd/features/<feature-id>/          # Spec por feature
+.agent/rules/                        # Reglas de agentes
+.agent/skills/features/              # Skills por feature
+.antigravity/prompts/features/       # Prompts de orquestación
+```
+
+Feature activa completada: `ANCLORA-MENU-002` (menú overlay clarity redesign).
+
+---
+
+## 9. Comandos de Desarrollo
 
 ```bash
 npm install
@@ -84,47 +147,22 @@ npm run preview
 
 ---
 
-## 6. Branding Canónico
+## 10. Páginas Legales
 
-| Token | Valor |
-|-------|-------|
-| Familia | Ultra Premium |
-| Accent | Oro `#D4AF37` |
-| Fondo base | `#07252F` |
-| Secundario | Teal `#3AA090` |
-| Tipografía display | Cardo |
-| Tipografía UI | Inter |
-| Tipografía acentos | Fraunces |
-| Prefijo favicon | `pe_` |
+- `/legal/privacidad`
+- `/legal/cookies`
+- `/legal/terminos`
+- `/legal/disclaimer`
+- `/legal/codigo-etico`
 
 ---
 
-## 7. Contratos UX/UI Aplicables
+## 11. Seguridad
 
-1. `ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
-2. `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md`
-3. `UI_MOTION_CONTRACT.md`
-4. `MODAL_CONTRACT.md`
-5. `LOCALIZATION_CONTRACT.md`
+- SPA pura: NO hay SSR. Todo procesamiento sensible va a APIs externas (Nexus).
+- La API key de reCAPTCHA es pública (`VITE_`); la verificación server-side ocurre en Nexus.
+- El campo `lang` como query param es para UX, no para seguridad.
 
 ---
 
-## 8. Integraciones
-
-| App | Tipo de integración |
-|-----|---------------------|
-| Synergi | Enlace al portal de partners |
-| Data Lab | Enlace al workspace de analítica |
-| Private Estates Landing | Recibe tráfico desde la landing |
-
----
-
-## 9. Notas de Seguridad
-
-- SPA pura: NO hay SSR. Todo procesamiento sensible debe ir a APIs externas.
-- Los idiomas de/fr amplían el alcance de mercado; revisar textos nativamente.
-- Los activos de marca finales (prefijo `pe_`) están pendientes.
-
----
-
-*Generado por Claude Code — Abril 2026*
+*Generado por Claude Code — Abril 2026 (v1.1)*
