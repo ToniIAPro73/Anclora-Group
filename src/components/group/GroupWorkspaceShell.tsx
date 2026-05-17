@@ -4,6 +4,7 @@ import { ArrowUpRight, LayoutGrid, ShieldCheck, Sparkles } from 'lucide-react'
 import { getAppsForRole, getGroupAppDefinitions } from '@/lib/group-access'
 import type { GroupSession } from '@/lib/group-auth'
 import { getGroupMessages, getRoleLabels } from '@/lib/group-ui'
+import { GroupLegalFooter } from '@/components/group/GroupLegalFooter'
 
 type Props = {
   session: GroupSession
@@ -181,6 +182,7 @@ export function GroupWorkspaceShell({ session }: Props) {
             ))}
           </div>
         </section>
+        <GroupLegalFooter />
       </section>
     </main>
   )

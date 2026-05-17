@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
+import { GroupLegalFooter } from '@/components/group/GroupLegalFooter'
 import { GroupLoginForm } from '@/components/group/GroupLoginForm'
 import { getGroupSession } from '@/lib/group-auth'
 import { getGroupMessages } from '@/lib/group-ui'
@@ -29,6 +30,7 @@ export default async function LoginPage() {
           </div>
           <GroupLoginForm />
         </div>
+        <GroupLegalFooter />
       </section>
     </main>
   )
