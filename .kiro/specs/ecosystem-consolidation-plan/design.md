@@ -118,6 +118,7 @@ graph LR
 - **Location**: `anclora-nexus/supabase/migrations/NNN_aml_vault_schema.sql`
 - **Responsibility**: Dedicated Supabase schema with retention enforcement
 - **Interface**:
+
   ```sql
   CREATE SCHEMA IF NOT EXISTS aml_vault;
   -- Tables: aml_vault.retention_records, aml_vault.access_log
@@ -137,6 +138,7 @@ graph LR
 - **Location**: `anclora-advisor-ai/lib/rag/source-auditor.ts`
 - **Responsibility**: Scan knowledge base, score sources, purge below threshold
 - **Interface**:
+
   ```typescript
   interface SourceAuditResult {
     source_id: string;
@@ -153,6 +155,7 @@ graph LR
 - **Location**: `anclora-advisor-ai/lib/rag/territorial-ingestion.ts`
 - **Responsibility**: Watch ingestion folder, validate scope governance, index into RAG
 - **Interface**:
+
   ```typescript
   interface IngestionResult {
     document_id: string;
@@ -169,6 +172,7 @@ graph LR
 - **Location**: `anclora-advisor-ai/lib/rag/evaluation-pipeline.ts`
 - **Responsibility**: Benchmark RAG responses, compute composite score, gate deployments
 - **Interface**:
+
   ```typescript
   interface EvaluationResult {
     composite_score: number; // 0.0 - 1.0
@@ -187,6 +191,7 @@ graph LR
 - **Location**: `anclora-nexus/backend/cli/notebooklm_sync.py`
 - **Responsibility**: CLI wrapper for existing build/validate scripts with manifest tracking
 - **Interface**:
+
   ```python
   # CLI: python -m cli.notebooklm_sync --validate --push
   class SyncManifest:
@@ -230,6 +235,7 @@ graph LR
 - **Location**: `anclora-nexus/backend/services/dms_signature_service.py`
 - **Responsibility**: Update DMS status on block/unblock events within 5s SLA
 - **Interface**:
+
   ```python
   class SignatureBlockEvent:
       document_id: str
@@ -266,6 +272,7 @@ graph LR
 - **Location**: `anclora-nexus/backend/services/webhook_dispatcher.py`
 - **Responsibility**: Send signed webhook to Content Generator AI when property reaches "Exclusiva"
 - **Interface**:
+
   ```python
   class PropertyWebhookPayload(BaseModel):
       property_id: str
@@ -291,6 +298,7 @@ graph LR
 - **Location**: `anclora-group/src/lib/auth/` (shared config)
 - **Responsibility**: Organization-level identity, SSO across Nexus/Content/Synergi
 - **Interface**:
+
   ```typescript
   interface OrganizationIdentity {
     org_id: string;
@@ -307,6 +315,7 @@ graph LR
 - **Location**: `anclora-filestudio/src/lib/engines/mineru/property-dossier.ts`
 - **Responsibility**: Process property document bundles, extract structured entities
 - **Interface**:
+
   ```typescript
   interface PropertyDossier {
     document_id: string;
@@ -328,6 +337,7 @@ graph LR
 - **Location**: `anclora-content-generator-ai/lib/rag/mineru-ingestion.ts`
 - **Responsibility**: Receive MinerU output, chunk, embed, store in pgvector with deduplication
 - **Interface**:
+
   ```typescript
   interface RagChunk {
     chunk_id: string;
@@ -347,6 +357,7 @@ graph LR
 - **Location**: `anclora-data-lab/src/lib/avm/mallorca-model.ts`
 - **Responsibility**: Consume observatory + deal margin data, produce valuations with confidence
 - **Interface**:
+
   ```typescript
   interface AVMRequest {
     property_location: { lat: number; lng: number; municipality: string };
@@ -406,6 +417,7 @@ graph LR
 - **Location**: `anclora-group/src/app/command-center/`
 - **Responsibility**: Poll/receive health status and metrics from all ecosystem apps
 - **Interface**:
+
   ```typescript
   interface EcosystemHealthStatus {
     applications: {
@@ -596,127 +608,127 @@ _A property is a characteristic or behavior that should hold true across all val
 
 _For any_ transaction record classified as AML-relevant, storing it in the AML vault shall produce a record whose `retention_expires_at` equals `created_at + 10 years` exactly.
 
-**Validates: Requirements 3.2**
+Validates: Requirements 3.2
 
 ### Property 2: AML Vault Deletion Prevention
 
 _For any_ record in the AML vault whose `retention_expires_at > now()`, any attempt to delete that record shall raise an error and leave the record unchanged.
 
-**Validates: Requirements 3.3**
+Validates: Requirements 3.3
 
 ### Property 3: RAG Source Audit Threshold Classification
 
 _For any_ set of RAG sources with known relevance scores, calling `auditSources(threshold)` shall mark every source with `relevance_score < threshold` as `action: 'purge'` and every source with `relevance_score >= threshold` as `action: 'keep'`.
 
-**Validates: Requirements 5.1, 5.2**
+Validates: Requirements 5.1, 5.2
 
 ### Property 4: RAG Post-Purge Referential Integrity
 
 _For any_ knowledge base state after a purge operation, all chunk references shall point to sources that still exist in the knowledge base (no orphaned references).
 
-**Validates: Requirements 5.3**
+Validates: Requirements 5.3
 
 ### Property 5: NotebookLM Scope Governance Validation
 
 _For any_ document submitted for ingestion or sync, the validation function shall accept the document if and only if its `domain` matches the allowed scope of the target `notebook_id`. Documents with mismatched scope shall be rejected with `SOURCE_SCOPE_MISMATCH`.
 
-**Validates: Requirements 6.2, 8.2, 8.3**
+Validates: Requirements 6.2, 8.2, 8.3
 
 ### Property 6: RAG Retrieval Minimum Relevance
 
 _For any_ query submitted to the territorial intelligence RAG, all chunks returned in the result set shall have a `relevance_score >= 0.7`.
 
-**Validates: Requirements 6.3**
+Validates: Requirements 6.3
 
 ### Property 7: RAG Evaluation Score Bounded and Gated
 
 _For any_ evaluation pipeline execution, the composite score shall be in the range `[0.0, 1.0]`, and if the score is below `0.7` then the deployment gate shall be blocked and an alert emitted.
 
-**Validates: Requirements 7.2, 7.3**
+Validates: Requirements 7.2, 7.3
 
 ### Property 8: Document Validation Block Propagation
 
 _For any_ contract validation response from Advisor AI, the DMS document status shall be `"signature_blocked"` if and only if `block_signing === true`. When `block_signing === false`, the document status shall be `"ready_for_signature"`.
 
-**Validates: Requirements 10.3, 10.4**
+Validates: Requirements 10.3, 10.4
 
 ### Property 9: API Key Authentication Enforcement
 
 _For any_ request to the Advisor AI internal API, if the `X-Advisor-Internal-API-Key` header is missing or does not match the configured key, the response shall be HTTP 401 Unauthorized.
 
-**Validates: Requirements 11.2**
+Validates: Requirements 11.2
 
 ### Property 10: Signature Block/Unblock Round-Trip with Audit
 
 _For any_ document, blocking (setting `block_signing=true`) and then unblocking (setting `block_signing=false`) shall restore the document to `"ready_for_signature"` status. Every block and unblock event shall produce an `audit_log` entry with a valid HMAC-SHA256 signature over the event payload.
 
-**Validates: Requirements 12.3, 12.4**
+Validates: Requirements 12.3, 12.4
 
 ### Property 11: Lead Intake Validation
 
 _For any_ lead intake request, if any required field (`contact`, `source_system`, `source_channel`, `timestamp`) is missing or empty, the request shall be rejected with HTTP 400. If all fields are present and valid, the lead shall be created with status `"new"` and a temperature assignment.
 
-**Validates: Requirements 13.2, 13.3**
+Validates: Requirements 13.2, 13.3
 
 ### Property 12: Lead Deduplication Within 24-Hour Window
 
 _For any_ two lead intake requests with identical `contact_email` and `source_system` arriving within a 24-hour window, the second request shall be rejected with a `"duplicate"` status. Requests arriving after the 24-hour window shall be accepted as new leads.
 
-**Validates: Requirements 13.4**
+Validates: Requirements 13.4
 
 ### Property 13: Lead Staleness Detection
 
 _For any_ lead with no `next_action_due` set and `created_at` older than 48 hours, the staleness check shall flag the lead with status `"stale"` and alert the assigned owner.
 
-**Validates: Requirements 14.4**
+Validates: Requirements 14.4
 
 ### Property 14: Webhook HMAC Signature Verification
 
 _For any_ incoming webhook payload, the Content Generator AI shall accept the webhook if and only if `HMAC-SHA256(payload, shared_secret)` equals the provided `X-Webhook-Signature` header value.
 
-**Validates: Requirements 15.2**
+Validates: Requirements 15.2
 
 ### Property 15: Cryptographic Watermark Round-Trip
 
 _For any_ valid PDF content and watermark payload, calling `embedWatermark(pdf, payload, key)` followed by `verifyWatermark(result, key)` shall return `{ valid: true, status: 'authentic' }` with the original payload fields intact.
 
-**Validates: Requirements 21.1, 21.3**
+Validates: Requirements 21.1, 21.3
 
 ### Property 16: Watermark Tamper Detection
 
 _For any_ watermarked PDF, if any byte of the PDF content is modified after watermark embedding, `verifyWatermark(modified_pdf, key)` shall return `{ valid: false, status: 'tampered' }`.
 
-**Validates: Requirements 21.4**
+Validates: Requirements 21.4
 
 ### Property 17: Content Hash Deduplication
 
 _For any_ RAG chunk content, the system shall store exactly one entry per unique `SHA-256(content)`. Attempting to store a second chunk with identical content hash shall be rejected or ignored without creating a duplicate.
 
-**Validates: Requirements 18.4**
+Validates: Requirements 18.4
 
 ### Property 18: AVM Confidence Gating
 
 _For any_ property valuation request where the number of comparable transactions in the area is fewer than 10, the AVM response shall include `confidence_level: "low"` and a non-empty explanation of the data gap.
 
-**Validates: Requirements 19.4**
+Validates: Requirements 19.4
 
 ### Property 19: AVM Geographic Boundary Enforcement
 
 _For any_ valuation request with a location outside the Mallorca geographic boundary, the system shall reject the request or return an error indicating the area is not supported.
 
-**Validates: Requirements 19.3**
+Validates: Requirements 19.3
 
 ### Property 20: Role Hierarchy Permission Superset
 
 _For any_ two roles where role A is higher than role B in the hierarchy (group-admin > app-admin > operator > viewer), the permission set of role A shall be a strict superset of the permission set of role B.
 
-**Validates: Requirements 23.3**
+Validates: Requirements 23.3
 
 ### Property 21: Session Invalidation on User Deactivation
 
 _For any_ user with active sessions, when that user is deactivated at organization level, all previously valid session tokens shall immediately return unauthorized on subsequent validation attempts.
 
-**Validates: Requirements 23.4**
+Validates: Requirements 23.4
 
 ---
 
