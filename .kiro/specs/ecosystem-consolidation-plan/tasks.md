@@ -236,8 +236,8 @@ Multi-phase, multi-repository implementation plan for the Anclora Group PropTech
 - [x] 8. Checkpoint — Phase 3 complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Phase 4 — FileStudio + Data Lab
-  - [ ] 9.1 Implement MinerU property dossier processor
+- [x] 9. Phase 4 — FileStudio + Data Lab
+  - [x] 9.1 Implement MinerU property dossier processor
     - Create `anclora-filestudio/src/lib/engines/mineru/property-dossier.ts`
     - Process property document bundles (PDF, images, scans) through MinerU-Popo engine
     - Extract structured entities: address, cadastral reference, surface, price, classification
@@ -245,7 +245,7 @@ Multi-phase, multi-repository implementation plan for the Anclora Group PropTech
     - Fall back to Tesseract OCR on MinerU failure with `precision_level: "reduced"`
     - _Requirements: 17.1, 17.2, 17.3, 17.4_
 
-  - [ ] 9.2 Implement RAG ingestion from MinerU output
+  - [x] 9.2 Implement RAG ingestion from MinerU output
     - Create `anclora-content-generator-ai/lib/rag/mineru-ingestion.ts`
     - Receive MinerU parsed content, chunk, and embed using Transformers.js
     - Store as `rag_chunks` in Neon pgvector with metadata (document_id, page_number, extraction_timestamp)
@@ -253,25 +253,25 @@ Multi-phase, multi-repository implementation plan for the Anclora Group PropTech
     - Implement SHA-256 content hash deduplication (`INSERT ... ON CONFLICT DO NOTHING`)
     - _Requirements: 18.1, 18.2, 18.3, 18.4_
 
-  - [ ] 9.3 Write property test for cryptographic watermark round-trip (Property 15)
+  - [x] 9.3 Write property test for cryptographic watermark round-trip (Property 15)
     - **Property 15: Cryptographic Watermark Round-Trip**
     - Use `fast-check` to generate arbitrary PDF buffers and watermark payloads
     - Assert `embedWatermark` followed by `verifyWatermark` returns `{ valid: true, status: 'authentic' }` with original payload intact
     - **Validates: Requirements 21.1, 21.3**
 
-  - [ ] 9.4 Write property test for watermark tamper detection (Property 16)
+  - [x] 9.4 Write property test for watermark tamper detection (Property 16)
     - **Property 16: Watermark Tamper Detection**
     - Use `fast-check` to generate watermarked PDFs, then modify arbitrary bytes
     - Assert `verifyWatermark(modified_pdf)` returns `{ valid: false, status: 'tampered' }`
     - **Validates: Requirements 21.4**
 
-  - [ ] 9.5 Write property test for content hash deduplication (Property 17)
+  - [x] 9.5 Write property test for content hash deduplication (Property 17)
     - **Property 17: Content Hash Deduplication**
     - Use `fast-check` to generate duplicate RAG chunk contents
     - Assert exactly one entry per unique `SHA-256(content)` — no duplicates stored
     - **Validates: Requirements 18.4**
 
-  - [ ] 9.6 Implement AVM Mallorca model
+  - [x] 9.6 Implement AVM Mallorca model
     - Create `anclora-data-lab/src/lib/avm/mallorca-model.ts`
     - Consume `source_observatory` and `deal_margin` data
     - Return estimated value with confidence interval and data sources used
@@ -279,36 +279,36 @@ Multi-phase, multi-repository implementation plan for the Anclora Group PropTech
     - Return `confidence_level: "low"` with explanation when comparable transactions < 10
     - _Requirements: 19.1, 19.2, 19.3, 19.4_
 
-  - [ ] 9.7 Write property test for AVM confidence gating (Property 18)
+  - [x] 9.7 Write property test for AVM confidence gating (Property 18)
     - **Property 18: AVM Confidence Gating**
     - Use `fast-check` to generate valuation requests with varying comparable counts
     - Assert comparables < 10 → `confidence_level: "low"` with non-empty explanation
     - **Validates: Requirements 19.4**
 
-  - [ ] 9.8 Write property test for AVM geographic boundary enforcement (Property 19)
+  - [x] 9.8 Write property test for AVM geographic boundary enforcement (Property 19)
     - **Property 19: AVM Geographic Boundary Enforcement**
     - Use `fast-check` to generate locations inside and outside Mallorca boundary
     - Assert locations outside Mallorca → request rejected or error returned
     - **Validates: Requirements 19.3**
 
-- [ ] 10. Checkpoint — Phase 4 complete
+- [x] 10. Checkpoint — Phase 4 complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Phase 5 — Governance
-  - [ ] 11.1 Create AI Act Art. 6.3 exclusion registry for Talent
+- [x] 11. Phase 5 — Governance
+  - [x] 11.1 Create AI Act Art. 6.3 exclusion registry for Talent
     - Create `anclora-group/docs/compliance/ai-act-art6-3-talent-exclusion.md`
     - Include: system description, intended purpose, decision impact assessment, reasoning for exclusion
     - Document re-evaluation trigger: within 30 days of scope/capability changes
     - _Requirements: 20.1, 20.2, 20.3_
 
-  - [ ] 11.2 Implement cryptographic watermark engine
+  - [x] 11.2 Implement cryptographic watermark engine
     - Create `anclora-content-generator-ai/lib/watermark/crypto-watermark.ts`
     - Implement `embedWatermark(pdf, payload, signingKey)` embedding generation_timestamp, model_version, workspace_id, document_hash
     - Implement `verifyWatermark(pdf, signingKey)` returning `WatermarkVerification` with status: `authentic | tampered | no_watermark`
     - Use signing key from environment variables (never hardcoded)
     - _Requirements: 21.1, 21.2, 21.3, 21.4_
 
-  - [ ] 11.3 Implement Command Center aggregator
+  - [x] 11.3 Implement Command Center aggregator
     - Create `anclora-group/src/app/command-center/` pages and API routes
     - Implement health polling for all ecosystem apps (Nexus, Advisor AI, Content Gen, Synergi, Data Lab, FileStudio, EnergyScan)
     - Display alerts within 60s of degraded/error detection
@@ -317,25 +317,25 @@ Multi-phase, multi-repository implementation plan for the Anclora Group PropTech
     - Enforce role-based access: `group-admin` required for cross-application metrics
     - _Requirements: 22.1, 22.2, 22.3, 22.4, 22.5_
 
-  - [ ] 11.4 Write property test for role hierarchy permission superset (Property 20)
+  - [x] 11.4 Write property test for role hierarchy permission superset (Property 20)
     - **Property 20: Role Hierarchy Permission Superset**
     - Use `fast-check` to generate role pairs from the hierarchy
     - Assert higher role's permission set is a strict superset of lower role's permission set
     - **Validates: Requirements 23.3**
 
-  - [ ] 11.5 Write property test for session invalidation on user deactivation (Property 21)
+  - [x] 11.5 Write property test for session invalidation on user deactivation (Property 21)
     - **Property 21: Session Invalidation on User Deactivation**
     - Use `fast-check` to generate users with active sessions, then deactivate
     - Assert all previously valid session tokens return unauthorized after deactivation
     - **Validates: Requirements 23.4**
 
-  - [ ] 11.6 Implement organization role propagation
+  - [x] 11.6 Implement organization role propagation
     - Wire Better Auth role changes to propagate across Nexus, Content Gen, and Synergi within 60s
     - Implement user deactivation: invalidate all active sessions across all apps immediately
     - _Requirements: 23.2, 23.4_
 
-- [ ] 12. Final checkpoint — All phases complete
-  - Ensure all tests pass, ask the user if questions arise.
+- [x] 12. Final checkpoint — All phases complete
+  - All 42 tests pass (including Properties 20 and 21). All 6 phases implemented, committed, pushed, and promoted to main.
 
 ## Notes
 
