@@ -65,7 +65,6 @@ export function GroupCookieConsent() {
 
   return (
     <>
-      <button type="button" aria-label="Preferencias de cookies" className="group-cookie-button" onClick={() => { setOpen(true); setSettings(true) }}>C</button>
       {open ? (
         <div className="group-cookie-overlay" role="dialog" aria-modal="true" aria-labelledby="group-cookie-title">
           <div className="group-cookie-modal">
