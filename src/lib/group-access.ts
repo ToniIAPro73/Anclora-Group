@@ -9,6 +9,7 @@ export type GroupRole =
 
 export type GroupAppKey =
   | 'private-estates'
+  | 'private-estates-landing'
   | 'synergi'
   | 'data-lab'
   | 'nexus'
@@ -16,6 +17,12 @@ export type GroupAppKey =
   | 'content-generator-ai'
   | 'advisor-ai'
   | 'impulso'
+  | 'fiscal'
+  | 'syncxml'
+  | 'energyscan'
+  | 'filestudio'
+  | 'visionflow'
+  | 'linguo-cam'
 
 export type GroupAppDefinition = {
   key: GroupAppKey
@@ -23,7 +30,17 @@ export type GroupAppDefinition = {
   eyebrow: string
   description: string
   logoSrc?: string
-  kind: 'external-hub' | 'partner-platform' | 'intelligence-platform' | 'ops-platform' | 'ai-platform' | 'wellness-platform'
+  kind:
+    | 'external-hub'
+    | 'partner-platform'
+    | 'intelligence-platform'
+    | 'ops-platform'
+    | 'ai-platform'
+    | 'wellness-platform'
+    | 'finance-platform'
+    | 'compliance-platform'
+    | 'utility-platform'
+    | 'learning-platform'
   visibility: 'external-facing' | 'internal'
   roles: GroupRole[]
   url: string
@@ -87,6 +104,21 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       visibility: 'external-facing',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops'],
       url: privateEstatesUrl,
+    },
+    {
+      key: 'private-estates-landing',
+      title: 'Anclora Private Estates Landing Page',
+      eyebrow: 'Landing ultra premium',
+      description:
+        'Superficie pública de captación y posicionamiento para el vertical Private Estates.',
+      logoSrc: '/brand/logo-anclora-private-estates.webp',
+      kind: 'external-hub',
+      visibility: 'external-facing',
+      roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops'],
+      url: getEnvUrl(
+        'NEXT_PUBLIC_PRIVATE_ESTATES_LANDING_URL',
+        'https://anclora-private-estates-landing.vercel.app/',
+      ),
     },
     {
       key: 'synergi',
@@ -159,6 +191,73 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       visibility: 'internal',
       roles: ['group-admin', 'advisory'],
       url: getEnvUrl('NEXT_PUBLIC_ADVISOR_AI_URL', 'https://anclora-advisor-ai.vercel.app/'),
+    },
+    {
+      key: 'fiscal',
+      title: 'Anclora Fiscal',
+      eyebrow: 'Operación fiscal',
+      description:
+        'Sistema operativo fiscal trazable para ventas digitales, cierres mensuales y espacios de asesoría.',
+      kind: 'finance-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'advisory'],
+      url: getEnvUrl('NEXT_PUBLIC_FISCAL_URL', 'https://anclora-fiscal.vercel.app/'),
+    },
+    {
+      key: 'syncxml',
+      title: 'Anclora SyncXML',
+      eyebrow: 'Cumplimiento operativo',
+      description:
+        'Herramienta de preparación y sincronización operativa para obligaciones SES.HOSPEDAJES.',
+      kind: 'compliance-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'advisory'],
+      url: getEnvUrl('NEXT_PUBLIC_SYNCXML_URL', 'https://anclora-syncxml.vercel.app/'),
+    },
+    {
+      key: 'energyscan',
+      title: 'Anclora EnergyScan',
+      eyebrow: 'Energía inmobiliaria',
+      description:
+        'Aplicación de análisis energético para activos inmobiliarios y señales de mejora operativa.',
+      kind: 'intelligence-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'data-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_ENERGYSCAN_URL', 'https://anclora-energyscan.vercel.app/'),
+    },
+    {
+      key: 'filestudio',
+      title: 'Anclora FileStudio',
+      eyebrow: 'Procesamiento documental',
+      description:
+        'Servicio transversal de conversión, tratamiento y preparación privada de archivos.',
+      logoSrc: '/brand/logo-anclora-fileStudio.webp',
+      kind: 'utility-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'advisory', 'content-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_FILESTUDIO_URL', 'https://anclora-filestudio.vercel.app/'),
+    },
+    {
+      key: 'visionflow',
+      title: 'Anclora VisionFlow',
+      eyebrow: 'Mapa visual',
+      description:
+        'Workspace visual para mapear aplicaciones, evidencias y handoffs del ecosistema Anclora.',
+      kind: 'ops-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'private-estates-ops', 'data-ops', 'content-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_VISIONFLOW_URL', 'https://anclora-visionflow.vercel.app/'),
+    },
+    {
+      key: 'linguo-cam',
+      title: 'Anclora Linguo Cam',
+      eyebrow: 'Comunicación translingüe',
+      description:
+        'Aplicación de comunicación en tiempo real con subtítulos, ASR y traducción asistida.',
+      kind: 'utility-platform',
+      visibility: 'internal',
+      roles: ['group-admin'],
+      url: getEnvUrl('NEXT_PUBLIC_LINGUO_CAM_URL', 'https://anclora-linguo-cam.vercel.app/'),
     },
     {
       key: 'impulso',
