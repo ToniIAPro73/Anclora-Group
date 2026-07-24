@@ -198,6 +198,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Operación fiscal',
       description:
         'Sistema operativo fiscal trazable para ventas digitales, cierres mensuales y espacios de asesoría.',
+      logoSrc: '/brand/logo-anclora-fiscal.webp',
       kind: 'finance-platform',
       visibility: 'internal',
       roles: ['group-admin', 'advisory'],
@@ -209,6 +210,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Cumplimiento operativo',
       description:
         'Herramienta de preparación y sincronización operativa para obligaciones SES.HOSPEDAJES.',
+      logoSrc: '/brand/logo-anclora-syncxml.webp',
       kind: 'compliance-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'advisory'],
@@ -220,6 +222,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Energía inmobiliaria',
       description:
         'Aplicación de análisis energético para activos inmobiliarios y señales de mejora operativa.',
+      logoSrc: '/brand/logo-anclora-energy-scan.webp',
       kind: 'intelligence-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'data-ops'],
