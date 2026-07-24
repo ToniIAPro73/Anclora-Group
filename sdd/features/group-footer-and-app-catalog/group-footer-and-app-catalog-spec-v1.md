@@ -11,6 +11,9 @@ available from Anclora Group for authorized users.
 ## Scope
 
 - Refine `GroupLegalFooter` layout for desktop and mobile.
+- Align footer behavior with Bóveda contracts:
+  - `ANCLORA_GROUP_BRAND_IP_CONTRACT`
+  - `COOKIES_CONSENT_CONTRACT`
 - Add missing application definitions to the workspace catalog.
 - Keep access controlled by existing role filtering.
 - Do not change authentication, session handling or legal document content.
@@ -19,6 +22,8 @@ available from Anclora Group for authorized users.
 
 - Footer uses stable columns and does not create awkward isolated links.
 - Footer remains readable on desktop and mobile.
+- Login footer spans the full two-column login layout.
+- Cookie preferences reopen from the footer, without a floating cookie button.
 - Workspace catalog includes:
   - Anclora Private Estates Landing Page
   - Anclora Fiscal
