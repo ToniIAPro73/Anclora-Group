@@ -1,10 +1,13 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { getAppsForRole } from '../src/lib/group-access'
+import { getAppsForRole, getGroupAppDefinitions } from '../src/lib/group-access'
 
 test('group-admin sees the full launcher', () => {
   const apps = getAppsForRole('group-admin')
-  assert.equal(apps.length, 8)
+  const appKeys = apps.map((item) => item.key)
+  const expectedKeys = getGroupAppDefinitions().map((item) => item.key)
+
+  assert.deepEqual(appKeys, expectedKeys)
 })
 
 test('partner-ops sees synergi and data lab but not advisory ai', () => {
