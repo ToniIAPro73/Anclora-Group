@@ -246,6 +246,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Mapa visual',
       description:
         'Workspace visual para mapear aplicaciones, evidencias y handoffs del ecosistema Anclora.',
+      logoSrc: '/brand/logo-anclora-visionflow.webp',
       kind: 'ops-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'data-ops', 'content-ops'],
@@ -257,6 +258,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Comunicación translingüe',
       description:
         'Aplicación de comunicación en tiempo real con subtítulos, ASR y traducción asistida.',
+      logoSrc: '/brand/logo-anclora-linguo-cam.webp',
       kind: 'utility-platform',
       visibility: 'internal',
       roles: ['group-admin'],
