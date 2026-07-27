@@ -1,67 +1,83 @@
+<!-- markdownlint-disable MD001 MD013 MD033 MD041 MD060 -->
+
+<div align="center">
+
+<img src="./public/brand/logo-anclora-syncxml.png" alt="Anclora Group" width="120" />
+
 # Anclora Group
 
-Entidad matriz y portal corporativo de Anclora para organizar el acceso a aplicaciones, equipos, operaciones y herramientas estratégicas mediante una arquitectura unificada y control por rol.
+### Producto del ecosistema Anclora documentado como repositorio publico de familia matrix
 
-## MVP incluido
+**Español** · [English](./README.en.md)
 
-- login corporativo ligero por cookie firmada
-- launcher corporativo por rol
-- branding base de Anclora Group
-- documentación inicial de arquitectura en `public/docs`
-- base SDD y sistema de agentes
+<br />
 
-## Variables de entorno mínimas
+![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
+![Documentation](https://img.shields.io/badge/documentation-premium-BFA46A)
+![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
 
-```env
-ANCLORA_GROUP_SESSION_SECRET=
-ANCLORA_GROUP_BOOTSTRAP_USERNAME=
-ANCLORA_GROUP_BOOTSTRAP_PASSWORD=
-ANCLORA_GROUP_BOOTSTRAP_DISPLAY_NAME=
-ANCLORA_GROUP_BOOTSTRAP_ROLE=group-admin
-NEXT_PUBLIC_GROUP_DEFAULT_LOCALE=es
-NEXT_PUBLIC_GROUP_DEFAULT_THEME=dark
-NEXT_PUBLIC_PRIVATE_ESTATES_URL=https://anclora-private-estates.vercel.app/
-NEXT_PUBLIC_SYNERGI_INTERNAL_URL=https://anclora-synergi.vercel.app/partner-admissions/login
-NEXT_PUBLIC_DATA_LAB_INTERNAL_URL=https://anclora-data-lab.vercel.app/access-requests/login
-NEXT_PUBLIC_NEXUS_URL=https://anclora-nexus-frontend.vercel.app/
-NEXT_PUBLIC_COMMAND_CENTER_URL=https://anclora-command-center.vercel.app/
-NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL=
-NEXT_PUBLIC_ADVISOR_AI_URL=
-NEXT_PUBLIC_IMPULSO_URL=
+</div>
+
+---
+
+> [!IMPORTANT]
+> Repositorio publico reducido. Describe el producto y su arquitectura conceptual; no expone logica operativa, secretos ni datos reales.
+
+## Vista rapida
+
+| Problema | Respuesta de producto |
+| --- | --- |
+| Contexto disperso | Experiencia guiada y trazable |
+| Datos sensibles | Privacidad por diseno y minimizacion |
+| Decision compleja | Flujo conceptual claro y revisable |
+| Operacion profesional | Arquitectura modular y controles de calidad |
+
+## Flujo conceptual
+
+```text
+Entrada de usuario / evidencia
+        ↓
+Validacion y normalizacion
+        ↓
+Flujo de producto
+        ↓
+Revision o resultado explicable
+        ↓
+Salida profesional / siguiente accion
 ```
 
-Opcionalmente puedes usar:
+## Que muestra este repositorio
 
-```env
-ANCLORA_GROUP_INTERNAL_USERS_JSON=[{"username":"...","password":"...","displayName":"...","role":"group-admin"}]
-```
+Producto del ecosistema Anclora documentado como repositorio publico de familia matrix.
 
-## Preparado para evolución futura
+El README presenta el alcance publico del producto, su posicionamiento dentro del ecosistema
+Anclora y los limites de exposicion adecuados para un repositorio abierto.
 
-- idioma por defecto centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_LOCALE`
-- tema por defecto centralizado en `NEXT_PUBLIC_GROUP_DEFAULT_THEME`
-- copy agrupado en `src/lib/group-ui.ts` para facilitar la futura incorporación de toggles de idioma y tema
-- `Private Estates` enlaza a las raíces públicas de `Synergi` y `Data Lab`, mientras que `Anclora Group` funciona como entidad matriz y portal corporativo
+## Tecnologia
 
-## Branding
+| Area | Detalle |
+| --- | --- |
+| Next.js | Presente en el repositorio |
+| React | Presente en el repositorio |
+| TypeScript | Presente en el repositorio |
 
-- identidad canónica: `Entidad Matriz`
-- tipografía base: `Georgia`
-- icono canónico: `/brand/favicon-anclora-group.svg`
-- logo canónico actual: `/brand/logo-anclora-group.webp`
-- preparado para sustituir los activos finales del usuario sin rehacer el wiring de la app
-- contratos de referencia: `ANCLORA_BRANDING_MASTER_CONTRACT.md`, `ANCLORA_BRANDING_ICON_SYSTEM.md`, `ANCLORA_BRANDING_COLOR_TOKENS.md`, `ANCLORA_BRANDING_TYPOGRAPHY.md`, `ANCLORA_BRANDING_FAVICON_SPEC.md`
+## Documentacion
 
-## Contratos UX/UI
+- [Documentacion](./docs)
 
-Lectura mínima antes de tocar interfaz:
+## Marca
 
-1. `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
-2. `docs/standards/UI_MOTION_CONTRACT.md`
-3. `docs/standards/MODAL_CONTRACT.md`
-4. `docs/standards/LOCALIZATION_CONTRACT.md`
-5. `docs/standards/ANCLORA_BRANDING_MASTER_CONTRACT.md`
-6. `docs/standards/ANCLORA_BRANDING_ICON_SYSTEM.md`
-7. `docs/standards/ANCLORA_BRANDING_COLOR_TOKENS.md`
-8. `docs/standards/ANCLORA_BRANDING_TYPOGRAPHY.md`
-9. `docs/standards/ANCLORA_BRANDING_FAVICON_SPEC.md`
+- Producto canonico: `anclora-group`
+- Familia: `matrix`
+- Visibilidad objetivo: `public`
+- Asset de marca: `presente`
+
+---
+
+<div align="center">
+
+### Antonio Ballesteros · Anclora Group
+
+Software, IA generativa y automatizacion para productos digitales trazables.
+
+</div>
