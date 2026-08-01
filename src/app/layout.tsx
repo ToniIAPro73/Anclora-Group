@@ -7,7 +7,12 @@ export const metadata: Metadata = {
   title: 'Anclora Group',
   description: 'Entidad matriz y portal corporativo de Anclora',
   icons: {
-    icon: '/brand/favicon-anclora-group.svg',
+    icon: [
+      { url: '/brand/favicon-anclora-group.svg', type: 'image/svg+xml' },
+      { url: '/brand/group_favicon.ico', sizes: 'any' },
+      { url: '/brand/group_favicon_32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/brand/group_apple_touch_icon.png',
   },
 }
 
