@@ -8,11 +8,10 @@ export const metadata: Metadata = {
   description: 'Entidad matriz y portal corporativo de Anclora',
   icons: {
     icon: [
-      { url: '/brand/favicon-anclora-group.svg', type: 'image/svg+xml' },
-      { url: '/brand/group_favicon.ico', sizes: 'any' },
-      { url: '/brand/group_favicon_32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/brand/favicon.ico', sizes: 'any' },
+      { url: '/brand/favicon-32.png', type: 'image/png', sizes: '32x32' },
     ],
-    apple: '/brand/group_apple_touch_icon.png',
+    apple: '/brand/apple-touch-icon.png',
   },
 }
 

@@ -2,82 +2,85 @@
 
 <div align="center">
 
-<img src="./public/brand/logo-anclora-syncxml.png" alt="Anclora Group" width="120" />
+<img src="./public/brand/anclora-group.png" alt="Anclora Group" width="132" />
 
 # Anclora Group
 
-### Producto del ecosistema Anclora documentado como repositorio publico de familia matrix
+### Portal corporativo central del ecosistema Anclora
+
+Portal interno que integra arquitectura, gobernanza y documentación de toda la familia de productos Anclora. Diseñado como repositorio de referencia para navegación, control de calidad y trazabilidad operativa.
 
 **Español** · [English](./README.en.md)
 
 <br />
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
-![Documentation](https://img.shields.io/badge/documentation-premium-BFA46A)
-![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
+![Categoría](https://img.shields.io/badge/categor%C3%ADa-Entidad%20Matriz-A8AEB8)
+![Idiomas](https://img.shields.io/badge/idiomas-ES%20%7C%20EN-047857)
 
 </div>
 
 ---
 
 > [!IMPORTANT]
-> Repositorio publico reducido. Describe el producto y su arquitectura conceptual; no expone logica operativa, secretos ni datos reales.
+> Repositorio interno corporativo. Describe arquitectura y gobernanza del ecosistema Anclora; no expone datos operativos, credenciales ni lógica sensible fuera de canales autorizados.
 
-## Vista rapida
+## Qué es
 
-| Problema | Respuesta de producto |
-| --- | --- |
-| Contexto disperso | Experiencia guiada y trazable |
-| Datos sensibles | Privacidad por diseno y minimizacion |
-| Decision compleja | Flujo conceptual claro y revisable |
-| Operacion profesional | Arquitectura modular y controles de calidad |
+Anclora Group es el portal central de la empresa Anclora, que funciona como punto de convergencia para documentación de productos, estándares de marca, y gobernanza técnica. Sirve como referencia única de verdad (SSOT) para arquitectura, trazabilidad y control de calidad en el ecosistema.
 
-## Flujo conceptual
+## Categoría en el ecosistema
 
-```text
-Entrada de usuario / evidencia
-        ↓
-Validacion y normalizacion
-        ↓
-Flujo de producto
-        ↓
-Revision o resultado explicable
-        ↓
-Salida profesional / siguiente accion
+| Campo | Valor |
+|---|---|
+| Categoría | Entidad Matriz |
+| Acento de marca | `#A8AEB8` |
+| Tipografía | Georgia / Serif |
+| Repositorio canónico | `anclora-group` |
+
+## Funcionalidades principales
+
+- Portal integrado de documentación y gobernanza corporativa
+- Navegación centralizada de la familia de productos Anclora
+- Generación automática de documentación en PDF (arquitectura, políticas)
+- Gestión de estándares de marca y contratos visuales
+- Trazabilidad y auditoría de cambios operativos
+
+## Stack tecnológico
+
+| Área | Tecnología |
+|---|---|
+| Framework | Next.js 16 |
+| Frontend | React 19, TypeScript |
+| Utilidades | lucide-react, pdf-lib, sharp |
+| Testing | TSX |
+| Linting | ESLint 9 |
+
+## Arranque local
+
+```bash
+npm install
+npm run dev
 ```
 
-## Que muestra este repositorio
+Servidor local: `http://localhost:3000`
 
-Producto del ecosistema Anclora documentado como repositorio publico de familia matrix.
+## Idiomas soportados
 
-El README presenta el alcance publico del producto, su posicionamiento dentro del ecosistema
-Anclora y los limites de exposicion adecuados para un repositorio abierto.
+- Español (predeterminado)
+- English
 
-## Tecnologia
+## Documentación y gobernanza
 
-| Area | Detalle |
-| --- | --- |
-| Next.js | Presente en el repositorio |
-| React | Presente en el repositorio |
-| TypeScript | Presente en el repositorio |
-
-## Documentacion
-
-- [Documentacion](./docs)
-
-## Marca
-
-- Producto canonico: `anclora-group`
-- Familia: `matrix`
-- Visibilidad objetivo: `public`
-- Asset de marca: `presente`
+- Contratos de marca y gobernanza: [`docs/standards/`](./docs/standards/)
+- Bóveda Anclora (fuente de verdad): `contracts/` y `docs/governance/`
 
 ---
 
 <div align="center">
 
-### Antonio Ballesteros · Anclora Group
+### Anclora Group
 
-Software, IA generativa y automatizacion para productos digitales trazables.
+Uso interno. Portal de gobernanza corporativa del ecosistema Anclora.
 
 </div>

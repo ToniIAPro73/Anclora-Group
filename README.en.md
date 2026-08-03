@@ -2,18 +2,20 @@
 
 <div align="center">
 
-<img src="./public/brand/logo-anclora-syncxml.png" alt="Anclora Group" width="120" />
+<img src="./public/brand/anclora-group.png" alt="Anclora Group" width="132" />
 
 # Anclora Group
 
-### Producto del ecosistema Anclora documentado como repositorio publico de familia matrix
+### Central corporate hub for the Anclora ecosystem
+
+Internal portal integrating architecture, governance, and documentation across the entire Anclora product family. Designed as the reference repository for navigation, quality control, and operational traceability.
 
 [Español](./README.md) · **English**
 
 <br />
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
-![Documentation](https://img.shields.io/badge/documentation-premium-BFA46A)
+![Category](https://img.shields.io/badge/category-Matrix%20Entity-A8AEB8)
 ![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
 
 </div>
@@ -21,63 +23,64 @@
 ---
 
 > [!IMPORTANT]
-> Reduced public repository. It describes the product and conceptual architecture; it does not expose operational logic, secrets or real data.
+> Internal corporate repository. Documents ecosystem architecture and governance; does not expose operational data, credentials, or sensitive logic outside authorized channels.
 
-## At a glance
+## What is this
 
-| Product challenge | Product response |
-| --- | --- |
-| Fragmented context | Guided and traceable experience |
-| Sensitive data | Privacy by design and minimisation |
-| Complex decision | Clear and reviewable conceptual flow |
-| Professional operation | Modular architecture and quality controls |
+Anclora Group is the central hub of Anclora, functioning as the convergence point for product documentation, brand standards, and technical governance. It serves as the single source of truth (SSOT) for architecture, traceability, and quality control across the ecosystem.
 
-## Conceptual workflow
+## Ecosystem category
 
-```text
-User input / evidence
-        ↓
-Validation and normalisation
-        ↓
-Product workflow
-        ↓
-Review or explainable result
-        ↓
-Professional output / next action
+| Field | Value |
+|---|---|
+| Category | Matrix Entity |
+| Brand accent | `#A8AEB8` |
+| Typography | Georgia / Serif |
+| Canonical repository | `anclora-group` |
+
+## Key features
+
+- Integrated corporate documentation and governance hub
+- Centralized navigation across Anclora product family
+- Automatic PDF generation for architecture and policies
+- Brand standard and visual contract management
+- Operational change traceability and auditing
+
+## Tech stack
+
+| Area | Technology |
+|---|---|
+| Framework | Next.js 16 |
+| Frontend | React 19, TypeScript |
+| Utilities | lucide-react, pdf-lib, sharp |
+| Testing | TSX |
+| Linting | ESLint 9 |
+
+## Local startup
+
+```bash
+npm install
+npm run dev
 ```
 
-## What this repository shows
+Local server: `http://localhost:3000`
 
-Producto del ecosistema Anclora documentado como repositorio publico de familia matrix.
+## Supported languages
 
-This README documents the public scope of the product, its position in the Anclora ecosystem
-and the right exposure limits for an open repository.
+- Spanish (default)
+- English
 
-## Technology
+## Documentation and governance
 
-| Area | Detail |
-| --- | --- |
-| Next.js | Present in repository |
-| React | Present in repository |
-| TypeScript | Present in repository |
-
-## Documentation
-
-- [Documentacion](./docs)
-
-## Brand
-
-- Canonical product: `anclora-group`
-- Family: `matrix`
-- Target visibility: `public`
-- Brand asset: `present`
+- Brand contracts and governance: [`docs/standards/`](./docs/standards/)
+- Anclora Vault (source of truth): `contracts/` and `docs/governance/`
 
 ---
 
 <div align="center">
 
-### Antonio Ballesteros · Anclora Group
+### Anclora Group
 
-Software, generative AI and automation for traceable digital products.
+Internal use. Corporate governance hub for the Anclora ecosystem.
 
 </div>

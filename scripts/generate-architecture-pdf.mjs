@@ -21,13 +21,13 @@ const architectureGroups = [
         title: 'Anclora Private Estates',
         eyebrow: 'Real estate de lujo',
         description: 'Puerta premium del vertical inmobiliario y superficie externa principal del ecosistema.',
-        logo: 'logo-anclora-private-estates.webp',
+        logo: 'anclora-private-estates.webp',
       },
       {
         title: 'Anclora Synergi',
         eyebrow: 'Plataforma de partnership',
         description: 'Admisión, activación y colaboración privada con partners aprobados bajo una narrativa selectiva.',
-        logo: 'logo-anclora-synergi.webp',
+        logo: 'anclora-synergi.webp',
       },
     ],
   },
@@ -41,19 +41,19 @@ const architectureGroups = [
         title: 'Anclora Data Lab',
         eyebrow: 'Plataforma de inteligencia',
         description: 'Señales territoriales, documentación curada e inteligencia premium para perfiles autorizados.',
-        logo: 'logo-anclora-datalab.webp',
+        logo: 'anclora-data-lab.webp',
       },
       {
         title: 'Anclora Nexus',
         eyebrow: 'Operación Private Estates',
         description: 'Pipeline comercial, relaciones y coordinación interna para la ejecución operativa del vertical premium.',
-        logo: 'logo-anclora-nexus.webp',
+        logo: 'anclora-nexus.webp',
       },
       {
         title: 'Anclora Command Center',
         eyebrow: 'Centro de mando',
         description: 'Lectura ejecutiva del ecosistema conectada a la bóveda, a decisiones clave y al foco territorial.',
-        logo: 'logo-anclora-command-center.webp',
+        logo: 'anclora-command-center.webp',
       },
     ],
   },
@@ -67,19 +67,19 @@ const architectureGroups = [
         title: 'Anclora Content Generator AI',
         eyebrow: 'Motor editorial con IA',
         description: 'Producción asistida de contenidos y materiales de activación para activos premium y partnership.',
-        logo: 'logo-content-generator-ai.webp',
+        logo: 'anclora-content-generator-ai.webp',
       },
       {
         title: 'Anclora Advisor AI',
         eyebrow: 'Asesoría con IA',
         description: 'Asistencia estratégica y consultiva para escenarios fiscales, laborales y de mercado inmobiliario.',
-        logo: 'logo-anclora-advisor-ai.webp',
+        logo: 'anclora-advisor-ai.webp',
       },
       {
         title: 'Anclora Impulso',
         eyebrow: 'Fitness y nutrición',
         description: 'Capa de crecimiento y activación enfocada en bienestar, empuje comercial y disciplina operativa.',
-        logo: 'logo-anclora-impulso.webp',
+        logo: 'anclora-impulso.webp',
       },
     ],
   },
@@ -186,7 +186,7 @@ async function buildPdf() {
     opacity: 0.85,
   })
 
-  await drawLogo(pdfDoc, cover, 'logo-anclora-group.webp', 720, 420, 280, 280)
+  await drawLogo(pdfDoc, cover, 'anclora-group.webp', 720, 420, 280, 280)
 
   cover.drawText('Versión visual para acceso corporativo', {
     x: 112,

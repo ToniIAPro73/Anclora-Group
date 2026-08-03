@@ -11,7 +11,7 @@ export default async function DataLabAccessPage() {
       title="Anclora Data Lab"
       eyebrow="Plataforma de inteligencia"
       description="Acceso corporativo al entorno privado de Data Lab para perfiles autorizados con visibilidad sobre inteligencia territorial, documentación curada y activos analíticos."
-      logoSrc="/brand/logo-anclora-datalab.webp"
+      logoSrc="/brand/anclora-data-lab.webp"
       loginHref={getDataLabLoginUrl()}
       loginLabel="Abrir acceso corporativo de Data Lab"
       accessTitle="Entrada al entorno privado de Data Lab"
