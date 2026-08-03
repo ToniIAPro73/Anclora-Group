@@ -10,13 +10,13 @@
 
 Internal portal integrating architecture, governance, and documentation across the entire Anclora product family. Designed as the reference repository for navigation, quality control, and operational traceability.
 
-[Español](./README.md) · **English**
+[Español](./README.md) · **English** · [Deutsch](./README.de.md) · [Français](./README.fr.md)
 
 <br />
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
 ![Category](https://img.shields.io/badge/category-Matrix%20Entity-A8AEB8)
-![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
+![Languages](https://img.shields.io/badge/product%20languages-4-047857)
 
 </div>
 
@@ -67,8 +67,7 @@ Local server: `http://localhost:3000`
 
 ## Supported languages
 
-- Spanish (default)
-- English
+The production product supports 4 languages: Español (default), English, Deutsch, Français (`SUPPORTED_LOCALES`, `src/lib/group-ui.ts`). This documentation is maintained in all 4 product languages.
 
 ## Documentation and governance
 
