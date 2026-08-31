@@ -21,6 +21,18 @@ export function isGroupRole(value: unknown): value is GroupRole {
   return typeof value === 'string' && (GROUP_ROLES as readonly string[]).includes(value)
 }
 
+export type GroupBusinessArea =
+  | 'real-estate'
+  | 'partnerships'
+  | 'intelligence-data'
+  | 'operations'
+  | 'content-ai'
+  | 'fiscal-compliance'
+  | 'utilities'
+  | 'personal'
+
+export type GroupArchitectureLayer = 'entry' | 'core' | 'activation'
+
 export type GroupAppKey =
   | 'private-estates'
   | 'private-estates-landing'
@@ -38,25 +50,29 @@ export type GroupAppKey =
   | 'visionflow'
   | 'linguo-cam'
 
+export type GroupAppKind =
+  | 'external-hub'
+  | 'partner-platform'
+  | 'intelligence-platform'
+  | 'ops-platform'
+  | 'ai-platform'
+  | 'wellness-platform'
+  | 'finance-platform'
+  | 'compliance-platform'
+  | 'utility-platform'
+  | 'learning-platform'
+
 export type GroupAppDefinition = {
   key: GroupAppKey
   title: string
   eyebrow: string
   description: string
   logoSrc?: string
-  kind:
-    | 'external-hub'
-    | 'partner-platform'
-    | 'intelligence-platform'
-    | 'ops-platform'
-    | 'ai-platform'
-    | 'wellness-platform'
-    | 'finance-platform'
-    | 'compliance-platform'
-    | 'utility-platform'
-    | 'learning-platform'
+  kind: GroupAppKind
   visibility: 'external-facing' | 'internal'
   roles: GroupRole[]
+  businessArea: GroupBusinessArea
+  architectureLayer: GroupArchitectureLayer
   url: string
 }
 
@@ -133,10 +149,37 @@ function getEnvUrl(name: string, fallback: string) {
   return process.env[name]?.trim() || fallback
 }
 
+/**
+ * Business area and architecture layer per app. Declared as a Record keyed by
+ * GroupAppKey so the compiler rejects any app missing its classification.
+ * Layer meaning is conserved from the original architecture map:
+ * entry (relationship/access), core (intelligence/coordination),
+ * activation (content/compliance/growth).
+ */
+const APP_TAXONOMY: Record<GroupAppKey, Pick<GroupAppDefinition, 'businessArea' | 'architectureLayer'>> = {
+  'private-estates': { businessArea: 'real-estate', architectureLayer: 'entry' },
+  'private-estates-landing': { businessArea: 'real-estate', architectureLayer: 'entry' },
+  synergi: { businessArea: 'partnerships', architectureLayer: 'entry' },
+  'linguo-cam': { businessArea: 'utilities', architectureLayer: 'entry' },
+  'data-lab': { businessArea: 'intelligence-data', architectureLayer: 'core' },
+  nexus: { businessArea: 'real-estate', architectureLayer: 'core' },
+  'command-center': { businessArea: 'operations', architectureLayer: 'core' },
+  visionflow: { businessArea: 'operations', architectureLayer: 'core' },
+  filestudio: { businessArea: 'utilities', architectureLayer: 'core' },
+  'content-generator-ai': { businessArea: 'content-ai', architectureLayer: 'activation' },
+  'advisor-ai': { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
+  fiscal: { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
+  syncxml: { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
+  energyscan: { businessArea: 'real-estate', architectureLayer: 'activation' },
+  impulso: { businessArea: 'personal', architectureLayer: 'activation' },
+}
+
+type GroupAppDefinitionBase = Omit<GroupAppDefinition, 'businessArea' | 'architectureLayer'>
+
 export function getGroupAppDefinitions(): GroupAppDefinition[] {
   const privateEstatesUrl = getEnvUrl('NEXT_PUBLIC_PRIVATE_ESTATES_URL', 'https://anclora-private-estates.vercel.app/')
 
-  return [
+  const apps: GroupAppDefinitionBase[] = [
     {
       key: 'private-estates',
       title: 'Anclora Private Estates',
@@ -321,6 +364,8 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       url: getEnvUrl('NEXT_PUBLIC_IMPULSO_URL', 'https://anclora-impulso.vercel.app/'),
     },
   ]
+
+  return apps.map((app) => ({ ...app, ...APP_TAXONOMY[app.key] }))
 }
 
 export function getAppsForRole(role: GroupRole) {
@@ -344,4 +389,106 @@ export function getSynergiLoginUrl() {
 
 export function getDataLabLoginUrl() {
   return getEnvUrl('NEXT_PUBLIC_DATA_LAB_INTERNAL_URL', 'https://anclora-data-lab.vercel.app/access-requests/login')
+}
+
+export type GroupBusinessAreaInfo = {
+  key: GroupBusinessArea
+  label: string
+}
+
+/** Display metadata per business area. Single declaration; UI derives from it. */
+export function getGroupBusinessAreas(): GroupBusinessAreaInfo[] {
+  return [
+    { key: 'real-estate', label: 'Real Estate' },
+    { key: 'partnerships', label: 'Partnerships' },
+    { key: 'intelligence-data', label: 'Inteligencia y Datos' },
+    { key: 'operations', label: 'Operaciones' },
+    { key: 'content-ai', label: 'Contenido e IA' },
+    { key: 'fiscal-compliance', label: 'Fiscal y Cumplimiento' },
+    { key: 'utilities', label: 'Utilidades' },
+    { key: 'personal', label: 'Personal' },
+  ]
+}
+
+export function getBusinessAreaLabel(area: GroupBusinessArea): string {
+  return getGroupBusinessAreas().find((item) => item.key === area)?.label ?? area
+}
+
+export type GroupAppsByArea = {
+  area: GroupBusinessAreaInfo
+  apps: GroupAppDefinition[]
+}
+
+/** Groups apps by business area following the declared area order. */
+export function groupAppsByBusinessArea(apps: GroupAppDefinition[]): GroupAppsByArea[] {
+  return getGroupBusinessAreas()
+    .map((area) => ({ area, apps: apps.filter((app) => app.businessArea === area.key) }))
+    .filter((group) => group.apps.length > 0)
+}
+
+export type GroupArchitectureLayerInfo = {
+  key: GroupArchitectureLayer
+  eyebrow: string
+  title: string
+  body: string
+}
+
+const ARCHITECTURE_LAYERS: GroupArchitectureLayerInfo[] = [
+  {
+    key: 'entry',
+    eyebrow: 'Capa de entrada',
+    title: 'Relación y puerta de acceso',
+    body: 'Las superficies que definen la entrada premium al ecosistema, la activación de partners y el marco corporativo de visibilidad.',
+  },
+  {
+    key: 'core',
+    eyebrow: 'Capa operativa',
+    title: 'Inteligencia y coordinación',
+    body: 'El núcleo que combina señales de mercado, coordinación interna y lectura ejecutiva del ecosistema en tiempo real.',
+  },
+  {
+    key: 'activation',
+    eyebrow: 'Capa de activación',
+    title: 'Contenido, cumplimiento y crecimiento',
+    body: 'Las aplicaciones que convierten inteligencia en ejecución editorial, orientación experta, control operativo y tracción comercial sostenida.',
+  },
+]
+
+export type GroupArchitectureLane = GroupArchitectureLayerInfo & {
+  apps: GroupAppDefinition[]
+}
+
+/**
+ * Architecture map derived from the registry. No parallel hardcoded arrays:
+ * layers declare metadata once and every app lands in exactly one lane via
+ * its architectureLayer field.
+ */
+export function getArchitectureLanes(apps: GroupAppDefinition[] = getGroupAppDefinitions()): GroupArchitectureLane[] {
+  return ARCHITECTURE_LAYERS.map((layer) => ({
+    ...layer,
+    apps: apps.filter((app) => app.architectureLayer === layer.key),
+  }))
+}
+
+function normalizeSearchText(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+}
+
+/**
+ * Lightweight client-safe search over an already role-filtered app list.
+ * Matches title, eyebrow, description, kind and business-area label.
+ */
+export function searchGroupApps(apps: GroupAppDefinition[], query: string): GroupAppDefinition[] {
+  const needle = normalizeSearchText(query.trim())
+  if (!needle) return apps
+
+  return apps.filter((app) => {
+    const haystack = normalizeSearchText(
+      [app.title, app.eyebrow, app.description, app.kind, getBusinessAreaLabel(app.businessArea)].join(' '),
+    )
+    return haystack.includes(needle)
+  })
 }

@@ -16,7 +16,7 @@ Internal portal integrating architecture, governance, and documentation across t
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
 ![Category](https://img.shields.io/badge/category-Matrix%20Entity-A8AEB8)
-![Languages](https://img.shields.io/badge/product%20languages-4-047857)
+![Languages](https://img.shields.io/badge/product%20language-Spanish-047857)
 
 </div>
 
@@ -42,6 +42,7 @@ Anclora Group is the central hub of Anclora, functioning as the convergence poin
 
 - Integrated corporate documentation and governance hub
 - Centralized navigation across Anclora product family
+- Portal sections: workspace (`/workspace`), app catalog (`/apps`), architecture map (`/architecture`), and authenticated documentation (`/docs`)
 - Automatic PDF generation for architecture and policies
 - Brand standard and visual contract management
 - Operational change traceability and auditing
@@ -67,12 +68,12 @@ Local server: `http://localhost:3000`
 
 ## Supported languages
 
-The production product supports 4 languages: Español (default), English, Deutsch, Français (`SUPPORTED_LOCALES`, `src/lib/group-ui.ts`). This documentation is maintained in all 4 product languages.
+The product UI is currently available in Spanish only. The locale infrastructure exists (`es`, `en`, `de`, `fr` in `src/lib/group-ui.ts`), but the `en/de/fr` messages alias the Spanish ones and real i18n is a future phase. This documentation is maintained in Spanish, English, German, and French.
 
 ## Documentation and governance
 
-- Brand contracts and governance: [`docs/standards/`](./docs/standards/)
-- Anclora Vault (source of truth): `contracts/` and `docs/governance/`
+- Brand contracts and governance: [`contracts/`](./contracts/) and [`docs/standards/`](./docs/standards/)
+- Internal and user guides: [`docs/claude-code/`](./docs/claude-code/)
 
 ---
 

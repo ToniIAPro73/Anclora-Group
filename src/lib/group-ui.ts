@@ -1,4 +1,4 @@
-import type { GroupRole } from '@/lib/group-access'
+import type { GroupAppKind, GroupRole } from '@/lib/group-access'
 
 export type GroupLocale = 'es' | 'en' | 'de' | 'fr'
 export type GroupTheme = 'dark' | 'light'
@@ -8,6 +8,7 @@ const SUPPORTED_THEMES: GroupTheme[] = ['dark', 'light']
 
 type GroupUiMessages = {
   roleLabels: Record<GroupRole, string>
+  kindLabels: Record<GroupAppKind, string>
   heroEyebrow: string
   heroTitle: string
   heroBody: string
@@ -27,6 +28,31 @@ type GroupUiMessages = {
   loginSubmitIdle: string
   loginSubmitBusy: string
   loginErrorFallback: string
+  navWorkspace: string
+  navApps: string
+  navArchitecture: string
+  navDocs: string
+  logoutLabel: string
+  workspaceKicker: string
+  workspaceGreeting: string
+  appsAvailableLabel: string
+  searchLabel: string
+  searchPlaceholder: string
+  searchNoResults: string
+  openAppLabel: string
+  catalogEyebrow: string
+  catalogTitle: string
+  filterAreaAll: string
+  filterVisibilityAll: string
+  architectureFilteredNote: string
+  docsEyebrow: string
+  docsTitle: string
+  docsBody: string
+  docArchitecturePdfTitle: string
+  docArchitecturePdfDescription: string
+  docArchitectureDocTitle: string
+  docArchitectureDocDescription: string
+  docOpenLabel: string
 }
 
 const messages: Record<GroupLocale, GroupUiMessages> = {
@@ -39,6 +65,18 @@ const messages: Record<GroupLocale, GroupUiMessages> = {
       'content-ops': 'Operaciones de contenido',
       advisory: 'Asesoría AI',
       'growth-ops': 'Operaciones de impulso',
+    },
+    kindLabels: {
+      'external-hub': 'Hub externo',
+      'partner-platform': 'Plataforma de partners',
+      'intelligence-platform': 'Plataforma de inteligencia',
+      'ops-platform': 'Plataforma operativa',
+      'ai-platform': 'Plataforma de IA',
+      'wellness-platform': 'Plataforma de bienestar',
+      'finance-platform': 'Plataforma financiera',
+      'compliance-platform': 'Plataforma de cumplimiento',
+      'utility-platform': 'Plataforma de utilidades',
+      'learning-platform': 'Plataforma de aprendizaje',
     },
     heroEyebrow: 'Entidad matriz y capa corporativa',
     heroTitle: 'Una única puerta corporativa para el ecosistema Anclora.',
@@ -61,6 +99,31 @@ const messages: Record<GroupLocale, GroupUiMessages> = {
     loginSubmitIdle: 'Entrar en la entidad matriz',
     loginSubmitBusy: 'Abriendo acceso corporativo...',
     loginErrorFallback: 'No se ha podido iniciar la sesión corporativa.',
+    navWorkspace: 'Workspace',
+    navApps: 'Aplicaciones',
+    navArchitecture: 'Arquitectura',
+    navDocs: 'Documentación',
+    logoutLabel: 'Cerrar sesión',
+    workspaceKicker: 'Panel operativo',
+    workspaceGreeting: 'Hola,',
+    appsAvailableLabel: 'apps disponibles para tu rol',
+    searchLabel: 'Buscar aplicaciones',
+    searchPlaceholder: 'Buscar por nombre, función o área…',
+    searchNoResults: 'Sin resultados para esta búsqueda.',
+    openAppLabel: 'Abrir aplicación',
+    catalogEyebrow: 'Catálogo',
+    catalogTitle: 'Todas tus aplicaciones autorizadas',
+    filterAreaAll: 'Todas las áreas',
+    filterVisibilityAll: 'Todas',
+    architectureFilteredNote: 'Vista filtrada a las aplicaciones autorizadas para tu rol.',
+    docsEyebrow: 'Documentación privada',
+    docsTitle: 'Documentación corporativa',
+    docsBody: 'Documentos internos del ecosistema, disponibles solo con sesión corporativa activa.',
+    docArchitecturePdfTitle: 'Arquitectura de acceso (PDF)',
+    docArchitecturePdfDescription: 'Mapa visual del ecosistema, sus capas y la posición de cada aplicación. Generado desde el registry.',
+    docArchitectureDocTitle: 'Arquitectura de acceso (documento)',
+    docArchitectureDocDescription: 'Documento fuente en Markdown con la propuesta de arquitectura de acceso corporativo.',
+    docOpenLabel: 'Abrir documento',
   },
   en: {} as GroupUiMessages,
   de: {} as GroupUiMessages,
@@ -97,4 +160,8 @@ export function getGroupMessages(locale = getGroupDefaultLocale()) {
 
 export function getRoleLabels(locale = getGroupDefaultLocale()) {
   return getGroupMessages(locale).roleLabels
+}
+
+export function getKindLabels(locale = getGroupDefaultLocale()) {
+  return getGroupMessages(locale).kindLabels
 }

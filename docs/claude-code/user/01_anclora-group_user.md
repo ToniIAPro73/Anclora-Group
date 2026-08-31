@@ -32,19 +32,36 @@ No es una aplicación de cara al cliente externo.
 
 ## Qué puedes hacer
 
+### Navegación del portal
+
+El portal se organiza en cuatro secciones:
+
+- **Workspace** (`/workspace`): tu home operativa tras iniciar sesión
+- **Aplicaciones** (`/apps`): catálogo con todas las apps que tu rol tiene autorizadas
+- **Arquitectura** (`/architecture`): mapa de las capas del ecosistema
+- **Documentación** (`/docs`): documentación interna, incluido el documento de arquitectura (PDF)
+
 ### Launcher de Aplicaciones
 
-Desde el portal verás un acceso directo a todas las apps del ecosistema que tienes autorizadas:
+El ecosistema cuenta con 15 aplicaciones registradas. En la sección **Aplicaciones** verás únicamente las que tu rol tiene autorizadas — cada perfil ve un subconjunto distinto:
 
 | App | Qué hace |
 |-----|----------|
 | Anclora Private Estates | Plataforma principal de propiedades de lujo |
+| Anclora Private Estates Landing | Landing pública de captación |
 | Anclora Synergi | Portal de gestión de partners |
 | Anclora Data Lab | Inteligencia analítica de mercado |
 | Anclora Nexus | Workspace operativo del equipo |
 | Anclora Command Center | Bóveda documental interna |
 | Anclora Content Generator AI | Generador de contenido editorial |
 | Anclora Advisor AI | Asesoría fiscal e inmobiliaria |
+| Anclora Fiscal | Operación fiscal |
+| Anclora SyncXML | Cumplimiento SES.HOSPEDAJES |
+| Anclora EnergyScan | Análisis energético inmobiliario |
+| Anclora FileStudio | Conversión y tratamiento de archivos |
+| Anclora VisionFlow | Mapa visual del ecosistema |
+| Anclora Linguo Cam | Comunicación translingüe en tiempo real |
+| Anclora Impulso | Fitness y nutrición |
 
 ### Gestión de Sesiones
 
@@ -62,7 +79,7 @@ Contacta al administrador del sistema para que restablezca tus credenciales.
 Tu acceso depende de tu rol asignado. Contacta al administrador para solicitar acceso adicional.
 
 **¿Puedo cambiar el idioma o el tema visual?**  
-Sí, el portal tiene soporte para cambio de idioma (ES/EN) y tema (claro/oscuro). Consulta las opciones de configuración en el portal.
+No. El portal está disponible únicamente en español y no existe selector de idioma (la traducción real es una fase futura). El tema visual es oscuro por defecto para todo el portal; no hay interruptor de tema visible para el usuario.
 
 ---
 

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "tsx --test tests/**/*.test.ts",
-    "generate:architecture-pdf": "node ./scripts/generate-architecture-pdf.mjs"
+    "generate:architecture-pdf": "tsx scripts/generate-architecture-pdf.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

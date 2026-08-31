@@ -16,7 +16,7 @@ Portal interno que integra arquitectura, gobernanza y documentación de toda la 
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
 ![Categoría](https://img.shields.io/badge/categor%C3%ADa-Entidad%20Matriz-A8AEB8)
-![Idiomas](https://img.shields.io/badge/idiomas%20producto-4-047857)
+![Idiomas](https://img.shields.io/badge/idioma%20producto-espa%C3%B1ol-047857)
 
 </div>
 
@@ -42,6 +42,7 @@ Anclora Group es el portal central de la empresa Anclora, que funciona como punt
 
 - Portal integrado de documentación y gobernanza corporativa
 - Navegación centralizada de la familia de productos Anclora
+- Secciones del portal: workspace (`/workspace`), catálogo de apps (`/apps`), mapa de arquitectura (`/architecture`) y documentación autenticada (`/docs`)
 - Generación automática de documentación en PDF (arquitectura, políticas)
 - Gestión de estándares de marca y contratos visuales
 - Trazabilidad y auditoría de cambios operativos
@@ -67,12 +68,12 @@ Servidor local: `http://localhost:3000`
 
 ## Idiomas soportados
 
-El producto en producción soporta 4 idiomas: Español (predeterminado), English, Deutsch, Français (`SUPPORTED_LOCALES`, `src/lib/group-ui.ts`). Esta documentación se mantiene en los 4 idiomas del producto.
+La interfaz del producto está actualmente disponible solo en español. La infraestructura de localización existe (`es`, `en`, `de`, `fr` en `src/lib/group-ui.ts`), pero los mensajes `en/de/fr` son alias del español y el i18n real es una fase futura. Esta documentación se mantiene en español, inglés, alemán y francés.
 
 ## Documentación y gobernanza
 
-- Contratos de marca y gobernanza: [`docs/standards/`](./docs/standards/)
-- Bóveda Anclora (fuente de verdad): `contracts/` y `docs/governance/`
+- Contratos de marca y gobernanza: [`contracts/`](./contracts/) y [`docs/standards/`](./docs/standards/)
+- Guías internas y de usuario: [`docs/claude-code/`](./docs/claude-code/)
 
 ---
 

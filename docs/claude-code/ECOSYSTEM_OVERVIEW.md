@@ -39,6 +39,16 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 │   ├── Anclora Advisor AI               ← Asesoría fiscal e inmobiliaria
 │   └── Anclora Nexus                    ← CRM/workspace operativo interno
 │
+│ [APLICACIONES INTERNAS ADICIONALES]
+├── Utilidades y operación interna
+│   ├── Anclora Fiscal                   ← Operación fiscal trazable
+│   ├── Anclora SyncXML                  ← Cumplimiento SES.HOSPEDAJES
+│   ├── Anclora EnergyScan               ← Análisis energético inmobiliario
+│   ├── Anclora FileStudio               ← Conversión y tratamiento de archivos
+│   ├── Anclora VisionFlow               ← Mapa visual del ecosistema
+│   ├── Anclora Linguo Cam               ← Comunicación translingüe
+│   └── Anclora Impulso                  ← Fitness y nutrición
+│
 └── Portfolio Real Estate
     ├── Anclora Portfolio                ← Blueprint técnico reutilizable
     └── Anclora Azure Bay Landing        ← Landing de alta conversión
@@ -47,6 +57,8 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 ---
 
 ## 3. Inventario de Aplicaciones
+
+La fuente de verdad del catálogo del portal Anclora Group es el registry `src/lib/group-access.ts` (15 apps registradas). Este inventario es una vista de ecosistema: incluye además repositorios fuera del registry del portal (Portfolio, Azure Bay).
 
 ### 3.1 Empresa Matriz
 
@@ -77,7 +89,23 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 | Anclora Advisor AI | ToniIAPro73/Anclora-Advisor-AI | Next.js 15, Supabase/pgvector, Anthropic+multi-LLM | Asesoría fiscal, laboral e inmobiliaria |
 | Anclora Nexus | ToniIAPro73/Anclora-Nexus | Next.js frontend + FastAPI/LangGraph backend, Supabase | CRM de prospección y workspace operativo |
 
-### 3.5 Portfolio Real Estate
+### 3.5 Otras Aplicaciones Internas del Portal
+
+Registradas en el portal Anclora Group (`src/lib/group-access.ts`):
+
+| App | Repo | Stack Principal | Propósito |
+|-----|------|-----------------|-----------|
+| Anclora Impulso | — | — | Fitness y nutrición con generación de rutinas por IA |
+| Anclora Fiscal | — | — | Sistema operativo fiscal trazable (ventas digitales, cierres mensuales) |
+| Anclora SyncXML | — | — | Preparación y sincronización para obligaciones SES.HOSPEDAJES |
+| Anclora EnergyScan | — | — | Análisis energético de activos inmobiliarios |
+| Anclora FileStudio | — | — | Conversión y tratamiento privado de archivos |
+| Anclora VisionFlow | — | — | Workspace visual para mapear apps, evidencias y handoffs del ecosistema |
+| Anclora Linguo Cam | — | — | Comunicación en tiempo real con subtítulos, ASR y traducción asistida |
+
+### 3.6 Portfolio Real Estate
+
+Repos del ecosistema fuera del registry del portal Anclora Group:
 
 | App | Repo | Stack Principal | Propósito |
 |-----|------|-----------------|-----------|
@@ -151,13 +179,17 @@ Cliente/Inversor/Propietario
 
 ## 7. Arquitectura de Acceso de Anclora Group
 
-Anclora Group organiza las apps en 3 capas y 7 roles:
+Anclora Group organiza las apps en 3 capas (entry / core / activation) y 7 roles. El acceso por rol se deriva del registry `src/lib/group-access.ts`:
 
-| Capa | Apps | Roles con acceso |
-|------|------|------------------|
-| **Entry Layer** | Private Estates, Synergi | private-estates-ops, partner-ops |
-| **Core Layer** | Data Lab, Nexus, Command Center | data-ops, group-admin |
-| **Activation Layer** | Content Gen AI, Advisor AI, Impulso | content-ops, advisory, growth-ops |
+| Rol | Apps con acceso |
+|-----|------------------|
+| `group-admin` | Todas las apps (15) |
+| `private-estates-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `nexus`, `command-center`, `content-generator-ai`, `syncxml`, `energyscan`, `filestudio`, `visionflow` (11) |
+| `partner-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `command-center` (5) |
+| `data-ops` | `private-estates`, `private-estates-landing`, `data-lab`, `command-center`, `energyscan`, `visionflow` (6) |
+| `content-ops` | `private-estates`, `private-estates-landing`, `command-center`, `content-generator-ai`, `filestudio`, `visionflow` (6) |
+| `advisory` | `command-center`, `advisor-ai`, `fiscal`, `syncxml`, `filestudio` (5) |
+| `growth-ops` | `command-center`, `impulso` (2) |
 
 ---
 
@@ -170,8 +202,10 @@ Anclora Group organiza las apps en 3 capas y 7 roles:
 | Testing | Vitest (unit) + Playwright (E2E) |
 | CI/CD | GitHub Actions + Vercel deployments |
 | Idiomas base | Español / Inglés |
-| Idiomas extendidos | Private Estates, Group: de, fr — Data Lab: de — Nexus: de, ru |
+| Idiomas extendidos | Private Estates: de, fr — Data Lab: de — Nexus: de, ru |
 | Commits | Convención `feat/fix/docs: [ANCLORA-XXX] Descripción` |
+
+Nota: la UI del portal Anclora Group es actualmente solo en español (los locales `en/de/fr` en `src/lib/group-ui.ts` son placeholders; i18n real en fase futura).
 
 ---
 

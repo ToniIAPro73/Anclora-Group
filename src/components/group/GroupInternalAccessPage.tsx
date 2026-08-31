@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight, KeyRound, ShieldCheck } from 'lucide-react'
 import type { GroupSession } from '@/lib/group-auth'
+import { GroupPortalNav } from '@/components/group/GroupPortalNav'
 
 type Props = {
   session: GroupSession
@@ -34,21 +35,7 @@ export function GroupInternalAccessPage({
     <main className="group-page">
       <div className="group-noise" />
       <section className="group-shell">
-        <header className="group-topbar">
-          <div className="group-brand">
-            <div className="group-brand-badge">
-              <Image src="/brand/anclora-group.webp" alt="Anclora Group" width={54} height={54} className="group-brand-logo" />
-            </div>
-            <div>
-              <p className="group-brand-name">ANCLORA GROUP</p>
-              <p className="group-brand-line">Entidad matriz y acceso corporativo</p>
-            </div>
-          </div>
-          <div className="group-user-panel">
-            <strong>{session.displayName}</strong>
-            <span>{session.role}</span>
-          </div>
-        </header>
+        <GroupPortalNav session={session} active="apps" />
 
         <section className="group-access-layout">
           <article className="group-login-brand">

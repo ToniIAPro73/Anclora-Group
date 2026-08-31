@@ -16,7 +16,7 @@ Portail interne intégrant l'architecture, la gouvernance et la documentation de
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
 ![Catégorie](https://img.shields.io/badge/catégorie-Entité%20Matrice-A8AEB8)
-![Langues](https://img.shields.io/badge/langues%20produit-4-047857)
+![Langues](https://img.shields.io/badge/langue%20produit-espagnol-047857)
 
 </div>
 
@@ -42,6 +42,7 @@ Anclora Group est le portail central de l'entreprise Anclora, agissant comme poi
 
 - Portail intégré de documentation et de gouvernance corporative
 - Navigation centralisée de la famille de produits Anclora
+- Sections du portail : workspace (`/workspace`), catalogue d'apps (`/apps`), carte d'architecture (`/architecture`) et documentation authentifiée (`/docs`)
 - Génération automatique de documentation PDF (architecture, politiques)
 - Gestion des standards de marque et des contrats visuels
 - Traçabilité et audit des changements opérationnels
@@ -67,12 +68,12 @@ Serveur local : `http://localhost:3000`
 
 ## Langues prises en charge
 
-Le produit en production prend en charge 4 langues : Español (par défaut), English, Deutsch, Français (`SUPPORTED_LOCALES`, `src/lib/group-ui.ts`). Cette documentation est maintenue dans les 4 langues du produit.
+L'interface du produit est actuellement disponible uniquement en espagnol. L'infrastructure de localisation existe (`es`, `en`, `de`, `fr` dans `src/lib/group-ui.ts`), mais les messages `en/de/fr` sont des alias de l'espagnol et l'i18n réel est une phase future. Cette documentation est maintenue en espagnol, anglais, allemand et français.
 
 ## Documentation et gouvernance
 
-- Contrats de marque et de gouvernance : [`docs/standards/`](./docs/standards/)
-- Anclora Vault (source de vérité) : `contracts/` et `docs/governance/`
+- Contrats de marque et de gouvernance : [`contracts/`](./contracts/) et [`docs/standards/`](./docs/standards/)
+- Guides internes et utilisateur : [`docs/claude-code/`](./docs/claude-code/)
 
 ---
 
