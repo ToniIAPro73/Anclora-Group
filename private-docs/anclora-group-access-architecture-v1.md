@@ -137,8 +137,9 @@ Más adelante:
 
 - `group-admin`
   - acceso completo al launcher y a la administración del portal interno
-- `commercial-ops`
-  - acceso a `Nexus`, `Synergi Backoffice`, reporting comercial
+- `private-estates-ops`
+  - operación del vertical Private Estates (superficies públicas y hubs), `Content Generator AI`, `Command Center` y relays internos
+  - nota: este rol sustituye al `commercial-ops` mencionado en specs históricas; reconciliación formal en `sdd/features/role-model-reconciliation/role-model-reconciliation-spec-v1.md`
 - `partner-ops`
   - acceso a admisiones, activaciones y soporte de `Synergi`
 - `content-ops`

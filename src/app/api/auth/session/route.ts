@@ -15,6 +15,19 @@ const MAX_PASSWORD_LENGTH = 256
 const INVALID_CREDENTIALS = 'Usuario o password no válidos.'
 const RATE_LIMITED = 'Demasiados intentos. Inténtalo de nuevo más tarde.'
 
+/**
+ * Minimal auth audit trail for Vercel runtime logs. Structured JSON, never
+ * logs passwords, hashes, tokens or payloads.
+ */
+function logAuthEvent(event: 'group_login_success' | 'group_login_failed' | 'group_login_rate_limited', detail: Record<string, string | number>) {
+  const line = JSON.stringify({ event, ...detail })
+  if (event === 'group_login_success') {
+    console.info(line)
+  } else {
+    console.warn(line)
+  }
+}
+
 export async function POST(request: NextRequest) {
   const contentType = request.headers.get('content-type') || ''
 
@@ -48,10 +61,12 @@ export async function POST(request: NextRequest) {
   }
 
   const normalizedUsername = username.trim()
-  const rateKey = loginRateLimitKey(resolveClientIp(request), normalizedUsername)
+  const clientIp = resolveClientIp(request)
+  const rateKey = loginRateLimitKey(clientIp, normalizedUsername)
 
   const limit = checkLoginRateLimit(rateKey)
   if (!limit.allowed) {
+    logAuthEvent('group_login_rate_limited', { ip: clientIp, retryAfterSeconds: limit.retryAfterSeconds })
     return NextResponse.json(
       { error: RATE_LIMITED },
       { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } },
@@ -61,11 +76,13 @@ export async function POST(request: NextRequest) {
   const session = await authenticateGroupUser(normalizedUsername, password)
   if (!session) {
     recordLoginFailure(rateKey)
+    logAuthEvent('group_login_failed', { ip: clientIp, username: normalizedUsername })
     return NextResponse.json({ error: INVALID_CREDENTIALS }, { status: 401 })
   }
 
   clearLoginFailures(rateKey)
   await createGroupSession(session)
+  logAuthEvent('group_login_success', { ip: clientIp, username: normalizedUsername })
   return NextResponse.json({ ok: true })
 }
 

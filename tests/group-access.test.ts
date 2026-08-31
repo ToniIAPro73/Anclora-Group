@@ -16,3 +16,15 @@ test('partner-ops sees synergi and data lab but not advisory ai', () => {
   assert.ok(apps.some((item) => item.key === 'data-lab'))
   assert.ok(!apps.some((item) => item.key === 'advisor-ai'))
 })
+
+test('advisor-ai and command-center fallbacks use the documented deployments', () => {
+  // Phase 4 URL reconciliation: fallbacks must match the authoritative
+  // deployment URLs documented in docs/claude-code/ECOSYSTEM_OVERVIEW.md
+  // and the internal deploy guides (07/08). Evidence-based, do not drift.
+  const apps = getGroupAppDefinitions()
+  const advisor = apps.find((item) => item.key === 'advisor-ai')
+  const commandCenter = apps.find((item) => item.key === 'command-center')
+
+  assert.equal(advisor?.url, 'https://ancloraadvisorai-ten.vercel.app/')
+  assert.equal(commandCenter?.url, 'https://boveda-anclora.vercel.app/')
+})

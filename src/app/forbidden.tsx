@@ -14,7 +14,7 @@ export default function ForbiddenPage() {
           </div>
           <p>Tu rol no tiene permiso para acceder a este recurso.</p>
           <p>
-            <Link href="/workspace">Volver al workspace</Link>
+            <Link href="/workspace" className="group-ghost-button">Volver al workspace</Link>
           </p>
         </div>
       </section>

@@ -253,7 +253,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'ops-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'partner-ops', 'data-ops', 'content-ops', 'advisory', 'growth-ops'],
-      url: getEnvUrl('NEXT_PUBLIC_COMMAND_CENTER_URL', 'https://anclora-command-center.vercel.app/'),
+      url: getEnvUrl('NEXT_PUBLIC_COMMAND_CENTER_URL', 'https://boveda-anclora.vercel.app/'),
     },
     {
       key: 'content-generator-ai',
@@ -277,7 +277,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       kind: 'ai-platform',
       visibility: 'internal',
       roles: ['group-admin', 'advisory'],
-      url: getEnvUrl('NEXT_PUBLIC_ADVISOR_AI_URL', 'https://anclora-advisor-ai.vercel.app/'),
+      url: getEnvUrl('NEXT_PUBLIC_ADVISOR_AI_URL', 'https://ancloraadvisorai-ten.vercel.app/'),
     },
     {
       key: 'fiscal',
