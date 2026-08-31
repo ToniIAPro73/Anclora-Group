@@ -168,7 +168,8 @@ public/
   brand/               # Activos de marca
 private-docs/          # PDF y documento MD de arquitectura (servidos autenticados vía /docs)
 scripts/
-  dev-safe.ps1         # Arranque seguro (Windows/PowerShell)
+  dev-safe.mjs         # Arranque seguro multiplataforma (npm run dev); puerto autoritativo 3005
+  dev-safe.ps1         # Helper Windows/PowerShell (dev-safe.mjs delega en él en win32)
   generate-architecture-pdf.ts # PDF derivado del registry (npm run generate:architecture-pdf)
   hash-password.mjs    # Helper para generar hashes bcrypt de contraseñas
 sdd/
@@ -187,9 +188,10 @@ docs/
 ## 7. Comandos de Desarrollo
 
 ```bash
-npm run dev      # (usa dev-safe.ps1 en Windows)
-npm run build
-npm run start
+npm run dev      # Multiplataforma vía scripts/dev-safe.mjs; sirve en http://127.0.0.1:3005
+                 # (puerto autoritativo del VPS; sobreescribible con PORT/HOST)
+npm run build    # Build de producción (requerido antes de npm start)
+npm run start    # Sirve el build de producción; NO es el comando de desarrollo
 npm run lint
 npm run test
 npm run generate:architecture-pdf

@@ -64,7 +64,16 @@ npm install
 npm run dev
 ```
 
-Servidor local: `http://localhost:3000`
+Servidor de desarrollo: `http://127.0.0.1:3005` (puerto autoritativo asignado a este repo en el VPS; sobreescribible con `PORT`/`HOST`, p. ej. `PORT=3100 npm run dev`). `npm run dev` es multiplataforma (Linux/macOS/Windows) a través de `scripts/dev-safe.mjs`, que detiene cualquier `next dev` previo de este repo y limpia el lock de Turbopack antes de arrancar; en Windows delega en `scripts/dev-safe.ps1`.
+
+Validación local en modo producción (requiere build previo):
+
+```bash
+npm run build
+npm start
+```
+
+`npm start` sirve el build de producción (puerto 3000 por defecto de Next, o `PORT` si se define). No es el comando de desarrollo.
 
 ## Idiomas soportados
 
