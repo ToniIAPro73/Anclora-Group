@@ -169,7 +169,7 @@ const APP_TAXONOMY: Record<GroupAppKey, Pick<GroupAppDefinition, 'businessArea' 
   'content-generator-ai': { businessArea: 'content-ai', architectureLayer: 'activation' },
   'advisor-ai': { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
   fiscal: { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
-  syncxml: { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
+  syncxml: { businessArea: 'real-estate', architectureLayer: 'activation' },
   energyscan: { businessArea: 'real-estate', architectureLayer: 'activation' },
   impulso: { businessArea: 'personal', architectureLayer: 'activation' },
 }
@@ -294,7 +294,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
     {
       key: 'syncxml',
       title: 'Anclora SyncXML',
-      eyebrow: 'Cumplimiento operativo',
+      eyebrow: 'Integración y gestión de alquiler vacacional',
       description:
         'Herramienta de preparación y sincronización operativa para obligaciones SES.HOSPEDAJES.',
       logoSrc: '/brand/anclora-syncxml.webp',
