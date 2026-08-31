@@ -1,10 +1,8 @@
 import type { GroupAppKind, GroupRole } from '@/lib/group-access'
 
 export type GroupLocale = 'es' | 'en' | 'de' | 'fr'
-export type GroupTheme = 'dark' | 'light'
 
 const SUPPORTED_LOCALES: GroupLocale[] = ['es', 'en', 'de', 'fr']
-const SUPPORTED_THEMES: GroupTheme[] = ['dark', 'light']
 
 type GroupUiMessages = {
   roleLabels: Record<GroupRole, string>
@@ -140,18 +138,8 @@ function pickLocale(value: string | undefined): GroupLocale {
   return SUPPORTED_LOCALES.includes(normalized) ? normalized : 'es'
 }
 
-function pickTheme(value: string | undefined): GroupTheme {
-  if (!value) return 'dark'
-  const normalized = value.trim().toLowerCase() as GroupTheme
-  return SUPPORTED_THEMES.includes(normalized) ? normalized : 'dark'
-}
-
 export function getGroupDefaultLocale() {
   return pickLocale(process.env.NEXT_PUBLIC_GROUP_DEFAULT_LOCALE)
-}
-
-export function getGroupDefaultTheme() {
-  return pickTheme(process.env.NEXT_PUBLIC_GROUP_DEFAULT_THEME)
 }
 
 export function getGroupMessages(locale = getGroupDefaultLocale()) {

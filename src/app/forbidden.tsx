@@ -9,7 +9,7 @@ export default function ForbiddenPage() {
           <div className="group-section-head">
             <div>
               <p className="group-eyebrow">Acceso denegado</p>
-              <h2>No autorizado (403)</h2>
+              <h1>No autorizado (403)</h1>
             </div>
           </div>
           <p>Tu rol no tiene permiso para acceder a este recurso.</p>

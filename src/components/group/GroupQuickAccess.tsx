@@ -40,9 +40,15 @@ export function GroupQuickAccess({ apps }: Props) {
         />
       </div>
 
-      {results.length === 0 ? (
-        <p className="group-empty-note">{ui.searchNoResults}</p>
-      ) : searching ? (
+      {searching ? (
+        <p className="group-empty-note" role="status" aria-live="polite">
+          {results.length === 0
+            ? ui.searchNoResults
+            : `${results.length} ${results.length === 1 ? 'aplicación encontrada' : 'aplicaciones encontradas'}`}
+        </p>
+      ) : null}
+
+      {results.length === 0 ? null : searching ? (
         <div className="group-app-rows">
           {results.map((app) => (
             <GroupAppRow key={app.key} app={app} />

@@ -20,7 +20,7 @@ export function GroupLegalDocument({ title, description, blocks }: { title: stri
         <section className="group-section">
           {blocks.map((block) => (
             <article key={block.title} className="group-map-card">
-              <strong>{block.title}</strong>
+              <h2 className="group-map-card-title">{block.title}</h2>
               {block.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </article>
           ))}

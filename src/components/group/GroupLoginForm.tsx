@@ -39,13 +39,13 @@ export function GroupLoginForm() {
     <form className="group-form" onSubmit={handleSubmit}>
       <label className="group-field">
         <span>{ui.usernameLabel}</span>
-        <input value={username} onChange={(event) => setUsername(event.target.value)} placeholder="antonio" required />
+        <input name="username" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="antonio" required />
       </label>
       <label className="group-field">
         <span>{ui.passwordLabel}</span>
-        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="••••••••••" required />
+        <input type="password" name="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="••••••••••" required />
       </label>
-      {error ? <p className="group-notice">{error}</p> : null}
+      {error ? <p className="group-notice" role="alert">{error}</p> : null}
       <button className="group-button" type="submit" disabled={submitting}>
         {submitting ? ui.loginSubmitBusy : ui.loginSubmitIdle}
       </button>

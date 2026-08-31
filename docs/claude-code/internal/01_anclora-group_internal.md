@@ -112,7 +112,7 @@ ANCLORA_GROUP_INTERNAL_USERS_JSON=[{"username":"...","passwordHash":"<bcrypt-has
 
 # UI
 NEXT_PUBLIC_GROUP_DEFAULT_LOCALE=es
-NEXT_PUBLIC_GROUP_DEFAULT_THEME=dark
+# Sin variable de tema: el portal es dark-only (el light theme roto se eliminó en Phase 3).
 
 # URLs del ecosistema (todas sobreescribibles)
 # La lista completa de NEXT_PUBLIC_*_URL —con sus defaults y GAPs conocidos— vive en .env.example:

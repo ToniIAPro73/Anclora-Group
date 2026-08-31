@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { GroupCookieConsent } from '@/components/group/GroupCookieConsent'
-import { getGroupDefaultTheme } from '@/lib/group-ui'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -17,11 +16,9 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const defaultTheme = getGroupDefaultTheme()
-
   return (
     <html lang="es">
-      <body data-theme={defaultTheme}>
+      <body>
         {children}
         <GroupCookieConsent />
       </body>

@@ -83,9 +83,13 @@ export function GroupAppsCatalog({ apps }: Props) {
         </div>
       </div>
 
-      {results.length === 0 ? (
-        <p className="group-empty-note">{ui.searchNoResults}</p>
-      ) : (
+      <p className="group-empty-note" role="status" aria-live="polite">
+        {results.length === 0
+          ? ui.searchNoResults
+          : `${results.length} ${results.length === 1 ? 'aplicación' : 'aplicaciones'}`}
+      </p>
+
+      {results.length === 0 ? null : (
         <div className="group-app-grid">
           {results.map((app) => (
             <article key={app.key} className="group-app-card">
@@ -95,7 +99,7 @@ export function GroupAppsCatalog({ apps }: Props) {
               </div>
               {app.logoSrc ? (
                 <div className="group-app-logo-wrap">
-                  <Image src={app.logoSrc} alt={app.title} width={112} height={112} className="group-app-logo" />
+                  <Image src={app.logoSrc} alt="" width={112} height={112} className="group-app-logo" />
                 </div>
               ) : null}
               <div className="group-app-body">
