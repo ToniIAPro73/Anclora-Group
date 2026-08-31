@@ -56,7 +56,7 @@ El ecosistema cuenta con 15 aplicaciones registradas. En la sección **Aplicacio
 | Anclora Content Generator AI | Generador de contenido editorial |
 | Anclora Advisor AI | Asesoría fiscal e inmobiliaria |
 | Anclora Fiscal | Operación fiscal |
-| Anclora SyncXML | Cumplimiento SES.HOSPEDAJES |
+| Anclora GuestHub | Gestión de huéspedes, check-in y operación de alquiler vacacional |
 | Anclora EnergyScan | Análisis energético inmobiliario |
 | Anclora FileStudio | Conversión y tratamiento de archivos |
 | Anclora VisionFlow | Mapa visual del ecosistema |

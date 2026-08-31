@@ -42,7 +42,7 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 │ [APLICACIONES INTERNAS ADICIONALES]
 ├── Utilidades y operación interna
 │   ├── Anclora Fiscal                   ← Operación fiscal trazable
-│   ├── Anclora SyncXML                  ← Cumplimiento SES.HOSPEDAJES
+│   ├── Anclora GuestHub                 ← Gestión de huéspedes y alquiler vacacional
 │   ├── Anclora EnergyScan               ← Análisis energético inmobiliario
 │   ├── Anclora FileStudio               ← Conversión y tratamiento de archivos
 │   ├── Anclora VisionFlow               ← Mapa visual del ecosistema
@@ -97,7 +97,7 @@ Registradas en el portal Anclora Group (`src/lib/group-access.ts`):
 |-----|------|-----------------|-----------|
 | Anclora Impulso | — | — | Fitness y nutrición con generación de rutinas por IA |
 | Anclora Fiscal | — | — | Sistema operativo fiscal trazable (ventas digitales, cierres mensuales) |
-| Anclora SyncXML | — | — | Preparación y sincronización para obligaciones SES.HOSPEDAJES |
+| Anclora GuestHub | — | — | Gestión de huéspedes, check-in y operación de alquiler vacacional |
 | Anclora EnergyScan | — | — | Análisis energético de activos inmobiliarios |
 | Anclora FileStudio | — | — | Conversión y tratamiento privado de archivos |
 | Anclora VisionFlow | — | — | Workspace visual para mapear apps, evidencias y handoffs del ecosistema |
@@ -184,11 +184,11 @@ Anclora Group organiza las apps en 3 capas (entry / core / activation) y 7 roles
 | Rol | Apps con acceso |
 |-----|------------------|
 | `group-admin` | Todas las apps (15) |
-| `private-estates-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `nexus`, `command-center`, `content-generator-ai`, `syncxml`, `energyscan`, `filestudio`, `visionflow` (11) |
+| `private-estates-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `nexus`, `command-center`, `content-generator-ai`, `guesthub`, `energyscan`, `filestudio`, `visionflow` (11) |
 | `partner-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `command-center` (5) |
 | `data-ops` | `private-estates`, `private-estates-landing`, `data-lab`, `command-center`, `energyscan`, `visionflow` (6) |
 | `content-ops` | `private-estates`, `private-estates-landing`, `command-center`, `content-generator-ai`, `filestudio`, `visionflow` (6) |
-| `advisory` | `command-center`, `advisor-ai`, `fiscal`, `syncxml`, `filestudio` (5) |
+| `advisory` | `command-center`, `advisor-ai`, `fiscal`, `guesthub`, `filestudio` (5) |
 | `growth-ops` | `command-center`, `impulso` (2) |
 
 ---

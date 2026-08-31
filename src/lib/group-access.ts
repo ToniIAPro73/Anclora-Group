@@ -44,7 +44,7 @@ export type GroupAppKey =
   | 'advisor-ai'
   | 'impulso'
   | 'fiscal'
-  | 'syncxml'
+  | 'guesthub'
   | 'energyscan'
   | 'filestudio'
   | 'visionflow'
@@ -169,7 +169,7 @@ const APP_TAXONOMY: Record<GroupAppKey, Pick<GroupAppDefinition, 'businessArea' 
   'content-generator-ai': { businessArea: 'content-ai', architectureLayer: 'activation' },
   'advisor-ai': { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
   fiscal: { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
-  syncxml: { businessArea: 'real-estate', architectureLayer: 'activation' },
+  guesthub: { businessArea: 'real-estate', architectureLayer: 'activation' },
   energyscan: { businessArea: 'real-estate', architectureLayer: 'activation' },
   impulso: { businessArea: 'personal', architectureLayer: 'activation' },
 }
@@ -292,16 +292,22 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       url: getEnvUrl('NEXT_PUBLIC_FISCAL_URL', 'https://anclora-fiscal.vercel.app/'),
     },
     {
-      key: 'syncxml',
-      title: 'Anclora SyncXML',
-      eyebrow: 'Integración y gestión de alquiler vacacional',
+      key: 'guesthub',
+      title: 'Anclora GuestHub',
+      eyebrow: 'Alquiler vacacional y cumplimiento SES.HOSPEDAJES',
       description:
-        'Herramienta de preparación y sincronización operativa para obligaciones SES.HOSPEDAJES.',
-      logoSrc: '/brand/anclora-syncxml.webp',
+        'Gestión de huéspedes, check-in y operación de alquiler vacacional.',
+      logoSrc: '/brand/anclora-guesthub.webp',
       kind: 'compliance-platform',
       visibility: 'internal',
       roles: ['group-admin', 'private-estates-ops', 'advisory'],
-      url: getEnvUrl('NEXT_PUBLIC_SYNCXML_URL', 'https://anclora-syncxml.vercel.app/'),
+      // NEXT_PUBLIC_SYNCXML_URL is kept as a legacy fallback during the rename
+      // transition. The hardcoded fallback domain stays as-is (legacy Vercel
+      // deployment) pending the owner's domain decision.
+      url: getEnvUrl(
+        'NEXT_PUBLIC_GUESTHUB_URL',
+        getEnvUrl('NEXT_PUBLIC_SYNCXML_URL', 'https://anclora-syncxml.vercel.app/'),
+      ),
     },
     {
       key: 'energyscan',

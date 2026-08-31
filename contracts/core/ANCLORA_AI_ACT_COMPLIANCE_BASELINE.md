@@ -6,7 +6,7 @@ Este contrato define una baseline interna, técnica y preliminar para diseñar, 
 
 ## 2. Alcance
 
-Aplica a Anclora Group, Anclora Nexus, Anclora Content Generator AI, Anclora Private Estates, Anclora Private Estates Landing, Anclora Data Lab, Anclora Synergi, Anclora Advisor AI, Anclora EnergyScan, Anclora SyncXML, Anclora Linguo Cam, Anclora Talent, Anclora Impulso, AncloraPress UI / Anclora Press cuando proceda, y Hermes Agent cuando actúe como worker, agente de curación o validador.
+Aplica a Anclora Group, Anclora Nexus, Anclora Content Generator AI, Anclora Private Estates, Anclora Private Estates Landing, Anclora Data Lab, Anclora Synergi, Anclora Advisor AI, Anclora EnergyScan, Anclora GuestHub, Anclora Linguo Cam, Anclora Talent, Anclora Impulso, AncloraPress UI / Anclora Press cuando proceda, y Hermes Agent cuando actúe como worker, agente de curación o validador.
 
 ## 3. Estado y limitaciones
 
@@ -26,13 +26,13 @@ Anclora probablemente actuará como deployer, proveedor downstream o proveedor d
 
 ## 6. Distinción entre EU AI Act, GPAI Code of Practice, RGPD y propuestas regulatorias
 
-EU AI Act, GPAI Code of Practice, RGPD y propuestas como AI/Digital Omnibus deben mantenerse separados en la documentación. El GPAI Code of Practice puede orientar buenas prácticas, pero no elimina riesgos. RGPD sigue siendo crítico cuando se tratan datos personales, especialmente en SyncXML, Talent, Advisor AI, Impulso y EnergyScan.
+EU AI Act, GPAI Code of Practice, RGPD y propuestas como AI/Digital Omnibus deben mantenerse separados en la documentación. El GPAI Code of Practice puede orientar buenas prácticas, pero no elimina riesgos. RGPD sigue siendo crítico cuando se tratan datos personales, especialmente en GuestHub, Talent, Advisor AI, Impulso y EnergyScan.
 
 ## 7. Clasificación preliminar por familias de producto
 
 - Entidad Matriz: riesgo IA normalmente bajo si solo informa, gobierna o documenta.
 - Internal: riesgo variable por asistentes, análisis y generación de contenido.
-- Premium: riesgo variable; EnergyScan y SyncXML requieren controles reforzados por impacto técnico, económico o datos personales.
+- Premium: riesgo variable; EnergyScan y GuestHub requieren controles reforzados por impacto técnico, económico o datos personales.
 - Ultra Premium: riesgo bajo/variable salvo scoring, recomendación personalizada o decisiones sobre clientes.
 - Portfolio / Showcase: riesgo limitado si la IA solo asiste contenido; transparencia necesaria si se publica contenido sintético.
 
@@ -59,7 +59,7 @@ Cada integración debe registrar proveedor, modelo, tipo de integración, datos 
 
 ## 12. Datos personales, privacidad y DPIA
 
-Cuando una feature trate datos personales o pueda afectar significativamente a personas físicas, debe evaluarse DPIA/RGPD. SyncXML debe tratarse con privacidad por defecto, minimización y revisión humana obligatoria. Talent requiere cautela reforzada por empleo. Advisor AI requiere límites por dominio.
+Cuando una feature trate datos personales o pueda afectar significativamente a personas físicas, debe evaluarse DPIA/RGPD. GuestHub debe tratarse con privacidad por defecto, minimización y revisión humana obligatoria. Talent requiere cautela reforzada por empleo. Advisor AI requiere límites por dominio.
 
 ## 13. Copyright, contenido generado y uso aceptable
 
@@ -96,7 +96,7 @@ Prohibido afirmar: cumplimiento automático, garantía legal, certificación ofi
 - Clasificación final por feature y jurisdicción.
 - Alcance real de obligaciones de transparencia.
 - Tratamiento de alto riesgo en Talent y cualquier scoring de personas.
-- Base legal, retención y DPIA en SyncXML.
+- Base legal, retención y DPIA en GuestHub.
 - Límites de Advisor AI por asesoramiento profesional.
 - Calendario oficial aplicable a obligaciones futuras.
 

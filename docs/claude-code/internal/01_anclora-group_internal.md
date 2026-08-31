@@ -53,11 +53,11 @@ Anclora Group es la **entidad matriz** del ecosistema Anclora. Actúa como porta
 | Rol | Acceso a |
 |-----|----------|
 | `group-admin` | Todas las apps (15) |
-| `private-estates-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `nexus`, `command-center`, `content-generator-ai`, `syncxml`, `energyscan`, `filestudio`, `visionflow` (11) |
+| `private-estates-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `nexus`, `command-center`, `content-generator-ai`, `guesthub`, `energyscan`, `filestudio`, `visionflow` (11) |
 | `partner-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `command-center` (5) |
 | `data-ops` | `private-estates`, `private-estates-landing`, `data-lab`, `command-center`, `energyscan`, `visionflow` (6) |
 | `content-ops` | `private-estates`, `private-estates-landing`, `command-center`, `content-generator-ai`, `filestudio`, `visionflow` (6) |
-| `advisory` | `command-center`, `advisor-ai`, `fiscal`, `syncxml`, `filestudio` (5) |
+| `advisory` | `command-center`, `advisor-ai`, `fiscal`, `guesthub`, `filestudio` (5) |
 | `growth-ops` | `command-center`, `impulso` (2) |
 
 15 apps registradas en el launcher (ver sección Apps Registradas). La fuente de verdad es el array `roles` de cada app en `src/lib/group-access.ts`; el RBAC se aplica en servidor vía `requireAppAccess`.
@@ -67,7 +67,7 @@ Anclora Group es la **entidad matriz** del ecosistema Anclora. Actúa como porta
 ```
 Entry Layer:       Private Estates, Private Estates Landing, Synergi, Linguo Cam
 Core Layer:        Data Lab, Nexus, Command Center, VisionFlow, FileStudio
-Activation Layer:  Content Generator AI, Advisor AI, Fiscal, SyncXML, EnergyScan, Impulso
+Activation Layer:  Content Generator AI, Advisor AI, Fiscal, GuestHub, EnergyScan, Impulso
 ```
 
 (Asignación por `architectureLayer` en `src/lib/group-access.ts`.)
@@ -119,10 +119,12 @@ NEXT_PUBLIC_GROUP_DEFAULT_LOCALE=es
 # NEXT_PUBLIC_PRIVATE_ESTATES_URL, NEXT_PUBLIC_PRIVATE_ESTATES_LANDING_URL,
 # NEXT_PUBLIC_SYNERGI_INTERNAL_URL, NEXT_PUBLIC_DATA_LAB_INTERNAL_URL, NEXT_PUBLIC_NEXUS_URL,
 # NEXT_PUBLIC_COMMAND_CENTER_URL, NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL, NEXT_PUBLIC_ADVISOR_AI_URL,
-# NEXT_PUBLIC_IMPULSO_URL, NEXT_PUBLIC_FISCAL_URL, NEXT_PUBLIC_SYNCXML_URL,
+# NEXT_PUBLIC_IMPULSO_URL, NEXT_PUBLIC_FISCAL_URL, NEXT_PUBLIC_GUESTHUB_URL,
 # NEXT_PUBLIC_ENERGYSCAN_URL, NEXT_PUBLIC_FILESTUDIO_URL, NEXT_PUBLIC_VISIONFLOW_URL,
 # NEXT_PUBLIC_LINGUO_CAM_URL
 ```
+
+Nota de transición (rename 2026-08, SyncXML → GuestHub): el código lee `NEXT_PUBLIC_GUESTHUB_URL` y mantiene `NEXT_PUBLIC_SYNCXML_URL` como fallback legacy durante la transición.
 
 Sesión: cookie `anclora-group-session` HMAC-SHA256 con `iat`/`exp` (12h), `httpOnly`, `sameSite: lax`, `secure` en producción. Login con rate limit (429 tras 5 intentos fallidos por IP+username / 15 min) y headers de seguridad + `noindex` en todo el portal.
 
@@ -143,7 +145,7 @@ La fuente de verdad (SSOT) del catálogo es `getGroupAppDefinitions()` en `src/l
 | `content-generator-ai` | Anclora Content Generator AI | Interna |
 | `advisor-ai` | Anclora Advisor AI | Interna |
 | `fiscal` | Anclora Fiscal | Interna |
-| `syncxml` | Anclora SyncXML | Interna |
+| `guesthub` | Anclora GuestHub | Interna |
 | `energyscan` | Anclora EnergyScan | Interna |
 | `filestudio` | Anclora FileStudio | Interna |
 | `visionflow` | Anclora VisionFlow | Interna |

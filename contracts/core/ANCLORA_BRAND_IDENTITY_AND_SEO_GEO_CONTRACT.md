@@ -121,7 +121,7 @@ Definir la identidad de marca comunicada, las reglas de claims, los criterios SE
 |------|-----------|-----------|
 | Capacidades operativas | ✅ "gestiona contratos, propiedades y agentes" | ❌ "la plataforma más completa del mercado" sin datos |
 | Automatización | ✅ "automatiza tareas operativas repetibles" | ❌ promesas de reducción de costes o tiempos sin datos auditables |
-| Integraciones | ✅ mencionar integraciones documentadas (SyncXML) | ❌ mencionar integraciones no implementadas |
+| Integraciones | ✅ mencionar integraciones documentadas (GuestHub) | ❌ mencionar integraciones no implementadas |
 
 ---
 
@@ -355,18 +355,18 @@ Esta es una landing editorial de conversión, no una aplicación funcional. Los 
 
 ---
 
-## Sección 10 — Anclora SyncXML
+## Sección 10 — Anclora GuestHub
 
 ### Descripción canónica
 
 **ES:**
-> Anclora SyncXML es la herramienta de sincronización e integración de feeds XML inmobiliarios del ecosistema Anclora Group. Permite la importación, normalización y distribución de datos de propiedades entre plataformas y portales.
+> Anclora GuestHub es la herramienta de gestión de huéspedes, check-in y operación de alquiler vacacional del ecosistema Anclora Group. Centraliza la operativa de estancias y el registro de viajeros para el alquiler vacacional.
 
 **EN:**
-> Anclora SyncXML is the real estate XML feed synchronisation and integration tool of the Anclora Group ecosystem. It enables the import, normalisation, and distribution of property data between platforms and portals.
+> Anclora GuestHub is the guest management, check-in and vacation rental operations tool of the Anclora Group ecosystem. It centralises stay operations and guest registration for vacation rentals.
 
 **DE:**
-> Anclora SyncXML ist das Werkzeug des Anclora Group-Ökosystems zur Synchronisierung und Integration von Immobilien-XML-Feeds. Es ermöglicht den Import, die Normalisierung und die Verteilung von Immobiliendaten zwischen Plattformen und Portalen.
+> Anclora GuestHub ist das Werkzeug des Anclora Group-Ökosystems für Gästemanagement, Check-in und den Betrieb von Ferienvermietungen. Es zentralisiert die Abläufe von Aufenthalten und die Gästeregistrierung in der Ferienvermietung.
 
 ### Posicionamiento SEO
 
@@ -389,7 +389,7 @@ Esta es una landing editorial de conversión, no una aplicación funcional. Los 
 ### Modo conservador para contextos regulatorios
 
 > [!warning] Escalado automático a conservador
-> Cuando el copy, metadatos o descripciones de SyncXML contengan cualquiera de los siguientes términos o contextos, el nivel de claims escala automáticamente a **Muy conservador**, independientemente del nivel base del producto:
+> Cuando el copy, metadatos o descripciones de GuestHub contengan cualquiera de los siguientes términos o contextos, el nivel de claims escala automáticamente a **Muy conservador**, independientemente del nivel base del producto:
 >
 > `SES.HOSPEDAJES` · `Ministerio` · `cumplimiento` · `normativa` · `legalidad` · `envío oficial` · `obligación legal` · `registro oficial` · `plataforma vinculada a la Administración`
 
@@ -399,8 +399,8 @@ En contexto regulatorio, las reglas de claims se sustituyen por:
 |------|-----------|-----------|
 | Cumplimiento normativo | ✅ "facilita la preparación de datos para envío a plataformas reguladas" | ❌ "garantiza el cumplimiento legal", "certificado por el Ministerio" |
 | SES.HOSPEDAJES / Ministerio | ✅ mencionar compatibilidad de formato si está documentada | ❌ afirmar que el envío es válido administrativamente sin confirmación oficial |
-| Responsabilidad | ✅ indicar que la responsabilidad del envío oficial corresponde al operador | ❌ omitir que SyncXML es una herramienta de integración, no un organismo oficial |
-| Legalidad del envío | ❌ nunca afirmar que el uso de SyncXML cumple por sí solo con obligaciones legales | — |
+| Responsabilidad | ✅ indicar que la responsabilidad del envío oficial corresponde al operador | ❌ omitir que GuestHub es una herramienta de integración, no un organismo oficial |
+| Legalidad del envío | ❌ nunca afirmar que el uso de GuestHub cumple por sí solo con obligaciones legales | — |
 
 ---
 
@@ -532,12 +532,12 @@ En contexto regulatorio, las reglas de claims se sustituyen por:
 | Anclora Synergi | Premium | ✅ núcleo | collaboration | es, en, de | Estándar | No |
 | Anclora Advisor AI | Interna | ✅ núcleo | AI advisory | es, en | Conservador | Sí — no sustituye asesoría profesional |
 | Anclora Energyscan | Premium | ✅ núcleo | energy intelligence | es, en, de | Muy conservador | Sí — carácter orientativo obligatorio |
-| Anclora SyncXML | Premium / Utility | ✅ núcleo | XML feed integration | es, en, de | Estándar ¹ | Sí — compatibilidad declarada; conservador en contexto regulatorio |
+| Anclora GuestHub | Premium / Utility | ✅ núcleo | guest management / vacation rental operations | es, en, de | Estándar ¹ | Sí — compatibilidad declarada; conservador en contexto regulatorio |
 | Anclora Linguo Cam | Premium / Utility | ✅ núcleo | visual language | es, en | Conservador | Sí — carácter orientativo; no sustituye traductor jurado |
 | Anclora Talent | Premium | ⚠️ periférico | human capital | es, en | Conservador | Sí — no prometer empleabilidad |
 | Anclora Impulso | Premium | ⚠️ periférico | personal_professional_growth ² | es, en | Conservador | Sí — no prometer resultados garantizados |
 
-¹ SyncXML escala automáticamente a **Muy conservador** cuando el copy toca contextos regulatorios. Ver Sección 10 — Modo conservador para contextos regulatorios.
+¹ GuestHub escala automáticamente a **Muy conservador** cuando el copy toca contextos regulatorios. Ver Sección 10 — Modo conservador para contextos regulatorios.
 
 ² El dominio `personal_professional_growth` de Impulso es provisional. Si el producto se define formalmente como plataforma de salud o fitness, actualizar este contrato antes de aplicar restricciones sanitarias. Ver nota de clasificación en Sección 13.
 
@@ -709,7 +709,7 @@ Al generar o revisar copy de un producto del ecosistema, el agente debe recorrer
 
 **Paso 3 — Reglas sectoriales del producto**
 → Leer el disclaimer sectorial de la ficha del producto (columna "Disclaimer sectorial" de la Sección 14).
-→ Si el producto tiene disclaimer sectorial activo (Energyscan, Linguo Cam, SyncXML en contexto regulatorio, Impulso hasta redefinición): verificar que los disclaimers están presentes y no contradichos.
+→ Si el producto tiene disclaimer sectorial activo (Energyscan, Linguo Cam, GuestHub en contexto regulatorio, Impulso hasta redefinición): verificar que los disclaimers están presentes y no contradichos.
 → Si falta disclaimer sectorial obligatorio → `FAIL`.
 → Si el disclaimer está presente pero incompleto o ambiguo → `PASS_WITH_WARNINGS`.
 
