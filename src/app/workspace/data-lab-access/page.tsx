@@ -1,9 +1,9 @@
 import { GroupInternalAccessPage } from '@/components/group/GroupInternalAccessPage'
-import { requireGroupSession } from '@/lib/group-auth'
+import { requireAppAccess } from '@/lib/group-auth'
 import { getDataLabLoginUrl } from '@/lib/group-access'
 
 export default async function DataLabAccessPage() {
-  const session = await requireGroupSession()
+  const session = await requireAppAccess('data-lab')
 
   return (
     <GroupInternalAccessPage

@@ -1,57 +1,64 @@
 import { cookies } from 'next/headers'
-import { createHmac, timingSafeEqual } from 'node:crypto'
-import { redirect } from 'next/navigation'
-import { getGroupUsers, type GroupRole } from '@/lib/group-access'
+import { forbidden, redirect } from 'next/navigation'
+import { getGroupUsers, isAppAccessAllowed, type GroupAppKey } from '@/lib/group-access'
+import { burnCompareCycle, verifyPasswordHash } from '@/lib/group-passwords'
+import {
+  createSessionToken,
+  getSessionSecret,
+  SESSION_COOKIE,
+  SESSION_TTL_SECONDS,
+  verifySessionToken,
+  type GroupSession,
+} from '@/lib/group-session-token'
 
-const SESSION_COOKIE = 'anclora-group-session'
+export { getSessionSecret, SESSION_COOKIE, SESSION_TTL_SECONDS }
+export type { GroupSession }
 
-export type GroupSession = {
-  username: string
-  displayName: string
-  role: GroupRole
-}
-
-function getSecret() {
-  return process.env.ANCLORA_GROUP_SESSION_SECRET?.trim() || 'anclora-group-local-dev-secret'
-}
-
-function encode(payload: GroupSession) {
-  const body = Buffer.from(JSON.stringify(payload)).toString('base64url')
-  const signature = createHmac('sha256', getSecret()).update(body).digest('base64url')
-  return `${body}.${signature}`
-}
-
-function decode(token: string): GroupSession | null {
-  const [body, signature] = token.split('.')
-  if (!body || !signature) return null
-
-  const expected = createHmac('sha256', getSecret()).update(body).digest()
-  const received = Buffer.from(signature, 'base64url')
-  if (expected.length !== received.length || !timingSafeEqual(expected, received)) return null
-
-  try {
-    return JSON.parse(Buffer.from(body, 'base64url').toString('utf8')) as GroupSession
-  } catch {
-    return null
-  }
-}
-
-export async function getGroupSession() {
+export async function getGroupSession(): Promise<GroupSession | null> {
   const store = await cookies()
   const token = store.get(SESSION_COOKIE)?.value
   if (!token) return null
-  return decode(token)
+  return verifySessionToken(token)
 }
 
-export async function requireGroupSession() {
+export async function requireGroupSession(): Promise<GroupSession> {
   const session = await getGroupSession()
   if (!session) redirect('/login')
   return session
 }
 
-export function authenticateGroupUser(username: string, password: string): GroupSession | null {
-  const user = getGroupUsers().find((candidate) => candidate.username === username && candidate.password === password)
-  if (!user) return null
+/**
+ * Server-side RBAC enforcement for internal relay pages. Roles are derived
+ * from the app registry; there is no parallel list to keep in sync.
+ * No session redirects to /login; insufficient role renders a 403.
+ */
+export async function requireAppAccess(appKey: GroupAppKey): Promise<GroupSession> {
+  const session = await requireGroupSession()
+  if (!isAppAccessAllowed(session.role, appKey)) forbidden()
+  return session
+}
+
+export async function authenticateGroupUser(username: string, password: string): Promise<GroupSession | null> {
+  const user = getGroupUsers().find((candidate) => candidate.username === username)
+
+  if (!user) {
+    // Equalize timing so unknown usernames are indistinguishable.
+    await burnCompareCycle(password)
+    return null
+  }
+
+  if (user.passwordHash) {
+    const matches = await verifyPasswordHash(password, user.passwordHash)
+    if (!matches) return null
+  } else if (user.legacyPassword !== null) {
+    // Development-only legacy path; production never produces such records.
+    const matches = user.legacyPassword === password
+    await burnCompareCycle(password)
+    if (!matches) return null
+  } else {
+    await burnCompareCycle(password)
+    return null
+  }
 
   return {
     username: user.username,
@@ -62,12 +69,12 @@ export function authenticateGroupUser(username: string, password: string): Group
 
 export async function createGroupSession(session: GroupSession) {
   const store = await cookies()
-  store.set(SESSION_COOKIE, encode(session), {
+  store.set(SESSION_COOKIE, createSessionToken(session), {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
     path: '/',
-    maxAge: 60 * 60 * 12,
+    maxAge: SESSION_TTL_SECONDS,
   })
 }
 
@@ -79,5 +86,6 @@ export async function clearGroupSession() {
     secure: process.env.NODE_ENV === 'production',
     path: '/',
     expires: new Date(0),
+    maxAge: 0,
   })
 }

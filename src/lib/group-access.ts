@@ -7,6 +7,20 @@ export type GroupRole =
   | 'advisory'
   | 'growth-ops'
 
+const GROUP_ROLES: readonly GroupRole[] = [
+  'group-admin',
+  'private-estates-ops',
+  'partner-ops',
+  'data-ops',
+  'content-ops',
+  'advisory',
+  'growth-ops',
+]
+
+export function isGroupRole(value: unknown): value is GroupRole {
+  return typeof value === 'string' && (GROUP_ROLES as readonly string[]).includes(value)
+}
+
 export type GroupAppKey =
   | 'private-estates'
   | 'private-estates-landing'
@@ -48,27 +62,50 @@ export type GroupAppDefinition = {
 
 export type GroupUserRecord = {
   username: string
-  password: string
+  passwordHash: string | null
+  /**
+   * Development-only compatibility shim for the pre-hardening plaintext
+   * model. Always null in production: plaintext records are rejected
+   * fail-closed at parse time.
+   */
+  legacyPassword: string | null
   displayName: string
   role: GroupRole
 }
 
+const isProduction = () => process.env.NODE_ENV === 'production'
+
 function parseJsonUsers(value: string | undefined): GroupUserRecord[] {
   if (!value?.trim()) return []
 
+  let parsed: unknown
   try {
-    const parsed = JSON.parse(value) as Array<Partial<GroupUserRecord>>
-    return parsed
-      .filter((item) => item.username && item.password && item.displayName && item.role)
-      .map((item) => ({
-        username: String(item.username),
-        password: String(item.password),
-        displayName: String(item.displayName),
-        role: item.role as GroupRole,
-      }))
+    parsed = JSON.parse(value)
   } catch {
     return []
   }
+  if (!Array.isArray(parsed)) return []
+
+  const users: GroupUserRecord[] = []
+  for (const item of parsed as Array<Record<string, unknown>>) {
+    if (!item || typeof item !== 'object') continue
+
+    const username = typeof item.username === 'string' ? item.username.trim() : ''
+    const displayName = typeof item.displayName === 'string' ? item.displayName.trim() : ''
+    const passwordHash = typeof item.passwordHash === 'string' ? item.passwordHash.trim() : ''
+    const legacyPassword = typeof item.password === 'string' ? item.password : ''
+
+    // Invalid roles fail closed: the user simply does not exist.
+    if (!username || !displayName || !isGroupRole(item.role)) continue
+
+    if (passwordHash) {
+      users.push({ username, passwordHash, legacyPassword: null, displayName, role: item.role })
+    } else if (!isProduction() && legacyPassword) {
+      users.push({ username, passwordHash: null, legacyPassword, displayName, role: item.role })
+    }
+    // No hash in production: record rejected fail-closed.
+  }
+  return users
 }
 
 export function getGroupUsers(): GroupUserRecord[] {
@@ -76,13 +113,20 @@ export function getGroupUsers(): GroupUserRecord[] {
   if (parsed.length) return parsed
 
   const username = process.env.ANCLORA_GROUP_BOOTSTRAP_USERNAME?.trim()
-  const password = process.env.ANCLORA_GROUP_BOOTSTRAP_PASSWORD?.trim()
+  const passwordHash = process.env.ANCLORA_GROUP_BOOTSTRAP_PASSWORD_HASH?.trim()
+  const legacyPassword = process.env.ANCLORA_GROUP_BOOTSTRAP_PASSWORD?.trim()
   const displayName = process.env.ANCLORA_GROUP_BOOTSTRAP_DISPLAY_NAME?.trim() || 'Administrador de Anclora Group'
-  const role = (process.env.ANCLORA_GROUP_BOOTSTRAP_ROLE?.trim() as GroupRole | undefined) || 'group-admin'
+  const roleValue = process.env.ANCLORA_GROUP_BOOTSTRAP_ROLE?.trim() || 'group-admin'
 
-  if (!username || !password) return []
+  if (!username || !isGroupRole(roleValue)) return []
 
-  return [{ username, password, displayName, role }]
+  if (passwordHash) {
+    return [{ username, passwordHash, legacyPassword: null, displayName, role: roleValue }]
+  }
+  if (!isProduction() && legacyPassword) {
+    return [{ username, passwordHash: null, legacyPassword, displayName, role: roleValue }]
+  }
+  return []
 }
 
 function getEnvUrl(name: string, fallback: string) {
@@ -281,6 +325,17 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
 
 export function getAppsForRole(role: GroupRole) {
   return getGroupAppDefinitions().filter((app) => app.roles.includes(role))
+}
+
+/**
+ * Derives access from the app registry: a role may access an app only if the
+ * app definition lists it. Unknown roles and unknown app keys fail closed.
+ */
+export function isAppAccessAllowed(role: GroupRole, appKey: GroupAppKey): boolean {
+  if (!isGroupRole(role)) return false
+  const app = getGroupAppDefinitions().find((item) => item.key === appKey)
+  if (!app) return false
+  return app.roles.includes(role)
 }
 
 export function getSynergiLoginUrl() {

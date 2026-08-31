@@ -6,6 +6,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Anclora Group',
   description: 'Entidad matriz y portal corporativo de Anclora',
+  robots: { index: false, follow: false },
   icons: {
     icon: [
       { url: '/brand/favicon.ico', sizes: 'any' },
