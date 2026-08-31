@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { authenticateGroupUser, clearGroupSession, createGroupSession } from '@/lib/group-auth'
+import { withBasePath } from '@/lib/group-base-path'
 import {
   checkLoginRateLimit,
   clearLoginFailures,
@@ -35,7 +36,9 @@ export async function POST(request: NextRequest) {
     const form = await request.formData()
     if (String(form.get('_method') || '').toUpperCase() === 'DELETE') {
       await clearGroupSession()
-      return NextResponse.redirect(new URL('/login', request.url), { status: 302 })
+      // Relative Location: keeps the browser on the public origin (dev proxy
+      // or production domain) instead of leaking the internal listen host.
+      return new NextResponse(null, { status: 302, headers: { Location: withBasePath('/login') } })
     }
   }
 

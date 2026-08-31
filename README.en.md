@@ -66,6 +66,8 @@ npm run dev
 
 Dev server: `http://127.0.0.1:3005` (authoritative port assigned to this repo on the VPS; override with `PORT`/`HOST`, e.g. `PORT=3100 npm run dev`). `npm run dev` is cross-platform (Linux/macOS/Windows) via `scripts/dev-safe.mjs`, which stops any previous `next dev` of this repo and clears the Turbopack lock before starting; on Windows it delegates to `scripts/dev-safe.ps1`.
 
+Canonical VPS workflow: `aos up group` (AOS owns the process lifecycle; use `aos restart group`, `aos status group`, `aos logs group`) and open `https://dev.anclora.com/proxy/3005/` in the browser. In development, `next.config.ts` derives the base path `/proxy/<port>` from the dev server port so CSS, JS, fonts, images and redirects resolve through the code-server proxy (which strips the prefix before forwarding); production builds keep serving at `/`. SSH tunneling (`ssh -L`) remains a fallback/debugging option only, not the primary workflow.
+
 Local production-mode validation (requires a prior build):
 
 ```bash

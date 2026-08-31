@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { withBasePath } from '@/lib/group-base-path'
 import { getGroupMessages } from '@/lib/group-ui'
 
 export function GroupLoginForm() {
@@ -16,7 +17,7 @@ export function GroupLoginForm() {
     setError(null)
 
     try {
-      const response = await fetch('/api/auth/session', {
+      const response = await fetch(withBasePath('/api/auth/session'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -27,7 +28,7 @@ export function GroupLoginForm() {
         throw new Error(body?.error || ui.loginErrorFallback)
       }
 
-      window.location.assign('/workspace')
+      window.location.assign(withBasePath('/workspace'))
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : ui.loginErrorFallback)
     } finally {

@@ -197,6 +197,8 @@ npm run test
 npm run generate:architecture-pdf
 ```
 
+Flujo canónico en el VPS: `aos up group` (AOS posee el ciclo de vida: `aos restart group`, `aos status group`, `aos logs group`) y abrir `https://dev.anclora.com/proxy/3005/`. En desarrollo `next.config.ts` deriva el base path `/proxy/<puerto>` del puerto para compatibilidad con el proxy de code-server; producción sigue en `/`. El túnel SSH es solo fallback de depuración.
+
 ---
 
 ## 8. Seguridad

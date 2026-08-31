@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { GroupSession } from '@/lib/group-auth'
+import { withBasePath } from '@/lib/group-base-path'
 import { getGroupMessages, getRoleLabels } from '@/lib/group-ui'
 
 export type GroupPortalSection = 'workspace' | 'apps' | 'architecture' | 'docs'
@@ -49,7 +50,7 @@ export function GroupPortalNav({ session, active }: Props) {
       <div className="group-user-panel">
         <strong>{session.displayName}</strong>
         <span>{roleLabels[session.role]}</span>
-        <form action="/api/auth/session" method="post">
+        <form action={withBasePath('/api/auth/session')} method="post">
           <input type="hidden" name="_method" value="DELETE" />
           <button className="group-ghost-button" type="submit">{ui.logoutLabel}</button>
         </form>
