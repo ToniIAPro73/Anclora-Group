@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   COOKIE_CONSENT_STORAGE_KEY,
   DEFAULT_COOKIE_PREFERENCES,
-  parseStoredConsent,
+  resolveInitialConsentState,
   serializeConsent,
+  type ConsentInitState,
   type CookiePreferences,
 } from '@/lib/group-consent'
 
@@ -13,23 +14,40 @@ const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
 export function GroupCookieConsent() {
-  const [open, setOpen] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return !parseStoredConsent(localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY))
+  const [{ open, preferences }, setConsentState] = useState<ConsentInitState>({
+    open: false,
+    preferences: DEFAULT_COOKIE_PREFERENCES,
   })
   const [settings, setSettings] = useState(false)
-  const [preferences, setPreferences] = useState<CookiePreferences>(() => {
-    if (typeof window === 'undefined') return DEFAULT_COOKIE_PREFERENCES
-    return parseStoredConsent(localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY)) ?? DEFAULT_COOKIE_PREFERENCES
-  })
 
   const dialogRef = useRef<HTMLDivElement>(null)
   const restoreFocusRef = useRef<Element | null>(null)
 
-  function close() {
+  useEffect(() => {
+    // Reads browser-only storage; must run post-mount so SSR and the first
+    // client render both use the deterministic default above (no hydration mismatch).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setConsentState(resolveInitialConsentState(localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY)))
+  }, [])
+
+  const setOpen = useCallback((value: boolean) => {
+    setConsentState((current) => ({ ...current, open: value }))
+  }, [])
+
+  const setPreferences = useCallback(
+    (update: CookiePreferences | ((current: CookiePreferences) => CookiePreferences)) => {
+      setConsentState((current) => ({
+        ...current,
+        preferences: typeof update === 'function' ? update(current.preferences) : update,
+      }))
+    },
+    []
+  )
+
+  const close = useCallback(() => {
     setOpen(false)
     setSettings(false)
-  }
+  }, [setOpen])
 
   function persist(next: CookiePreferences) {
     localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, serializeConsent(next))
@@ -44,7 +62,7 @@ export function GroupCookieConsent() {
     }
     window.addEventListener('anclora:open-cookie-preferences', listener)
     return () => window.removeEventListener('anclora:open-cookie-preferences', listener)
-  }, [])
+  }, [setOpen])
 
   // Initial focus, focus trap, Escape, scroll lock, focus restoration.
   useEffect(() => {
@@ -84,7 +102,7 @@ export function GroupCookieConsent() {
       const restoreTo = restoreFocusRef.current
       if (restoreTo instanceof HTMLElement) restoreTo.focus()
     }
-  }, [open])
+  }, [open, close])
 
   if (!open) return null
 

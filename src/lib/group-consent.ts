@@ -39,6 +39,22 @@ export function parseStoredConsent(raw: string | null): CookiePreferences | null
   }
 }
 
+export type ConsentInitState = {
+  open: boolean
+  preferences: CookiePreferences
+}
+
+/**
+ * Resolves post-mount consent state from raw storage. Never called during
+ * initial render — SSR and first client render must stay at the deterministic
+ * default (open: false, DEFAULT_COOKIE_PREFERENCES) until this runs in an effect.
+ */
+export function resolveInitialConsentState(raw: string | null): ConsentInitState {
+  const stored = parseStoredConsent(raw)
+  if (stored) return { open: false, preferences: stored }
+  return { open: true, preferences: DEFAULT_COOKIE_PREFERENCES }
+}
+
 export function serializeConsent(preferences: CookiePreferences): string {
   const value: CookiePreferences = {
     ...preferences,

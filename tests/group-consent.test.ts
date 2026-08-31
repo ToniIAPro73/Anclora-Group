@@ -4,6 +4,7 @@ import {
   COOKIE_CONSENT_STORAGE_KEY,
   DEFAULT_COOKIE_PREFERENCES,
   parseStoredConsent,
+  resolveInitialConsentState,
   serializeConsent,
 } from '../src/lib/group-consent'
 
@@ -88,4 +89,27 @@ test('serializeConsent output round-trips through parseStoredConsent', () => {
   assert.ok(parsed)
   assert.equal(parsed.marketing, true)
   assert.equal(parsed.necessary, true)
+})
+
+test('resolveInitialConsentState opens the dialog when storage is empty', () => {
+  const state = resolveInitialConsentState(null)
+
+  assert.equal(state.open, true)
+  assert.deepEqual(state.preferences, DEFAULT_COOKIE_PREFERENCES)
+})
+
+test('resolveInitialConsentState stays closed and restores preferences from valid storage', () => {
+  const raw = serializeConsent({ ...DEFAULT_COOKIE_PREFERENCES, analytics: true, marketing: true })
+  const state = resolveInitialConsentState(raw)
+
+  assert.equal(state.open, false)
+  assert.equal(state.preferences.analytics, true)
+  assert.equal(state.preferences.marketing, true)
+})
+
+test('resolveInitialConsentState falls back to the open default on malformed storage', () => {
+  const state = resolveInitialConsentState('{not-json')
+
+  assert.equal(state.open, true)
+  assert.deepEqual(state.preferences, DEFAULT_COOKIE_PREFERENCES)
 })
