@@ -47,7 +47,7 @@ Reglas:
 | Producto | Rol | Repo | Frontend | Backend | Datos/Auth |
 |---|---|---|---|---|---|
 | Anclora Nexus | Router/CRM/operativa ecosistema | `anclora-nexus` | Vercel `/frontend` | Render `/backend` | Supabase |
-| Anclora SyncXML | Piloto SES.HOSPEDAJES / XML viajeros | `anclora-syncXML` | Vercel | Según repo/config | DB operativa del producto |
+| Anclora GuestHub | Piloto SES.HOSPEDAJES / XML viajeros | `anclora-guesthub` | Vercel | Según repo/config | DB operativa del producto |
 | Anclora Content Generator AI | Worker/Hermes/copy/SEO-GEO | `anclora-content-generator-ai` | Vercel/worker | Vercel worker | Variables propias |
 | Anclora EnergyScan | Análisis PDFs energía | `anclora-energyscan` | Por confirmar | Por confirmar | Por confirmar |
 | Anclora Data Lab | Data/productividad | `anclora-data-lab` | Por confirmar | Por confirmar | Por confirmar |
@@ -105,11 +105,13 @@ No inventar certezas: usar “por confirmar” donde no haya evidencia local o c
 ```env
 APP_ENV=staging
 NEXT_PUBLIC_APP_ENV=staging
-SYNCXML_ENV=staging
+GUESTHUB_ENV=staging
 ALLOW_REAL_SUPABASE_WRITE=false
-SYNCXML_PILOT_AUTO_APPROVE=false
+GUESTHUB_PILOT_AUTO_APPROVE=false
 USE_SYNTHETIC_DATA_ONLY=true
 ```
+
+Nota de transición (rename 2026-08, SyncXML → GuestHub): los nombres legacy `SYNCXML_ENV` y `SYNCXML_PILOT_AUTO_APPROVE` siguen soportados durante la transición; los nombres `GUESTHUB_*` son los preferidos.
 
 ### Regla operativa
 
@@ -123,7 +125,7 @@ Antes de promocionar Nexus a `staging` o `production`, revisar:
 6. Datos sintéticos o reales.
 7. Riesgo de escrituras sobre datos compartidos.
 
-## 6. Anclora SyncXML
+## 6. Anclora GuestHub
 
 - Producto centrado en piloto controlado para SES.HOSPEDAJES/XML viajeros.
 - Landing pública orientada a solicitud de piloto controlado.
@@ -137,7 +139,7 @@ Antes de promocionar Nexus a `staging` o `production`, revisar:
 ## 7. Anclora Content Generator AI / Hermes
 
 - Repo relacionado con worker Hermes y validaciones de copy/SEO-GEO.
-- Puede participar en validación de solicitudes SyncXML.
+- Puede participar en validación de solicitudes GuestHub.
 - Worker Hermes puede estar desplegado en Vercel.
 - Variables sensibles: worker API key, OpenRouter/OpenAI, Hermes keys.
 - No copiar claves de producción a preview.

@@ -33,7 +33,7 @@ Toda feature IA de Anclora debe mantener supervisión humana proporcional al rie
 
 ## 5. Productos con supervisión reforzada
 
-- [[Anclora SyncXML]]: revisión humana obligatoria antes de cualquier exportación o uso en flujos oficiales.
+- [[Anclora GuestHub]]: revisión humana obligatoria antes de cualquier exportación o uso en flujos oficiales.
 - [[Anclora Talent]]: no debe ejecutar ranking, rechazo o recomendación de contratación sin revisión legal reforzada.
 - [[Anclora EnergyScan]]: outputs orientativos, con confirmación antes de handoff económico o técnico.
 - [[Anclora Advisor AI]]: límites claros cuando el dominio sea fiscal, laboral, legal, financiero o médico.

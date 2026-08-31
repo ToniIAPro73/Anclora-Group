@@ -15,7 +15,7 @@ test('search matches by title', () => {
 })
 
 test('search matches by description and kind', () => {
-  assert.ok(searchGroupApps(ALL, 'SES.HOSPEDAJES').some((app) => app.key === 'syncxml'))
+  assert.ok(searchGroupApps(ALL, 'SES.HOSPEDAJES').some((app) => app.key === 'guesthub'))
   assert.ok(searchGroupApps(ALL, 'ai-platform').every((app) => app.kind === 'ai-platform'))
 })
 

@@ -15,7 +15,7 @@ Informar cuando el usuario interactúe con un asistente IA, reciba una salida ge
 
 ## 3. Plantillas por producto
 
-- SyncXML: `Archivo preparado por una herramienta asistiva. Revisa manualmente los datos antes de cualquier uso en sistemas oficiales.`
+- GuestHub: `Archivo preparado por una herramienta asistiva. Revisa manualmente los datos antes de cualquier uso en sistemas oficiales.`
 - EnergyScan: `Prediagnóstico energético orientativo generado o asistido por IA. No sustituye a un técnico certificador.`
 - Content Generator AI / Hermes: `Texto generado o revisado con asistencia IA. Valida claims, tono, legalidad y localización antes de publicar.`
 - Advisor AI: `Respuesta asistida por IA para apoyo estratégico. No sustituye asesoramiento profesional.`

@@ -86,6 +86,10 @@ La interfaz del producto está actualmente disponible solo en español. La infra
 - Contratos de marca y gobernanza: [`contracts/`](./contracts/) y [`docs/standards/`](./docs/standards/)
 - Guías internas y de usuario: [`docs/claude-code/`](./docs/claude-code/)
 
+## Trazabilidad de renombres
+
+- 2026-08: **Anclora SyncXML → Anclora GuestHub** — clave de app `syncxml` → `guesthub`, variable `NEXT_PUBLIC_GUESTHUB_URL` (con fallback legacy `NEXT_PUBLIC_SYNCXML_URL`), repo GitHub `anclora-guesthub`, nuevo posicionamiento Real Estate (gestión de huéspedes, check-in y operación de alquiler vacacional).
+
 ---
 
 <div align="center">
