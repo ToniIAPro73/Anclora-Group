@@ -305,10 +305,7 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       eyebrow: 'Sello editorial',
       description:
         'Sello editorial de Anclora Group dedicado a la investigación, el análisis y la creación de conocimiento aplicado.',
-      // No brand asset shipped yet for Insights ADN — omitted rather than
-      // pointing at a non-existent file (see GroupAppsCatalog's `logoSrc ?
-      // <Image/> : null` fallback). Add '/brand/anclora-insights-adn.webp'
-      // once the asset lands.
+      logoSrc: '/brand/anclora-insights-adn.webp',
       kind: 'editorial-platform',
       visibility: 'internal',
       roles: ['group-admin', 'content-ops'],
