@@ -41,6 +41,8 @@ export type GroupAppKey =
   | 'nexus'
   | 'command-center'
   | 'content-generator-ai'
+  | 'insights-adn'
+  | 'talent'
   | 'advisor-ai'
   | 'impulso'
   | 'fiscal'
@@ -56,11 +58,17 @@ export type GroupAppKind =
   | 'intelligence-platform'
   | 'ops-platform'
   | 'ai-platform'
+  | 'editorial-platform'
   | 'wellness-platform'
   | 'finance-platform'
   | 'compliance-platform'
   | 'utility-platform'
   | 'learning-platform'
+
+/** Lifecycle status of an app in the registry. Absent/undefined means the
+ * app is fully active — only apps with a real, deliberate non-active state
+ * (e.g. Talent, paused) declare this field explicitly. */
+export type GroupAppStatus = 'active' | 'paused'
 
 export type GroupAppDefinition = {
   key: GroupAppKey
@@ -74,6 +82,8 @@ export type GroupAppDefinition = {
   businessArea: GroupBusinessArea
   architectureLayer: GroupArchitectureLayer
   url: string
+  /** Defaults to 'active' when omitted — see GroupAppStatus. */
+  status?: GroupAppStatus
 }
 
 export type GroupUserRecord = {
@@ -145,8 +155,23 @@ export function getGroupUsers(): GroupUserRecord[] {
   return []
 }
 
+/** Only http(s) absolute URLs and root-relative internal routes ('/...') are
+ * trusted; anything else (empty, malformed, javascript:, etc.) is rejected
+ * so a bad env value can never break the CTA — it silently falls back. */
+function isValidAppUrl(value: string): boolean {
+  if (value.startsWith('/')) return true
+  try {
+    const parsed = new URL(value)
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
 function getEnvUrl(name: string, fallback: string) {
-  return process.env[name]?.trim() || fallback
+  const raw = process.env[name]?.trim()
+  if (raw && isValidAppUrl(raw)) return raw
+  return fallback
 }
 
 /**
@@ -165,8 +190,15 @@ const APP_TAXONOMY: Record<GroupAppKey, Pick<GroupAppDefinition, 'businessArea' 
   nexus: { businessArea: 'real-estate', architectureLayer: 'core' },
   'command-center': { businessArea: 'operations', architectureLayer: 'core' },
   visionflow: { businessArea: 'operations', architectureLayer: 'core' },
+  // FileStudio stays under 'utilities' (not 'content-ai'): it is a
+  // transversal document-processing service used across the ecosystem, not
+  // an editorial-branch product. Canonical classification preserved as-is
+  // per the existing architecture — not moved automatically (see the
+  // editorial-branch integration report for the explicit decision record).
   filestudio: { businessArea: 'utilities', architectureLayer: 'core' },
   'content-generator-ai': { businessArea: 'content-ai', architectureLayer: 'activation' },
+  'insights-adn': { businessArea: 'content-ai', architectureLayer: 'activation' },
+  talent: { businessArea: 'content-ai', architectureLayer: 'activation' },
   'advisor-ai': { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
   fiscal: { businessArea: 'fiscal-compliance', architectureLayer: 'activation' },
   guesthub: { businessArea: 'real-estate', architectureLayer: 'activation' },
@@ -260,12 +292,40 @@ export function getGroupAppDefinitions(): GroupAppDefinition[] {
       title: 'Anclora Content Generator AI',
       eyebrow: 'Motor editorial con IA',
       description:
-        'Motor editorial y de inteligencia de contenido para Anclora Private Estates.',
+        'Herramienta para crear, transformar y adaptar contenidos mediante inteligencia artificial.',
       logoSrc: '/brand/anclora-content-generator-ai.webp',
       kind: 'ai-platform',
       visibility: 'internal',
       roles: ['group-admin', 'content-ops', 'private-estates-ops'],
       url: getEnvUrl('NEXT_PUBLIC_CONTENT_GENERATOR_AI_URL', 'https://anclora-content-generator-ai.vercel.app/'),
+    },
+    {
+      key: 'insights-adn',
+      title: 'Anclora Insights ADN',
+      eyebrow: 'Sello editorial',
+      description:
+        'Sello editorial de Anclora Group dedicado a la investigación, el análisis y la creación de conocimiento aplicado.',
+      // No brand asset shipped yet for Insights ADN — omitted rather than
+      // pointing at a non-existent file (see GroupAppsCatalog's `logoSrc ?
+      // <Image/> : null` fallback). Add '/brand/anclora-insights-adn.webp'
+      // once the asset lands.
+      kind: 'editorial-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'content-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_INSIGHTS_ADN_URL', 'https://anclora-insights-adn.vercel.app/'),
+    },
+    {
+      key: 'talent',
+      title: 'Anclora Talent',
+      eyebrow: 'Plataforma editorial',
+      description:
+        'Plataforma editorial para crear, editar, maquetar y publicar proyectos digitales.',
+      logoSrc: '/brand/anclora-talent.webp',
+      kind: 'editorial-platform',
+      visibility: 'internal',
+      roles: ['group-admin', 'content-ops'],
+      url: getEnvUrl('NEXT_PUBLIC_ANCLORA_TALENT_URL', 'https://talent.anclora.com'),
+      status: 'paused',
     },
     {
       key: 'advisor-ai',

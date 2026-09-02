@@ -39,6 +39,11 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 │   ├── Anclora Advisor AI               ← Asesoría fiscal e inmobiliaria
 │   └── Anclora Nexus                    ← CRM/workspace operativo interno
 │
+├── Rama Editorial (Contenido e IA)
+│   ├── Anclora Content Generator AI     ← Herramienta de producción editorial con IA
+│   ├── Anclora Insights ADN             ← Sello editorial · investigación y conocimiento aplicado
+│   └── Anclora Talent                   ← Plataforma editorial (ebooks/EPUB/PDF) — En pausa
+│
 │ [APLICACIONES INTERNAS ADICIONALES]
 ├── Utilidades y operación interna
 │   ├── Anclora Fiscal                   ← Operación fiscal trazable
@@ -58,7 +63,7 @@ Anclora Group (Entidad Matriz) — hub corporativo interno
 
 ## 3. Inventario de Aplicaciones
 
-La fuente de verdad del catálogo del portal Anclora Group es el registry `src/lib/group-access.ts` (15 apps registradas). Este inventario es una vista de ecosistema: incluye además repositorios fuera del registry del portal (Portfolio, Azure Bay).
+La fuente de verdad del catálogo del portal Anclora Group es el registry `src/lib/group-access.ts` (17 apps registradas). Este inventario es una vista de ecosistema: incluye además repositorios fuera del registry del portal (Portfolio, Azure Bay).
 
 ### 3.1 Empresa Matriz
 
@@ -88,6 +93,18 @@ La fuente de verdad del catálogo del portal Anclora Group es el registry `src/l
 | Anclora Content Generator AI | ToniIAPro73/anclora-content-generator-ai | Next.js 15, Better Auth, Neon/pgvector, Anthropic | Motor editorial AI para Real Estate de lujo |
 | Anclora Advisor AI | ToniIAPro73/Anclora-Advisor-AI | Next.js 15, Supabase/pgvector, Anthropic+multi-LLM | Asesoría fiscal, laboral e inmobiliaria |
 | Anclora Nexus | ToniIAPro73/Anclora-Nexus | Next.js frontend + FastAPI/LangGraph backend, Supabase | CRM de prospección y workspace operativo |
+
+### 3.4bis Rama Editorial (Contenido e IA)
+
+Unidad estratégica de producción y publicación de contenido digital con apoyo de IA — no es una categoría genérica de "herramientas de IA". Registrada en el portal bajo `businessArea: 'content-ai'` (`src/lib/group-access.ts`).
+
+| App | Repo | Rol en la rama | Estado |
+|-----|------|-----------------|--------|
+| Anclora Content Generator AI | ToniIAPro73/anclora-content-generator-ai | Herramienta de producción: crear, transformar y adaptar contenidos con IA | Activo |
+| Anclora Insights ADN | ToniIAPro73/anclora-insights-adn | Sello editorial: investigación, análisis y conocimiento aplicado — referencia de voz y criterio editorial | Activo |
+| Anclora Talent | ToniIAPro73/anclora-talent | Plataforma editorial: creación, edición, maquetación y publicación de proyectos digitales (ebooks, PDF/DOCX/EPUB) | **En pausa** |
+
+`Anclora FileStudio` permanece clasificado en `utilities` (procesamiento documental transversal), no en esta rama — clasificación canónica preservada, no movida automáticamente.
 
 ### 3.5 Otras Aplicaciones Internas del Portal
 
@@ -147,7 +164,7 @@ La bóveda canónica vive en `Anclora Command Center` (`docs/standards/`) y se p
 | `LOCALIZATION_CONTRACT.md` | Todos |
 | `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md` | Private Estates |
 | `ANCLORA_PREMIUM_APP_CONTRACT.md` | Synergi, Data Lab, Command Center dashboard |
-| `ANCLORA_INTERNAL_APP_CONTRACT.md` | Content Gen AI, Advisor AI, Nexus |
+| `ANCLORA_INTERNAL_APP_CONTRACT.md` | Content Gen AI, Advisor AI, Nexus, Insights ADN, Talent |
 
 ---
 
@@ -183,11 +200,11 @@ Anclora Group organiza las apps en 3 capas (entry / core / activation) y 7 roles
 
 | Rol | Apps con acceso |
 |-----|------------------|
-| `group-admin` | Todas las apps (15) |
+| `group-admin` | Todas las apps (17) |
 | `private-estates-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `nexus`, `command-center`, `content-generator-ai`, `guesthub`, `energyscan`, `filestudio`, `visionflow` (11) |
 | `partner-ops` | `private-estates`, `private-estates-landing`, `synergi`, `data-lab`, `command-center` (5) |
 | `data-ops` | `private-estates`, `private-estates-landing`, `data-lab`, `command-center`, `energyscan`, `visionflow` (6) |
-| `content-ops` | `private-estates`, `private-estates-landing`, `command-center`, `content-generator-ai`, `filestudio`, `visionflow` (6) |
+| `content-ops` | `private-estates`, `private-estates-landing`, `command-center`, `content-generator-ai`, `insights-adn`, `talent`, `filestudio`, `visionflow` (8) |
 | `advisory` | `command-center`, `advisor-ai`, `fiscal`, `guesthub`, `filestudio` (5) |
 | `growth-ops` | `command-center`, `impulso` (2) |
 

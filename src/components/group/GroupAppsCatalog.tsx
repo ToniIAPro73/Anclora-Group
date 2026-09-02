@@ -95,7 +95,10 @@ export function GroupAppsCatalog({ apps }: Props) {
             <article key={app.key} className="group-app-card">
               <div className="group-app-head">
                 <span>{app.eyebrow}</span>
-                <small>{app.visibility === 'internal' ? ui.visibilityInternal : ui.visibilityExternal}</small>
+                <small>
+                  {app.visibility === 'internal' ? ui.visibilityInternal : ui.visibilityExternal}
+                  {app.status === 'paused' ? ` · ${ui.statusPaused}` : ''}
+                </small>
               </div>
               {app.logoSrc ? (
                 <div className="group-app-logo-wrap">

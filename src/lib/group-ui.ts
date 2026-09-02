@@ -14,6 +14,7 @@ type GroupUiMessages = {
   appsTitle: string
   visibilityInternal: string
   visibilityExternal: string
+  statusPaused: string
   architectureEyebrow: string
   architectureTitle: string
   architectureLink: string
@@ -38,6 +39,7 @@ type GroupUiMessages = {
   searchPlaceholder: string
   searchNoResults: string
   openAppLabel: string
+  openAppPausedLabel: string
   catalogEyebrow: string
   catalogTitle: string
   filterAreaAll: string
@@ -73,6 +75,7 @@ const messages: Record<GroupLocale, GroupUiMessages> = {
       'wellness-platform': 'Plataforma de bienestar',
       'finance-platform': 'Plataforma financiera',
       'compliance-platform': 'Plataforma de cumplimiento',
+      'editorial-platform': 'Plataforma editorial',
       'utility-platform': 'Plataforma de utilidades',
       'learning-platform': 'Plataforma de aprendizaje',
     },
@@ -84,6 +87,7 @@ const messages: Record<GroupLocale, GroupUiMessages> = {
     appsTitle: 'Aplicaciones visibles para tu rol',
     visibilityInternal: 'Privada',
     visibilityExternal: 'Pública',
+    statusPaused: 'En pausa',
     architectureEyebrow: 'Arquitectura',
     architectureTitle: 'Mapa corporativo actual',
     architectureLink: 'Ver arquitectura de acceso',
@@ -109,6 +113,7 @@ const messages: Record<GroupLocale, GroupUiMessages> = {
     searchPlaceholder: 'Buscar por nombre, función o área…',
     searchNoResults: 'Sin resultados para esta búsqueda.',
     openAppLabel: 'Abrir aplicación',
+    openAppPausedLabel: 'En pausa',
     catalogEyebrow: 'Catálogo',
     catalogTitle: 'Todas tus aplicaciones autorizadas',
     filterAreaAll: 'Todas las áreas',
