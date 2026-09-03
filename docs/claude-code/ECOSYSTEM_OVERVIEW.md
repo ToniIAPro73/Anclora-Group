@@ -235,7 +235,7 @@ Nota: la UI del portal Anclora Group es actualmente solo en español (los locale
 | Synergi | https://anclora-synergi.vercel.app |
 | Data Lab | https://anclora-data-lab.vercel.app |
 | Nexus | https://anclora-nexus-frontend.vercel.app |
-| Command Center | https://boveda-anclora.vercel.app |
+| Command Center | https://command-center.dev.anclora.com/ |
 | Content Generator AI | https://anclora-content-generator-ai.vercel.app |
 | Advisor AI | https://ancloraadvisorai-ten.vercel.app |
 | Azure Bay Landing | https://playaviva-uniestate.vercel.app |
