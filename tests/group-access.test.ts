@@ -17,16 +17,16 @@ test('partner-ops sees synergi and data lab but not advisory ai', () => {
   assert.ok(!apps.some((item) => item.key === 'advisor-ai'))
 })
 
-test('advisor-ai and command-center fallbacks use the documented deployments', () => {
+test('advisor-ai and command-center fallbacks use the documented runtimes', () => {
   // URL reconciliation: advisor-ai matches the documented deploy
   // (docs/claude-code/internal/07, ECOSYSTEM_OVERVIEW). command-center
-  // matches the owner's confirmed production URL (.env.example).
+  // uses the owner's confirmed canonical VPS/AOS runtime.
   const apps = getGroupAppDefinitions()
   const advisor = apps.find((item) => item.key === 'advisor-ai')
   const commandCenter = apps.find((item) => item.key === 'command-center')
 
   assert.equal(advisor?.url, 'https://ancloraadvisorai-ten.vercel.app/')
-  assert.equal(commandCenter?.url, 'https://anclora-command-center.vercel.app/')
+  assert.equal(commandCenter?.url, 'https://command-center.dev.anclora.com/')
 })
 
 test('editorial branch (content-ai): Content Generator AI, Insights ADN and Talent are all registered under it', () => {
