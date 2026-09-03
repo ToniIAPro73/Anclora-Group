@@ -32,7 +32,7 @@ Anclora Command Center ("Bóveda Anclora") es la **bóveda operativa y documenta
 | Parsing markdown | gray-matter | — |
 | Export Excel | ExcelJS | — |
 | File watching | chokidar | — |
-| Deploy | Vercel (`boveda-anclora.vercel.app`) | — |
+| Deploy | VPS + AOS (`https://command-center.dev.anclora.com/`) | — |
 
 **Nota importante**: el dashboard usa **React + Vite**, NO Next.js.
 
@@ -148,7 +148,7 @@ scripts/generate-workbook-from-excel.mjs
 - **NUNCA** modificar contratos en un repo individual sin pasar por Command Center primero
 - El log `logs/contract-governance.log` es el único registro de auditoría de cambios contractuales
 - Los wikilinks Obsidian (`[[...]]`) son internos del vault; no funcionan en GitHub
-- El dashboard (`boveda-anclora.vercel.app`) y el vault son la misma codebase, con el dashboard en `dashboard/`
+- El dashboard operativo se ejecuta como servicio AOS en el VPS (`https://command-center.dev.anclora.com/`); el vault mantiene las fuentes canónicas de gobernanza.
 
 ---
 
